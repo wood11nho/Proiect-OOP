@@ -18,16 +18,16 @@ class Jucator{
     int pret;
 public:
     Jucator() :
-            id(0), nume(""), prenume(""), pozitie(""), rating(0), att_stats(0), def_stats(0), drb_stats(0), nationalitate(""), echipa(echipa), pret(0) {
+            id(0), nume(""), prenume(""), nationalitate(""), att_stats(0), def_stats(0), drb_stats(0), rating(0), pozitie(""), echipa(echipa), pret(0) {
 
     }
-    Jucator(const int id, const string name, const string prenume, string pos,  int att_stats, int def_stats, int drb_stats, string nat, Echipa &echipa, int pret):
-            id(id), nume(name), prenume(prenume), pozitie(pos),  att_stats(att_stats), def_stats(def_stats), drb_stats(drb_stats), nationalitate(nat), echipa(echipa), pret(pret)
+    Jucator(const int id, const string name, const string prenume, string nationalitate , int att_stats, int def_stats, int drb_stats, string pozitie,  Echipa &echipa, int pret):
+            id(id), nume(name), prenume(prenume), nationalitate(nationalitate),  att_stats(att_stats), def_stats(def_stats), drb_stats(drb_stats),pozitie(pozitie), echipa(echipa), pret(pret)
     {
 
     }
     Jucator(Jucator const &j1):
-            id(j1.id), nume(j1.nume), prenume(j1.prenume), pozitie(j1.pozitie), rating(j1.rating),att_stats(j1.att_stats), def_stats(j1.def_stats), drb_stats(j1.drb_stats), nationalitate(j1.nationalitate), echipa(j1.echipa), pret(j1.pret)
+            id(j1.id), nume(j1.nume), prenume(j1.prenume), nationalitate(j1.nationalitate), att_stats(j1.att_stats), def_stats(j1.def_stats), drb_stats(j1.drb_stats), rating(j1.rating),pozitie(j1.pozitie), echipa(j1.echipa), pret(j1.pret)
     {
 
     }
@@ -38,12 +38,12 @@ public:
         id = j1.id;
         nume = j1.nume;
         prenume = j1.prenume;
-        pozitie = j1.pozitie;
-        rating = j1.rating;
+        nationalitate = j1.nationalitate;
         att_stats = j1.att_stats;
         def_stats = j1.def_stats;
         drb_stats = j1.drb_stats;
-        nationalitate = j1.nationalitate;
+        rating = j1.rating;
+        pozitie = j1.pozitie;
         pret = j1.pret;
         return *this;
     }
@@ -59,8 +59,6 @@ public:
         is >> jucator.nume;
         cout<<"\nIntrodu prenumele jucatorului: ";
         is >> jucator.prenume;
-        cout<<"\nIntrodu pozitia jucatorului: ";
-        is >> jucator.pozitie;
         cout<<"\nIntrodu nationalitatea jucatorului: ";
         is >> jucator.nationalitate;
         cout<<"\nIntrodu rating de atacant pentru jucator: ";
@@ -70,6 +68,8 @@ public:
         cout<<"\nIntrodu rating pentru dribbling jucatorului: ";
         is >> jucator.drb_stats;
         jucator.rating = (jucator.att_stats + jucator.drb_stats + jucator.def_stats) / 3;
+        cout<<"\nIntrodu pozitia jucatorului: ";
+        is >> jucator.pozitie;
         cout<<"\nIntrodu pretul jucatorului: ";
         is >> jucator.pret;
     }
@@ -217,7 +217,7 @@ int main() {
     Echipa empty_team(0, 0, "", {0, 0, 0, "", "", false, false});
     Jucator empty_jucator(0,"","","",0,0,0,"",empty_team,0);
     Echipa e1(1,100, "Elik Red Dogs", s1);
-    Jucator j1(1,"Stoica","Elias","Atacant", 75, 45, 30, "Romania", e1, 15);
+    Jucator j1(1,"Stoica","Elias","Romania",70,45,25,"Atacant",e1,15);
     cout<<j1;
     Jucator j2(j1);
     cout<<j2;
