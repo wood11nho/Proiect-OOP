@@ -17,7 +17,7 @@
 <!-- - [ ] pentru o altă clasă: toate cele 5 funcții membru speciale -->
 - [X] `operator<<` pentru toate clasele
 - [X] cât mai multe `const`
-- [ ] implementarea a minim 3 funcții membru publice pentru funcționalități specifice temei alese
+- [X] implementarea a minim 3 funcții membru publice pentru funcționalități specifice temei alese
 - [X] scenariu de utilizare a claselor definite (crearea de obiecte și apelarea funcțiilor membru publice în main)
 - [ ] tag de `git`: de exemplu `v0.1`
 - [ ] serviciu de integrare continuă (CI); exemplu: GitHub Actions
