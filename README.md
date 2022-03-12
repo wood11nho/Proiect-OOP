@@ -5,6 +5,7 @@
 - [X] Nume proiect (îl puteți schimba ulterior)
       Football Manager
 - [ ] Scurtă descriere a temei alese, ce v-ați propus să implementați
+      Proiectul meu se bazeaza pe crearea unui "Dream Team" de catre utilizator, insa cu un anumit buget
 
 ## Tema 1
 
