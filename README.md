@@ -3,18 +3,19 @@
 ### Tema 0
 
 - [X] Nume proiect (îl puteți schimba ulterior)
-- [] Scurtă descriere a temei alese, ce v-ați propus să implementați
+      Football Manager
+- [ ] Scurtă descriere a temei alese, ce v-ați propus să implementați
 
 ## Tema 1
 
 #### Cerințe
-- [ ] definirea a minim 3-4 clase folosind compunere
-- [ ] constructori de inițializare
-- [ ] pentru o clasă: constructor de copiere, `operator=` de copiere, destructor
+- [X] definirea a minim 3-4 clase folosind compunere
+- [X] constructori de inițializare
+- [X] pentru o clasă: constructor de copiere, `operator=` de copiere, destructor
 <!-- - [ ] pentru o altă clasă: constructor de mutare, `operator=` de mutare, destructor -->
 <!-- - [ ] pentru o altă clasă: toate cele 5 funcții membru speciale -->
 - [ ] `operator<<` pentru toate clasele
-- [ ] cât mai multe `const`
+- [X] cât mai multe `const`
 - [ ] implementarea a minim 3 funcții membru publice pentru funcționalități specifice temei alese
 - [ ] scenariu de utilizare a claselor definite (crearea de obiecte și apelarea funcțiilor membru publice în main)
 - [ ] tag de `git`: de exemplu `v0.1`
