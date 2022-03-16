@@ -1,9 +1,73 @@
 #include <iostream>
-#include <vector>
 #include <random>
+#include <optional>
 using namespace std;
 class Stadion;
 class Echipa;
+
+
+class Stadion{
+private:
+    int id;
+    int capacitate;
+    int an_const;
+    string Nume;
+    string Locatie;
+    bool pista;
+    bool nocturna;
+public:
+
+    Stadion(const int id, int capacitate, int an_const, const string &nume, const string &locatie, bool pista, bool nocturna):
+            id(id), capacitate(capacitate), an_const(an_const), Nume(nume), Locatie(locatie), pista(pista), nocturna(nocturna)
+    {
+
+    }
+    virtual ~Stadion() {
+
+    }
+
+    friend ostream &operator<<(ostream &os, const Stadion &stadion) {
+        os<<"\nid: "<<stadion.id << "\ncapacitate: " << stadion.capacitate << "\nan_const: " << stadion.an_const << "\nNume: " << stadion.Nume
+           << "\nLocatie: " << stadion.Locatie << "\npista: " << stadion.pista << "\nnocturna: " << stadion.nocturna<<"\n";
+        return os;
+    }
+    void modernizare_stadion(){
+        if(!nocturna)
+            nocturna = true;
+        if(pista)
+            pista=false;
+        capacitate = capacitate + 5000;
+        an_const = 2022;
+    }
+};
+class Echipa{
+private:
+    int id;
+    int buget;
+    string nume;
+    Stadion stadium;
+public:
+    Echipa(int id, int buget, const string &nume, const Stadion &stadium) :
+        id(id), buget(buget), nume(nume), stadium(stadium){
+
+    }
+    Echipa():
+            id(0), buget(0), nume(""), stadium(0, 0, 0, "", "", false, false){
+
+    }
+
+    virtual ~Echipa() {
+
+    }
+
+    friend ostream &operator<<(ostream &os, const Echipa &echipa) {
+        os << "id: " << echipa.id << "buget: "<<echipa.buget<<" nume: " << echipa.nume << " stadium: "<< echipa.stadium;
+        os<<"\n";
+        os<<"Lotul Actual: ";
+
+        return os;
+    }
+};
 class Jucator{
     int id;
     string nume;
@@ -14,13 +78,11 @@ class Jucator{
     int drb_stats;
     int rating = (att_stats + def_stats + drb_stats)/3;
     string pozitie;
-    Echipa &echipa;
+    optional <Echipa> echipa;
     int pret;
 public:
-    Jucator() :
-            id(0), nume(""), prenume(""), nationalitate(""), att_stats(0), def_stats(0), drb_stats(0), rating(0), pozitie(""), echipa(echipa), pret(0) {
 
-    }
+    Jucator();
     Jucator(const int id, const string name, const string prenume, string nationalitate , int att_stats, int def_stats, int drb_stats, string pozitie,  Echipa &echipa, int pret):
             id(id), nume(name), prenume(prenume), nationalitate(nationalitate),  att_stats(att_stats), def_stats(def_stats), drb_stats(drb_stats),pozitie(pozitie), echipa(echipa), pret(pret)
     {
@@ -72,6 +134,7 @@ public:
         is >> jucator.pozitie;
         cout<<"\nIntrodu pretul jucatorului: ";
         is >> jucator.pret;
+        return is;
     }
     void antrenament(){
         cout<<"Jucatorul a ajuns la antrenament! Ce tip de antrenament doriti?\n";
@@ -149,69 +212,11 @@ public:
 
 
 };
-class Stadion{
-private:
-    int id;
-    int capacitate;
-    int an_const;
-    string Nume;
-    string Locatie;
-    bool pista;
-    bool nocturna;
-public:
+Jucator::Jucator() :
+        id(0), nume(""), prenume(""), nationalitate(""), att_stats(0), def_stats(0), drb_stats(0), rating(0), pozitie(""), echipa(
+        make_optional<Echipa>()), pret(0) {
 
-    Stadion(const int id, int capacitate, int an_const, const string &nume, const string &locatie, bool pista, bool nocturna):
-            id(id), capacitate(capacitate), an_const(an_const), Nume(nume), Locatie(locatie), pista(pista), nocturna(nocturna)
-    {
-
-    }
-    virtual ~Stadion() {
-
-    }
-
-    friend ostream &operator<<(ostream &os, const Stadion &stadion) {
-        os<<"\nid: "<<stadion.id << "\ncapacitate: " << stadion.capacitate << "\nan_const: " << stadion.an_const << "\nNume: " << stadion.Nume
-           << "\nLocatie: " << stadion.Locatie << "\npista: " << stadion.pista << "\nnocturna: " << stadion.nocturna<<"\n";
-        return os;
-    }
-    void modernizare_stadion(){
-        if(!nocturna)
-            nocturna = true;
-        if(pista)
-            pista=false;
-        capacitate = capacitate + 5000;
-        an_const = 2022;
-    }
-};
-class Echipa{
-private:
-    int id;
-    int buget;
-    string nume;
-    Stadion stadium;
-public:
-    Echipa(int id, int buget, const string &nume, const Stadion &stadium) :
-        id(id), buget(buget), nume(nume), stadium(stadium){
-
-    }
-    Echipa():
-            id(0), buget(0), nume(""), stadium(0, 0, 0, "", "", false, false){
-
-    }
-
-    virtual ~Echipa() {
-
-    }
-
-    friend ostream &operator<<(ostream &os, const Echipa &echipa) {
-        os << "id: " << echipa.id << "buget: "<<echipa.buget<<" nume: " << echipa.nume << " stadium: "<< echipa.stadium;
-        os<<"\n";
-        os<<"Lotul Actual: ";
-
-        return os;
-    }
-};
-
+}
 int main() {
     Stadion s1(1, 55000, 2012, "Arena Nationala", "Bucuresti", false, true);
     Echipa empty_team(0, 0, "", {0, 0, 0, "", "", false, false});
