@@ -206,7 +206,7 @@ public:
             }
         }
     }
-    void schimbare_pozitie(string poz){
+    void schimbare_pozitie(const string &poz){
         this->pozitie = poz;
     }
 
