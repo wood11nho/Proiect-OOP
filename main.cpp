@@ -83,7 +83,7 @@ class Jucator{
 public:
 
     Jucator();
-    Jucator(const int id, const string name, const string prenume, string nationalitate , int att_stats, int def_stats, int drb_stats, string pozitie,  Echipa &echipa, int pret):
+    Jucator(const int &id, const string &name, const string &prenume, const string &nationalitate , const int &att_stats,const int &def_stats, const int &drb_stats,const string &pozitie, const Echipa &echipa,const  int &pret):
             id(id), nume(name), prenume(prenume), nationalitate(nationalitate),  att_stats(att_stats), def_stats(def_stats), drb_stats(drb_stats),pozitie(pozitie), echipa(echipa), pret(pret)
     {
 
