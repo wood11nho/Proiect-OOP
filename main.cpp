@@ -146,7 +146,7 @@ public:
         cin>>alegere;
         std::random_device dev;
         std::mt19937 rng(dev());
-        std::uniform_int_distribution<std::mt19937::result_type> dist6(-5,5);
+        std::uniform_int_distribution<int> dist6(-5,5);
         int rezultat = dist6(rng);
         if(alegere == 1)
         {
@@ -225,10 +225,10 @@ int main() {
     Jucator j1(1,"Stoica","Elias","Romania",70,45,25,"Atacant",e1,15);
     cout<<j1;
     Jucator j2(j1);
-    cout<<j2;
+    //cout<<j2;
     Jucator j3;
     j3 = j1;
-    cout<<j3;
+    //cout<<j3;
     Jucator j4;
     cout<<"\n\n\n\n\n\n\n";
     //cin>>j4;
