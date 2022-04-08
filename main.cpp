@@ -273,11 +273,10 @@ int main() {
     cout<<"0.  Inchide jocul\n";
     cin>>tasta;
     if (tasta == 1) {
-        bool v[7], ok;
+        bool v[7];
         srand(time(0));
         for (int i = 1; i <= 6; i++) {
-            ok = rand() % 2;
-            if (ok == 1)
+            if (rand()%2 == 1)
                 v[i] = true;
             else v[i] = false;
         }
