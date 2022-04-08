@@ -1,58 +1,60 @@
 #include <iostream>
 #include <random>
 #include <optional>
+#include <cstdlib>
+#include <ctime>
+#include <vector>
 using namespace std;
-class Stadion;
 class Echipa;
+vector<Echipa> Echipe;
 
-
-class Stadion{
-private:
-    int id;
-    int capacitate;
-    int an_const;
-    string Nume;
-    string Locatie;
-    bool pista;
-    bool nocturna;
-public:
-
-    Stadion(const int id, int capacitate, int an_const, const string &nume, const string &locatie, bool pista, bool nocturna):
-            id(id), capacitate(capacitate), an_const(an_const), Nume(nume), Locatie(locatie), pista(pista), nocturna(nocturna)
-    {
-
-    }
-    virtual ~Stadion() {
-
-    }
-
-    friend ostream &operator<<(ostream &os, const Stadion &stadion) {
-        os<<"\nid: "<<stadion.id << "\ncapacitate: " << stadion.capacitate << "\nan_const: " << stadion.an_const << "\nNume: " << stadion.Nume
-           << "\nLocatie: " << stadion.Locatie << "\npista: " << stadion.pista << "\nnocturna: " << stadion.nocturna<<"\n";
-        return os;
-    }
-    void modernizare_stadion(){
-        if(!nocturna)
-            nocturna = true;
-        if(pista)
-            pista=false;
-        capacitate = capacitate + 5000;
-        an_const = 2022;
-    }
-};
+//
+//class Stadion{
+//private:
+//    int id;
+//    int capacitate;
+//    int an_const;
+//    string Nume;
+//    string Locatie;
+//    bool pista;
+//    bool nocturna;
+//public:
+//
+//    Stadion(const int id, int capacitate, int an_const, const string &nume, const string &locatie, bool pista, bool nocturna):
+//            id(id), capacitate(capacitate), an_const(an_const), Nume(nume), Locatie(locatie), pista(pista), nocturna(nocturna)
+//    {
+//
+//    }
+//    virtual ~Stadion() {
+//
+//    }
+//
+//    friend ostream &operator<<(ostream &os, const Stadion &stadion) {
+//        os<<"\nid: "<<stadion.id << "\ncapacitate: " << stadion.capacitate << "\nan_const: " << stadion.an_const << "\nNume: " << stadion.Nume
+//           << "\nLocatie: " << stadion.Locatie << "\npista: " << stadion.pista << "\nnocturna: " << stadion.nocturna<<"\n";
+//        return os;
+//    }
+//    void modernizare_stadion(){
+//        if(!nocturna)
+//            nocturna = true;
+//        if(pista)
+//            pista=false;
+//        capacitate = capacitate + 5000;
+//        an_const = 2022;
+//    }
+//};
 class Echipa{
 private:
     int id;
     int buget;
     string nume;
-    Stadion stadium;
 public:
-    Echipa(int id, int buget, const string &nume, const Stadion &stadium) :
-        id(id), buget(buget), nume(nume), stadium(stadium){
+    Echipa(int id, int buget, const string &nume) :
+        id(id), buget(buget), nume(nume){
 
     }
     Echipa():
-            id(0), buget(0), nume(""), stadium(0, 0, 0, "", "", false, false){
+            id(0), buget(0), nume(""){
 
     }
 
@@ -60,8 +62,16 @@ public:
 
     }
 
+    const string &getNume() const {
+        return nume;
+    }
+
+    int getId() const {
+        return id;
+    }
+
     friend ostream &operator<<(ostream &os, const Echipa &echipa) {
-        os << "id: " << echipa.id << "buget: "<<echipa.buget<<" nume: " << echipa.nume << " stadium: "<< echipa.stadium;
+        os << "id: " << echipa.id << "buget: "<<echipa.buget<<" nume: " << echipa.nume;
         os<<"\n";
         os<<"Lotul Actual: ";
 
@@ -73,6 +83,7 @@ class Jucator{
     string nume;
     string prenume;
     string nationalitate;
+    int varsta;
     int att_stats;
     int def_stats;
     int drb_stats;
@@ -80,16 +91,18 @@ class Jucator{
     string pozitie;
     optional <Echipa> echipa;
     int pret;
+    int salariu;
+    int avere;
 public:
 
     Jucator();
-    Jucator(const int &id, const string &name, const string &prenume, const string &nationalitate , const int &att_stats,const int &def_stats, const int &drb_stats,const string &pozitie, const Echipa &echipa,const  int &pret):
-            id(id), nume(name), prenume(prenume), nationalitate(nationalitate),  att_stats(att_stats), def_stats(def_stats), drb_stats(drb_stats),pozitie(pozitie), echipa(echipa), pret(pret)
+    Jucator(const int &id, const string &name, const string &prenume, const string &nationalitate , const int &varsta, const int &att_stats,const int &def_stats, const int &drb_stats,const string &pozitie, const Echipa &echipa,const  int &pret, const int &salariu, const int &avere):
+            id(id), nume(name), prenume(prenume), nationalitate(nationalitate),  varsta(varsta), att_stats(att_stats), def_stats(def_stats), drb_stats(drb_stats),pozitie(pozitie), echipa(echipa), pret(pret), salariu(salariu), avere(avere)
     {
 
     }
     Jucator(Jucator const &j1):
-            id(j1.id), nume(j1.nume), prenume(j1.prenume), nationalitate(j1.nationalitate), att_stats(j1.att_stats), def_stats(j1.def_stats), drb_stats(j1.drb_stats), rating(j1.rating),pozitie(j1.pozitie), echipa(j1.echipa), pret(j1.pret)
+            id(j1.id), nume(j1.nume), prenume(j1.prenume), nationalitate(j1.nationalitate), varsta(j1.varsta), att_stats(j1.att_stats), def_stats(j1.def_stats), drb_stats(j1.drb_stats), rating(j1.rating),pozitie(j1.pozitie), echipa(j1.echipa), pret(j1.pret), salariu(j1.salariu), avere(j1.avere)
     {
 
     }
@@ -101,16 +114,19 @@ public:
         nume = j1.nume;
         prenume = j1.prenume;
         nationalitate = j1.nationalitate;
+        varsta = j1.varsta;
         att_stats = j1.att_stats;
         def_stats = j1.def_stats;
         drb_stats = j1.drb_stats;
         rating = j1.rating;
         pozitie = j1.pozitie;
         pret = j1.pret;
+        salariu = j1.salariu;
+        avere = j1.avere;
         return *this;
     }
     friend ostream &operator<<(ostream &os, const Jucator &jucator) {
-        os << "\nid: " << jucator.id << "\nnume: " << jucator.nume << " "<<jucator.prenume<<"\nnationalitate: " << jucator.nationalitate<<"\n attacking stats: "<<jucator.att_stats<<"\ndefending stats: "<<jucator.def_stats<<"\ndribbling stats: "<<jucator.drb_stats
+        os << "\nid: " << jucator.id << "\nnume: " << jucator.nume << " "<<jucator.prenume<<"\nnationalitate: " << jucator.nationalitate<<"\nvarsta: "<<jucator.varsta<<"\nattacking stats: "<<jucator.att_stats<<"\ndefending stats: "<<jucator.def_stats<<"\ndribbling stats: "<<jucator.drb_stats
            << " \nrating: " << jucator.rating << " \npozitie: " << jucator.pozitie << "\npret: "<<jucator.pret<<"\n";
         return os;
     }
@@ -123,18 +139,30 @@ public:
         is >> jucator.prenume;
         cout<<"\nIntrodu nationalitatea jucatorului: ";
         is >> jucator.nationalitate;
-        cout<<"\nIntrodu rating de atacant pentru jucator: ";
-        is >> jucator.att_stats;
-        cout<<"\nIntrodu rating de fundas pentru jucator: ";
-        is >> jucator.def_stats;
-        cout<<"\nIntrodu rating pentru dribbling jucatorului: ";
-        is >> jucator.drb_stats;
+        jucator.varsta = 16;
+        jucator.def_stats=30;
+        jucator.drb_stats=30;
+        jucator.att_stats=30;
         jucator.rating = (jucator.att_stats + jucator.drb_stats + jucator.def_stats) / 3;
-        cout<<"\nIntrodu pozitia jucatorului: ";
-        is >> jucator.pozitie;
-        cout<<"\nIntrodu pretul jucatorului: ";
-        is >> jucator.pret;
+        jucator.pozitie = "Mijlocas";
+        jucator.pret = 1;
         return is;
+    }
+    static void creeaza_jucator(Jucator your_player){
+        cin>>your_player;
+        cout<<"Felicitari! Arunca o privire peste profilul jucatorului tau!";
+        cout<<your_player;
+
+    }
+    static void alege_echipa(Jucator your_player){
+        cout<<"Apasa tasta corespunzatoare echipei dorite, pentru a semna contractul!\n";
+        int optiune;
+        cout<<"Vreau la echipa: ";
+        cin>>optiune;
+        your_player.echipa = Echipe[optiune];
+        cout<<"\n";
+        cout<<"FELICITARI!! Tocmai ai semnat un contract valabil pe un an cu "<< Echipe[optiune].getNume();
+
     }
     void antrenament(){
         cout<<"Jucatorul a ajuns la antrenament! Ce tip de antrenament doriti?\n";
@@ -209,37 +237,64 @@ public:
     void schimbare_pozitie(const string &poz){
         this->pozitie = poz;
     }
-
-
 };
 Jucator::Jucator() :
-        id(0), nume(""), prenume(""), nationalitate(""), att_stats(0), def_stats(0), drb_stats(0), rating(0), pozitie(""), echipa(
-        make_optional<Echipa>()), pret(0) {
+        id(0), nume(""), prenume(""), nationalitate(""), varsta(16), att_stats(30), def_stats(30), drb_stats(30), rating(0), pozitie(""), echipa(
+        make_optional<Echipa>()), pret(1), salariu(1), avere(1) {
 
 }
 int main() {
-    Stadion s1(1, 55000, 2012, "Arena Nationala", "Bucuresti", false, true);
-    Echipa empty_team(0, 0, "", {0, 0, 0, "", "", false, false});
-    Jucator empty_jucator(0,"","","",0,0,0,"",empty_team,0);
-    Echipa e1(1,100, "Elik Red Dogs", s1);
-    Jucator j1(1,"Stoica","Elias","Romania",70,45,25,"Atacant",e1,15);
-    cout<<j1;
-    Jucator j2(j1);
-    //cout<<j2;
+    Echipa empty_team(0, 0, "");
+    Jucator empty_jucator(0,"","","",16,30,30,30,"",empty_team,1, 1, 1);
+    Echipa e1(1,50, "Dinamo Bucuresti");
+    Echipa e2(2, 150, "Steaua Bucuresti");
+    Echipa e3(3, 75, "Rapid Bucuresti");
+    Echipa e4(4, 125,"CFR Cluj");
+    Echipa e5(5, 100, "Farul Constanta");
+    Echipa e6(6, 125, "Farul Constanta");
+    Echipe.push_back(empty_team);
+    Echipe.push_back(e1);
+    Echipe.push_back(e2);
+    Echipe.push_back(e3);
+    Echipe.push_back(e4);
+    Echipe.push_back(e5);
+    Echipe.push_back(e6);
+    cout<<"Salut! Suntem echipa Fantasy Player si iti uram bun venit in lumea noastra virtuala!"<<'\n';
+    cout<<"Pentru inceput, haide sa iti creezi propriul jucator, apasand tasta 1! Daca vrei sa continuam alta data, apasa tasta 0!"<<'\n';
+    int tasta;
+    cin>>tasta;
+    Jucator your_player;
+    if(tasta == 1)
+        Jucator::creeaza_jucator(your_player);
+    else return 0;
+    cout<<"Totul este pregatit! Hai sa incepem\n";
+    cout<<"--------------------------------------------------\n";
+    cout<<"1.  Alege echipa\n";
+    cout<<"0.  Inchide jocul\n";
+    cin>>tasta;
+    if (tasta == 1) {
+        bool v[7], ok;
+        srand(time(0));
+        for (int i = 1; i <= 6; i++) {
+            ok = rand() % 2;
+            if (ok == 1)
+                v[i] = true;
+            else v[i] = false;
+        }
+        cout << "Urmatoarele echipe sunt disponibile: \n";
+        for (int i = 1; i <= 6; i++) {
+            if (v[i]) {
+                cout << Echipe[i].getId() << ". " << Echipe[i].getNume() << "\n";
+            }
+        }
+        Jucator::alege_echipa(your_player);
+    }
+    else
+        return 0;
     Jucator j3;
-    j3 = j1;
-    //cout<<j3;
-    Jucator j4;
-    cout<<"\n\n\n\n\n\n\n";
-    //cin>>j4;
-    //cout<<j4;
-    j1.antrenament();
+    cin>>j3;
+    Jucator j1(1,"Stoica","Elias","Romania",19,70,45,50,"Atacant",e1,15, 10, 25);
     cout<<j1;
-    j1.antrenament();
-    cout<<j1;
-    j1.schimbare_pozitie("Mijlocas");
-    cout<<j1;
-    s1.modernizare_stadion();
-    cout<<s1;
+
     return 0;
 }
