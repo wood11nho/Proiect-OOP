@@ -295,6 +295,8 @@ int main() {
     cin>>j3;
     Jucator j1(1,"Stoica","Elias","Romania",19,70,45,50,"Atacant",e1,15, 10, 25);
     cout<<j1;
+    j1.schimbare_pozitie("Mijlocas");
+    j1.antrenament();
 
     return 0;
 }
