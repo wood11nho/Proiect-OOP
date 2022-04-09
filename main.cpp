@@ -154,12 +154,12 @@ public:
         cout<<your_player;
 
     }
-    static void alege_echipa(Jucator your_player){
+    void alege_echipa(){
         cout<<"Apasa tasta corespunzatoare echipei dorite, pentru a semna contractul!\n";
         int optiune;
         cout<<"Vreau la echipa: ";
         cin>>optiune;
-        your_player.echipa = Echipe[optiune];
+        this->echipa = Echipe[optiune];
         cout<<"\n";
         cout<<"FELICITARI!! Tocmai ai semnat un contract valabil pe un an cu "<< Echipe[optiune].getNume();
 
@@ -251,7 +251,7 @@ int main() {
     Echipa e3(3, 75, "Rapid Bucuresti");
     Echipa e4(4, 125,"CFR Cluj");
     Echipa e5(5, 100, "Farul Constanta");
-    Echipa e6(6, 125, "Farul Constanta");
+    Echipa e6(6, 125, "Universitatea Craiova");
     Echipe.push_back(empty_team);
     Echipe.push_back(e1);
     Echipe.push_back(e2);
@@ -286,7 +286,7 @@ int main() {
                 cout << Echipe[i].getId() << ". " << Echipe[i].getNume() << "\n";
             }
         }
-        Jucator::alege_echipa(your_player);
+        your_player.alege_echipa();
     }
     else
         return 0;
