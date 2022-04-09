@@ -261,7 +261,7 @@ int main() {
     Echipe.push_back(e6);
     cout<<"Salut! Suntem echipa Fantasy Player si iti uram bun venit in lumea noastra virtuala!"<<'\n';
     cout<<"Pentru inceput, haide sa iti creezi propriul jucator, apasand tasta 1! Daca vrei sa continuam alta data, apasa tasta 0!"<<'\n';
-    int tasta;
+    int tasta = 0;
     cin>>tasta;
     Jucator your_player;
     if(tasta == 1)
@@ -274,7 +274,7 @@ int main() {
     cin>>tasta;
     if (tasta == 1) {
         bool v[7];
-        srand(time(0));
+        srand(time(nullptr));
         for (int i = 1; i <= 6; i++) {
             if (rand()%2 == 1)
                 v[i] = true;
