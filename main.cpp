@@ -274,7 +274,7 @@ int main() {
     cin>>tasta;
     if (tasta == 1) {
         bool v[7];
-        srand(time(nullptr));
+        srand ( (unsigned int)time(nullptr) );
         for (int i = 1; i <= 6; i++) {
             if (rand()%2 == 1)
                 v[i] = true;
