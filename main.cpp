@@ -6,55 +6,22 @@
 #include <vector>
 using namespace std;
 class Echipa;
+class Meci;
 vector<Echipa> Echipe;
-
-//
-//class Stadion{
-//private:
-//    int id;
-//    int capacitate;
-//    int an_const;
-//    string Nume;
-//    string Locatie;
-//    bool pista;
-//    bool nocturna;
-//public:
-//
-//    Stadion(const int id, int capacitate, int an_const, const string &nume, const string &locatie, bool pista, bool nocturna):
-//            id(id), capacitate(capacitate), an_const(an_const), Nume(nume), Locatie(locatie), pista(pista), nocturna(nocturna)
-//    {
-//
-//    }
-//    virtual ~Stadion() {
-//
-//    }
-//
-//    friend ostream &operator<<(ostream &os, const Stadion &stadion) {
-//        os<<"\nid: "<<stadion.id << "\ncapacitate: " << stadion.capacitate << "\nan_const: " << stadion.an_const << "\nNume: " << stadion.Nume
-//           << "\nLocatie: " << stadion.Locatie << "\npista: " << stadion.pista << "\nnocturna: " << stadion.nocturna<<"\n";
-//        return os;
-//    }
-//    void modernizare_stadion(){
-//        if(!nocturna)
-//            nocturna = true;
-//        if(pista)
-//            pista=false;
-//        capacitate = capacitate + 5000;
-//        an_const = 2022;
-//    }
-//};
+vector<Meci> Meciuri;
 class Echipa{
 private:
     int id;
     int buget;
+    int rating;
     string nume;
 public:
-    Echipa(int id, int buget, const string &nume) :
-        id(id), buget(buget), nume(nume){
+    Echipa(int id, int buget, int rating, const string &nume) :
+        id(id), buget(buget), rating(rating), nume(nume){
 
     }
     Echipa():
-            id(0), buget(0), nume(""){
+            id(0), buget(0), rating(0), nume(""){
 
     }
 
@@ -70,8 +37,12 @@ public:
         return id;
     }
 
+    int getRating() const {
+        return rating;
+    }
+
     friend ostream &operator<<(ostream &os, const Echipa &echipa) {
-        os << "id: " << echipa.id << "buget: "<<echipa.buget<<" nume: " << echipa.nume;
+        os << "id: " << echipa.id << "\nbuget: "<<echipa.buget<<"\nnume: " << echipa.nume<<"\nrating: "<<echipa.rating;
         os<<"\n";
         os<<"Lotul Actual: ";
 
@@ -148,9 +119,14 @@ public:
         jucator.pret = 1;
         return is;
     }
+
+    const optional<Echipa> &getEchipa() const;
+
+    void setEchipa(const optional<Echipa> &echipa);
+
     static void creeaza_jucator(Jucator your_player){
         cin>>your_player;
-        cout<<"Felicitari! Arunca o privire peste profilul jucatorului tau!";
+        cout<<"Felicitari! Arunca o privire peste profilul jucatorului tau!\n";
         cout<<your_player;
 
     }
@@ -161,7 +137,7 @@ public:
         cin>>optiune;
         this->echipa = Echipe[optiune];
         cout<<"\n";
-        cout<<"FELICITARI!! Tocmai ai semnat un contract valabil pe un an cu "<< Echipe[optiune].getNume();
+        cout<<"FELICITARI!! Tocmai ai semnat un contract valabil pe un an cu "<< Echipe[optiune].getNume()<<"\n";
 
     }
     void antrenament(){
@@ -243,15 +219,128 @@ Jucator::Jucator() :
         make_optional<Echipa>()), pret(1), salariu(1), avere(1) {
 
 }
+
+const optional<Echipa> &Jucator::getEchipa() const {
+    return echipa;
+}
+
+void Jucator::setEchipa(const optional<Echipa> &echipa1) {
+    Jucator::echipa = echipa1;
+
+}
+
+class Meci{
+    Echipa& team1;
+    Echipa& team2;
+    std::pair<int, int> scor{0, 0};
+    char rezultat;
+public:
+    Meci(Echipa &team1, Echipa &team2, const pair<int, int> &scor, char rezultat)
+            : team1(team1), team2(team2), scor(scor), rezultat(rezultat) {}
+
+    virtual ~Meci() {
+
+    }
+
+    friend ostream &operator<<(ostream &os, const Meci &meci) {
+        os << "team1: " << meci.team1 << " team2: " << meci.team2 << " scor: " << meci.scor.first<<" - "<<meci.scor.second << " rezultat: "
+           << meci.rezultat;
+        return os;
+    }
+    Meci& operator=(const Meci& other){
+        team1 = other.team1;
+        team2 = other.team2;
+        scor = other.scor;
+        rezultat = other.rezultat;
+        return *this;
+    }
+    void playmatch(){
+        int rating1 = team1.getRating();
+        int rating2 = team2.getRating();
+        std::vector<int> sanse;
+        sanse.push_back(35);
+        sanse.push_back(30);
+        sanse.push_back(35);
+        int dif = rating1 - rating2;
+        if(dif > 0){
+            while(dif!=0)
+            {
+                sanse[0]+=3;
+                sanse[1]-=2;
+                sanse[2]-=1;
+                dif-=1;
+        }
+        }
+        else
+        {
+            while(dif!=0)
+            {
+                sanse[0]-=1;
+                sanse[1]-=2;
+                sanse[2]+=3;
+                dif+=1;
+            }
+        }
+        int ocazii1 = abs(sanse[0] - sanse[1]);
+        int ocazii2 = abs(sanse[2] - sanse[1]);
+        for(int i = 1; i<=ocazii1;i++)
+            scor.first += (rand() % 2);
+        for(int i = 1; i<=ocazii2;i++)
+            scor.second += (rand() % 2);
+        system("cls");
+        cout<<"Meciul s-a terminat!\n";
+        cout<<"REZULTAT FINAL: \n";
+        cout<<team1.getNume()<<" "<<scor.first<<" - "<<team2.getNume()<<" "<<scor.second;
+    }
+
+};
+class Transfer{
+protected:
+    Echipa& e1;
+    Echipa& e2;
+    Jucator& j;
+public:
+    Transfer(Echipa &e1, Echipa &e2, Jucator &j) : e1(e1), e2(e2), j(j) {}
+    Transfer(const Transfer& other):
+    e1(other.e1), e2(other.e2), j(other.j)
+    {}
+    Transfer& operator=(const Transfer& other){
+        e1 = other.e1;
+        e2 = other.e2;
+        j = other.j;
+        return *this;
+    }
+
+    friend ostream &operator<<(ostream &os, const Transfer &transfer) {
+        os << "De la echipa: " << transfer.e1 << " la echipa: " << transfer.e2 << " se transfera jucatorul: " << transfer.j;
+        return os;
+    }
+
+    virtual ~Transfer() {
+
+    }
+    void Transferare(){
+        this->j.setEchipa(e2);
+    }
+};
+class Imprumut:public Transfer{
+    int durata;
+public:
+    Imprumut(Echipa &e1, Echipa &e2, Jucator &j, int durata) : Transfer(e1, e2, j), durata(durata) {}
+    void Imprumutare(int durata_imprumut){
+        this->j.setEchipa(e2);
+        this->durata = durata_imprumut;
+    }
+};
 int main() {
-    Echipa empty_team(0, 0, "");
+    Echipa empty_team(0, 0, 0, "");
     Jucator empty_jucator(0,"","","",16,30,30,30,"",empty_team,1, 1, 1);
-    Echipa e1(1,50, "Dinamo Bucuresti");
-    Echipa e2(2, 150, "Steaua Bucuresti");
-    Echipa e3(3, 75, "Rapid Bucuresti");
-    Echipa e4(4, 125,"CFR Cluj");
-    Echipa e5(5, 100, "Farul Constanta");
-    Echipa e6(6, 125, "Universitatea Craiova");
+    Echipa e1(1,50, 64,"Dinamo Bucuresti");
+    Echipa e2(2, 150, 69, "Steaua Bucuresti");
+    Echipa e3(3, 75, 64, "Rapid Bucuresti");
+    Echipa e4(4, 125, 69, "CFR Cluj");
+    Echipa e5(5, 100, 65, "Farul Constanta");
+    Echipa e6(6, 125, 68, "Universitatea Craiova");
     Echipe.push_back(empty_team);
     Echipe.push_back(e1);
     Echipe.push_back(e2);
@@ -290,6 +379,41 @@ int main() {
     }
     else
         return 0;
+    cout<<"Totul este pregatit! Hai sa organizam niste meciuri de pregatire inainte de sezonul regulat!\n";
+    cout<<"1. Joaca meci\n";
+    cout<<"0. Inchide jocul.\n";
+    cin>>tasta;
+    if(tasta!=0) {
+        int ok = 0;
+        while (tasta != 0)
+        {
+            system("cls");
+            cout<<"Etapa "<<ok<<"\n";
+            int i = rand() % 6 + 1;
+            while(i==your_player.getEchipa()->getId())
+                i = rand() % 6 + 1;
+            cout<<"Urmeaza meciul impotriva celor de la "<<Echipe[i].getNume()<<"\n";
+            cout<<"1. Incepe meciul\n";
+            cout<<"2. Vizualizeaza echipa\n";
+            cin>>tasta;
+            if(tasta == 1) {
+                char rezultat = 'X';
+                Meciuri.push_back(Meci((Echipa &) your_player.getEchipa(), Echipe[i], {0, 0}, rezultat));
+                Meciuri.back().playmatch();
+                cout<<"\n";
+                cout<<" ------------------------------------------------ \n";
+                cout<<"1. Continua\n";
+                cout<<"2. Vezi Statistici\n";
+                cin>>tasta;
+            }
+            else
+                return 0;
+        }
+
+    }
+    else {
+        cout<<"Va asteptam data urmatoare sa continuam joaca!";
+    }
     Jucator j3;
     cin>>j3;
     Jucator j1(1,"Stoica","Elias","Romania",19,70,45,50,"Atacant",e1,15, 10, 25);
