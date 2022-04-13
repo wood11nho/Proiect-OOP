@@ -102,7 +102,7 @@ public:
         cout<<your_player;
 
     }
-    void alege_echipa(vEchipe& v1){
+    void alege_echipa(const vEchipe& v1){
         cout<<"Apasa tasta corespunzatoare echipei dorite, pentru a semna contractul!\n";
         int optiune;
         cout<<"Vreau la echipa: ";
