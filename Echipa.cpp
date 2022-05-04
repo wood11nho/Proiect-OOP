@@ -4,7 +4,7 @@
 
 #include "Echipa.h"
 
-Echipa::Echipa(int id, int buget, int rating, const string &nume) :
+Echipa::Echipa(int id, int buget, int rating, const std::string &nume) :
         id(id), buget(buget), rating(rating), nume(nume){
 
 }
@@ -18,7 +18,7 @@ Echipa::~Echipa() {
 
 }
 
-const string &Echipa::getNume() const {
+const std::string &Echipa::getNume() const {
     return nume;
 }
 
@@ -30,8 +30,8 @@ int Echipa::getRating() const {
     return rating;
 }
 
-ostream &operator<<(ostream &os, const Echipa &echipa) {
-    os << "id: " << echipa.id << "\nbuget: "<<echipa.buget<<"\nnume: " << echipa.nume<<"\nrating: "<<echipa.rating;
+std::ostream &operator<<(std::ostream &os, const Echipa &echipa) {
+    os << "\nid: " << echipa.id << "\nbuget: "<<echipa.buget<<"\nnume: " << echipa.nume<<"\nrating: "<<echipa.rating;
     os<<"\n";
 
     return os;

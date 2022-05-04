@@ -8,7 +8,7 @@
 #ifndef OOP_MECI_H
 #define OOP_MECI_H
 #include "Echipa.h"
-
+#include "rlutil.h"
 
 class Meci {
     Echipa& team1;
@@ -16,14 +16,14 @@ class Meci {
     std::pair<int, int> scor{0, 0};
     char rezultat;
 public:
-    Meci(Echipa &team1, Echipa &team2, const pair<int, int> &scor, char rezultat)
+    Meci(Echipa &team1, Echipa &team2, const std::pair<int, int> &scor, char rezultat)
             : team1(team1), team2(team2), scor(scor), rezultat(rezultat) {}
 
     virtual ~Meci() {
 
     }
 
-    friend ostream &operator<<(ostream &os, const Meci &meci) {
+    friend std::ostream &operator<<(std::ostream &os, const Meci &meci) {
         os << "team1: " << meci.team1 << " team2: " << meci.team2 << " scor: " << meci.scor.first<<" - "<<meci.scor.second << " rezultat: "
            << meci.rezultat;
         return os;
@@ -68,10 +68,10 @@ public:
             scor.first += (rand() % 2);
         for(int i = 1; i<=ocazii2;i++)
             scor.second += (rand() % 2);
-        system("cls");
-        cout<<"Meciul s-a terminat!\n";
-        cout<<"REZULTAT FINAL: \n";
-        cout<<team1.getNume()<<" "<<scor.first<<" - "<<team2.getNume()<<" "<<scor.second;
+        rlutil::cls();
+        std::cout<<"Meciul s-a terminat!\n";
+        std::cout<<"REZULTAT FINAL: \n";
+        std::cout<<team1.getNume()<<" "<<scor.first<<" - "<<team2.getNume()<<" "<<scor.second;
     }
 };
 

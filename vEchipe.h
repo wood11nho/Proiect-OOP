@@ -8,28 +8,30 @@
 #include <cstdlib>
 #include <ctime>
 #include <vector>
-using namespace std;
 #ifndef OOP_VECHIPE_H
 #define OOP_VECHIPE_H
 #include "Echipa.h"
 
 class vEchipe {
-    vector<Echipa> VectorEchipe;
+    std::vector<Echipa> VectorEchipe;
 public:
-    explicit vEchipe(const vector<Echipa> &vectorEchipe) : VectorEchipe(vectorEchipe) {}
+    explicit vEchipe(const std::vector<Echipa> &vectorEchipe) : VectorEchipe(vectorEchipe) {}
 
     virtual ~vEchipe() {
 
     }
 
-    friend ostream &operator<<(ostream &os, const vEchipe* &echipe) {
+    friend std::ostream &operator<<(std::ostream &os, const vEchipe &echipe) {
         os << "Vector Echipe: \n";
-        int n = sizeof(echipe);
-        for (int i = 0; i < n; i++) { os << "Echipa " << i << (const vEchipe *&) echipe[i]; }
+        int i = 0;
+        for (const auto& echipa1 : echipe.VectorEchipe) {
+            i = i + 1;
+            os << "Echipa " << i << echipa1<<"\n";
+        }
         return os;
     }
 
-    const vector<Echipa> &getVectorEchipe() const {
+    const std::vector<Echipa> &getVectorEchipe() const {
         return VectorEchipe;
     }
     void adaugare_echipa(Echipa& e1){
