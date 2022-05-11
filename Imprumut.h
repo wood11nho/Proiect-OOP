@@ -14,11 +14,8 @@
 class Imprumut:public Transfer{
     int durata;
 public:
-    Imprumut(Echipa &e1, Echipa &e2, Jucator &j, int durata) : Transfer(e1, e2, j), durata(durata) {}
-    void Imprumutare(int durata_imprumut){
-        this->j.setEchipa(e2);
-        this->durata = durata_imprumut;
-    }
+    Imprumut(Echipa &e1, Echipa &e2, Jucator &j, int durata);
+    void Imprumutare(int durata_imprumut);
 };
 
 

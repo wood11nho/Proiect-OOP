@@ -15,28 +15,14 @@
 class vEchipe {
     std::vector<Echipa> VectorEchipe;
 public:
-    explicit vEchipe(const std::vector<Echipa> &vectorEchipe) : VectorEchipe(vectorEchipe) {}
+    explicit vEchipe(const std::vector<Echipa> &vectorEchipe);
 
-    virtual ~vEchipe() {
+    virtual ~vEchipe();
 
-    }
+    friend std::ostream &operator<<(std::ostream &os, const vEchipe &echipe);
 
-    friend std::ostream &operator<<(std::ostream &os, const vEchipe &echipe) {
-        os << "Vector Echipe: \n";
-        int i = 0;
-        for (const auto& echipa1 : echipe.VectorEchipe) {
-            i = i + 1;
-            os << "Echipa " << i << echipa1<<"\n";
-        }
-        return os;
-    }
-
-    const std::vector<Echipa> &getVectorEchipe() const {
-        return VectorEchipe;
-    }
-    void adaugare_echipa(Echipa& e1){
-        this->VectorEchipe.push_back(e1);
-    }
+    const std::vector<Echipa> &getVectorEchipe() const;
+    void adaugare_echipa(Echipa& e1);
 };
 
 
