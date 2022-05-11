@@ -151,10 +151,8 @@ int main() {
                     else vechipedisp.este_valabila(false);
                 }
                 if(echipe_disp == 0)
-                {
-                    int i = rand() % 6 + 1;
-                    vechipedisp.getEchDisp().at(i);
-                }
+                    vechipedisp.setEchDisp();
+//              cout<<vechipedisp;
                 cout << "Urmatoarele echipe sunt disponibile: \n";
                 for (int i = 1; i <= 6; i++) {
                     if (vechipedisp.getEchDisp().at(i - 1)) {
@@ -167,8 +165,7 @@ int main() {
             else if(tasta == 0)
                 return 0;
             else{
-                if(tasta < 0 or tasta > 1)
-                    throw(invalidInput("Input invalid!!!"));
+                throw(invalidInput("Input invalid!!!"));
             }
         }
         catch(std::exception &err){
@@ -245,11 +242,14 @@ int main() {
             }
             else if(tasta == 3)
             {
-                //MAGAZIN
+                cout<<"Magazin";
+                cin>>tasta;
+
             }
             else if(tasta == 4)
             {
-                tasta = 4;
+                cout<<"Campionat";
+                cin>>tasta;
             }
             else
             {

@@ -5,6 +5,8 @@
 #ifndef OOP_ECHIPE_DISPONIBILE_H
 #define OOP_ECHIPE_DISPONIBILE_H
 #include <vector>
+#include <ostream>
+
 using namespace std;
 
 class Echipe_disponibile {
@@ -19,7 +21,9 @@ public:
 
     [[nodiscard]] const vector<bool> &getEchDisp() const;
 
-    void setEchDisp(const vector<bool> &echDisp);
+    void setEchDisp();
+
+    friend std::ostream &operator<<(std::ostream &os, const Echipe_disponibile &disponibile);
 };
 
 
