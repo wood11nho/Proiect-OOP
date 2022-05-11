@@ -6,11 +6,15 @@
 #define OOP_ITEMS_H
 #include <string>
 #include <ostream>
+#include <memory>
 
 class Items {
 protected:
     int pret;
     std::string nume;
+
+    virtual void afisare(std::ostream &os) const = 0;
+
 public:
     Items(int pret, const std::string &nume);
 
@@ -21,6 +25,7 @@ public:
 
     Items& operator=(const Items& other);
 
+    virtual std::shared_ptr<Items> clone() const = 0;
 
 };
 

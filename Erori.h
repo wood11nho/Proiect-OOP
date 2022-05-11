@@ -16,6 +16,10 @@ class invalidID:public invalidInput{
 public:
     explicit invalidID(const std::string& arg);
 };
+class invalidPurchase:public std::runtime_error{
+public:
+    explicit invalidPurchase(const std::string& arg);
+};
 
 
 #endif //OOP_ERORI_H

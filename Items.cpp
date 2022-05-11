@@ -10,8 +10,12 @@ Items::~Items() {
 
 }
 
+void Items::afisare(std::ostream &os) const {
+    os << "\npret: " << this->pret << "\nnume: " << this->nume;
+}
+
 std::ostream &operator<<(std::ostream &os, const Items &items) {
-    os << "pret: " << items.pret << " nume: " << items.nume;
+    items.afisare(os);
     return os;
 }
 

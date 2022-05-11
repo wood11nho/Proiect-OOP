@@ -14,7 +14,7 @@
 #include "Items.h"
 #include "Adidas.h"
 #include "Energizant.h"
-
+#include <memory>
 using namespace std;
 
 class vMeciuri{
@@ -44,12 +44,35 @@ public:
 
 };
 
+class Inventar{
+    std::vector<std::shared_ptr<Items>> Colectie;
+
+public:
+    Inventar(const vector<std::shared_ptr<Items>> &colectie) : Colectie(colectie) {}
+
+    ~Inventar() {
+
+    }
+
+    friend ostream &operator<<(ostream &os, const Inventar &inventar) {
+        os << "Colectie: ";
+        for(const auto & i: inventar.Colectie){
+            os<< *i<<'\n';
+        }
+        return os;
+    }
+
+    void addItem(std::shared_ptr<Items> pulledItem){
+        this->Colectie.push_back(pulledItem);
+    }
+};
+
 int main() {
     Echipa empty_team(0, 0, 0, "");
 //    Jucator empty_jucator1;
 //    cout<<empty_jucator1;
     Jucator empty_jucator(0,"","","",16,30,30,30,empty_team,1, 1, 1, 99);
-    Echipa e1(1,50, 64,"Dinamo Bucuresti");
+    Echipa e1(1, 50, 64,"Dinamo Bucuresti");
     Echipa e2(2, 150, 69, "Steaua Bucuresti");
     Echipa e3(3, 75, 64, "Rapid Bucuresti");
     Echipa e4(4, 125, 69, "CFR Cluj");
@@ -68,10 +91,13 @@ int main() {
     Energizant nrg2(30, "NRG Bronze", 100, 2);
     Energizant nrg3(70, "NRG Silver", 100, 3);
     Energizant nrg4(125, "NRG Gold", 100, 4);
-    vector<Echipa> v1;
-    vEchipe vector_echipe(v1);
-    vector<Meci> v3;
-    vMeciuri vector_meciuri(v3);
+    Inventar inventar_player(std::vector<std::shared_ptr<Items>> {});
+    Inventar multime_consumabile(std::vector<std::shared_ptr<Items>> {});
+    multime_consumabile.addItem(nrg1.clone());
+    multime_consumabile.addItem(a1.clone());
+    cout<<multime_consumabile;
+    vEchipe vector_echipe(vector<Echipa> {});
+    vMeciuri vector_meciuri(vector<Meci> {});
     vector_echipe.adaugare_echipa(empty_team);
     vector_echipe.adaugare_echipa(e1);
     vector_echipe.adaugare_echipa(e2);

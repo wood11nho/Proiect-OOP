@@ -14,6 +14,8 @@
 #include "vEchipe.h"
 #include "Erori.h"
 #include "Echipe_disponibile.h"
+#include <memory>
+#include "Items.h"
 
 class Jucator {
     int id;
