@@ -23,7 +23,15 @@ public:
     void afisare(std::ostream &os) const override;
 
     friend std::ostream &operator<<(std::ostream &os, const Adidas &adidas);
+    Adidas& operator=(const Adidas& a1);
 
+    void consuma_item(Jucator& j) override;
+
+    int getAttUpgrade() const;
+
+    int getDefUpgrade() const;
+
+    int getDrbUpgrade() const;
 };
 
 

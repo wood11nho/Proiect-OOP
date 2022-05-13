@@ -3,6 +3,8 @@
 //
 
 #include "Jucator.h"
+#include "Energizant.h"
+#include "Adidas.h"
 
 Jucator::Jucator() :
         id(0), nume(""), prenume(""), nationalitate(""), varsta(16), att_stats(30), def_stats(30), drb_stats(30),echipa(
@@ -123,7 +125,7 @@ void Jucator::creeaza_jucator() {
 
 
 
-void Jucator::alege_echipa(const vEchipe &v1, Echipe_disponibile &v2) {
+void Jucator::alege_echipa(const vEchipe &v1, const Echipe_disponibile &v2) {
     std::cout<<"Apasa tasta corespunzatoare echipei dorite, pentru a semna contractul!\n";
     int optiune;
     std::cout<<"Vreau la echipa: ";
@@ -176,3 +178,21 @@ void Jucator::antrenament() {
         drb_stats = drb_stats + rezultat;
     }
 }
+
+void Jucator::upgrade_stats_energizant(Energizant &e) {
+    this->att_stats += e.getSkillBoost();
+    this->drb_stats += e.getSkillBoost();
+    this->def_stats += e.getSkillBoost();
+    this->fitness = e.getFitnessBoost();
+}
+
+void Jucator::upgrade_stats_adidas(Adidas &a) {
+    this->att_stats += a.getAttUpgrade();
+    this->drb_stats += a.getDrbUpgrade();
+    this->def_stats += a.getDefUpgrade();
+}
+
+
+
+
+

@@ -3,7 +3,7 @@
 //
 
 #include "Adidas.h"
-
+#include "Jucator.h"
 
 Adidas::Adidas(int pret, const std::string &nume, int attUpgrade, int defUpgrade, int drbUpgrade) : Items(pret, nume),att_upgrade(attUpgrade),def_upgrade(defUpgrade),drb_upgrade(drbUpgrade) {}
 
@@ -25,5 +25,30 @@ void Adidas::afisare(std::ostream &os) const {
     Items::afisare(os);
     const auto& op2 = *this;
     os<<"\nUpgrade at attacking stats: "<<op2.att_upgrade<<"\nUpgrade at dribbling stats: "<<op2.drb_upgrade<<"\nUpgrade at defending stats: "<<op2.def_upgrade;
+}
+
+void Adidas::consuma_item(Jucator &j) {
+    j.upgrade_stats_adidas(*this);
+}
+
+int Adidas::getAttUpgrade() const {
+    return att_upgrade;
+}
+
+int Adidas::getDefUpgrade() const {
+    return def_upgrade;
+}
+
+int Adidas::getDrbUpgrade() const {
+    return drb_upgrade;
+}
+
+Adidas &Adidas::operator=(const Adidas &a1) {
+    nume = a1.nume;
+    pret = a1.pret;
+    att_upgrade = a1.att_upgrade;
+    def_upgrade = a1.def_upgrade;
+    drb_upgrade = a1.drb_upgrade;
+    return *this;
 }
 

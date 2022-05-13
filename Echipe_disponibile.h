@@ -13,7 +13,7 @@ class Echipe_disponibile {
 
     vector<bool> EchDisp;
 public:
-    Echipe_disponibile(const vector<bool> &echDisp);
+    explicit Echipe_disponibile(const vector<bool> &echDisp);
     virtual ~Echipe_disponibile() {
 
     }

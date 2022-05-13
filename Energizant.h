@@ -23,6 +23,14 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, const Energizant &energizant);
 
+    Energizant& operator=(const Energizant &e1);
+
+    void consuma_item(Jucator& j) override;
+
+    int getFitnessBoost() const;
+
+    int getSkillBoost() const;
+
 };
 
 

@@ -15,7 +15,8 @@
 #include "Erori.h"
 #include "Echipe_disponibile.h"
 #include <memory>
-#include "Items.h"
+#include "Energizant.h"
+#include "Adidas.h"
 
 class Jucator {
     int id;
@@ -57,11 +58,15 @@ public:
 
     void creeaza_jucator();
 
-    void alege_echipa(const vEchipe& v1, Echipe_disponibile& v2);
+    void alege_echipa(const vEchipe& v1, const Echipe_disponibile& v2);
     int rating() const {
         return (this->att_stats + this->drb_stats +this->def_stats) / 3;
     }
     void antrenament();
+
+    void upgrade_stats_energizant(Energizant &e);
+
+    void upgrade_stats_adidas(Adidas &a);
 };
 
 

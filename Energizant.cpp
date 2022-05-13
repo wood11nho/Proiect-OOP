@@ -3,7 +3,7 @@
 //
 
 #include "Energizant.h"
-
+#include "Jucator.h"
 Energizant::Energizant(int pret, const std::string &nume, int fitnessBoost, int skillBoost) : Items(pret, nume),
                                                                                               FitnessBoost(
                                                                                                       fitnessBoost),
@@ -28,5 +28,29 @@ void Energizant::afisare(std::ostream &os) const {
 Energizant::~Energizant() {
 
 }
+
+Energizant &Energizant::operator=(const Energizant &e1) {
+    FitnessBoost = e1.FitnessBoost;
+    SkillBoost = e1.SkillBoost;
+    pret = e1.pret;
+    nume = e1.nume;
+    return *this;
+}
+
+int Energizant::getFitnessBoost() const {
+    return FitnessBoost;
+}
+
+int Energizant::getSkillBoost() const {
+    return SkillBoost;
+}
+
+void Energizant::consuma_item(Jucator &j) {
+    j.upgrade_stats_energizant(*this);
+}
+
+
+
+
 
 

@@ -7,6 +7,7 @@
 #include <string>
 #include <ostream>
 #include <memory>
+class Jucator;
 
 class Items {
 protected:
@@ -16,6 +17,9 @@ protected:
     virtual void afisare(std::ostream &os) const = 0;
 
 public:
+
+    virtual void consuma_item(Jucator& j) = 0;
+
     Items(int pret, const std::string &nume);
 
     Items(const Items& other);

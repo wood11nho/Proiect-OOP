@@ -48,7 +48,7 @@ class Inventar{
     std::vector<std::shared_ptr<Items>> Colectie;
 
 public:
-    Inventar(const vector<std::shared_ptr<Items>> &colectie) : Colectie(colectie) {}
+    explicit Inventar(const vector<std::shared_ptr<Items>> &colectie) : Colectie(colectie) {}
 
     ~Inventar() {
 
