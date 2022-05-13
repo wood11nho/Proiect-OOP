@@ -15,7 +15,8 @@ class Imprumut:public Transfer{
     int durata;
 public:
     Imprumut(Echipa &e1, Echipa &e2, Jucator &j, int durata);
-    void Imprumutare(int durata_imprumut);
+
+    [[maybe_unused]] void Imprumutare(int durata_imprumut);
 };
 
 

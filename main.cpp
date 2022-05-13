@@ -107,6 +107,10 @@ int main() {
     vector_echipe.adaugare_echipa(e6);
     cout<<vector_echipe<<"\n";
 
+    nrg1.consuma_item(j1);
+
+    cout<<j1;
+
     cout<<"Salut! Suntem echipa Fantasy Player si iti uram bun venit in lumea noastra virtuala!"<<'\n';
     cout<<"Pentru inceput, haide sa iti creezi propriul jucator, apasand tasta 1! Daca vrei sa continuam alta data, apasa tasta 0!"<<'\n';
     Jucator your_player;
