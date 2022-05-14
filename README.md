@@ -3,9 +3,9 @@
 ### Tema 0
 
 - [X] Nume proiect (îl puteți schimba ulterior)
-      Football Manager
-- [ ] Scurtă descriere a temei alese, ce v-ați propus să implementați
-      Proiectul meu se bazeaza pe crearea unui "Dream Team" de catre utilizator, insa cu un anumit buget
+      One of the eleven
+- [X] Scurtă descriere a temei alese, ce v-ați propus să implementați
+      Proiectul meu are la baza crearea unui simulator de fotbal, unde iti controlezi propriul jucator si actiunile pe care acesta le ia.
 
 ## Tema 1
 
@@ -26,18 +26,18 @@
 
 #### Cerințe
 - [X] separarea codului din clase în `.h` (sau `.hpp`) și `.cpp`
-- [ ] moșteniri
-  - [ ] funcții virtuale (pure), constructori virtuali (clone)
-  - [ ] apelarea constructorului din clasa de bază 
-  - [ ] smart pointers
+- [X] moșteniri
+  - [X] funcții virtuale (pure), constructori virtuali (clone)
+  - [X] apelarea constructorului din clasa de bază 
+  - [X] smart pointers
   - [ ] `dynamic_cast`
 - [ ] suprascris cc/op= pentru copieri/atribuiri corecte, copy and swap
-- [ ] excepții
-  - [ ] ierarhie proprie (cu baza `std::exception` sau derivată din `std::exception`)
-  - [ ] utilizare cu sens: de exemplu, `throw` în constructor, `try`/`catch` în `main`
-- [ ] funcții și atribute `static`
-- [ ] STL
-- [ ] cât mai multe `const`
+- [X] excepții
+  - [X] ierarhie proprie (cu baza `std::exception` sau derivată din `std::exception`)
+  - [X] utilizare cu sens: de exemplu, `throw` în constructor, `try`/`catch` în `main`
+- [X] funcții și atribute `static`
+- [X] STL
+- [X] cât mai multe `const`
 - [ ] tag de `git`: de exemplu `v0.2`
 
 ## Tema 3
