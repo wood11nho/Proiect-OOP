@@ -46,7 +46,11 @@ int Energizant::getSkillBoost() const {
 }
 
 void Energizant::consuma_item(Jucator &j) {
-    j.upgrade_stats_energizant(*this);
+    j.consuma_energizant(*this);
+}
+
+void Energizant::cumpara_item(Jucator &j) {
+    j.cumpara_energizant(*this);
 }
 
 

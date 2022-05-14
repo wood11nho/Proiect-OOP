@@ -18,6 +18,8 @@
 #include <memory>
 using namespace std;
 
+
+
 class vMeciuri{
     std::vector<Meci> VectorMeciuri;
 public:
@@ -56,9 +58,16 @@ public:
     }
 
     friend ostream &operator<<(ostream &os, const Inventar &inventar) {
-        os << "Colectie: ";
-        for(const auto & i: inventar.Colectie){
+        os << "\n-------------------------------------";
+        os <<"\nEnergizante: \n";
+        int contor = 1;
+        for(shared_ptr<Items> i: inventar.Colectie){
+            if(contor == 5)
+                os<<"Adidasi: \n";
+            os<<contor<<".";
             os<< *i<<'\n';
+            contor++;
+
         }
         return os;
     }
@@ -66,6 +75,10 @@ public:
     void addItem(std::shared_ptr<Items> pulledItem){
         this->Colectie.push_back(pulledItem);
     }
+};
+
+class Campionat{
+    
 };
 
 int main() {
@@ -95,7 +108,18 @@ int main() {
     Inventar inventar_player(std::vector<std::shared_ptr<Items>> {});
     Inventar multime_consumabile(std::vector<std::shared_ptr<Items>> {});
     multime_consumabile.addItem(nrg1.clone());
+    multime_consumabile.addItem(nrg2.clone());
+    multime_consumabile.addItem(nrg3.clone());
+    multime_consumabile.addItem(nrg4.clone());
     multime_consumabile.addItem(a1.clone());
+    multime_consumabile.addItem(a2.clone());
+    multime_consumabile.addItem(a3.clone());
+    multime_consumabile.addItem(a4.clone());
+    multime_consumabile.addItem(a5.clone());
+    multime_consumabile.addItem(a6.clone());
+    multime_consumabile.addItem(a7.clone());
+    multime_consumabile.addItem(a8.clone());
+
     cout<<multime_consumabile;
     vEchipe vector_echipe(vector<Echipa> {});
     vMeciuri vector_meciuri(vector<Meci> {});
@@ -108,7 +132,7 @@ int main() {
     vector_echipe.adaugare_echipa(e6);
     cout<<vector_echipe<<"\n";
 
-    nrg1.consuma_item(j1);
+    nrg1.cumpara_item(j1);
 
     cout<<j1;
 
@@ -252,8 +276,17 @@ int main() {
             }
             else if(tasta == 3)
             {
-                cout<<"Magazin";
-                cin>>tasta;
+                do {
+                    rlutil::cls();
+                    cout << "MAGAZIN";
+                    cout << "\n-------------------------------------";
+                    cout<<multime_consumabile;
+                    cout<<"\nPentru a cumpara item-ul dorit, scrieti numarul corespunzator acestuia: ";
+                    cout<<"\nITEM DORIT: ";
+                    cin >> tasta;
+
+
+                }while(tasta!=3);
 
             }
             else if(tasta == 4)

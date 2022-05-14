@@ -28,3 +28,7 @@ Items &Items::operator=(const Items &other) {
     nume = other.nume;
     return *this;
 }
+
+int Items::getPret() const {
+    return pret;
+}

@@ -24,11 +24,15 @@ std::ostream &operator<<(std::ostream &os, const Adidas &adidas) {
 void Adidas::afisare(std::ostream &os) const {
     Items::afisare(os);
     const auto& op2 = *this;
-    os<<"\nUpgrade at attacking stats: "<<op2.att_upgrade<<"\nUpgrade at dribbling stats: "<<op2.drb_upgrade<<"\nUpgrade at defending stats: "<<op2.def_upgrade;
+    os<<"\nUpgrade at attacking stats: "<<op2.att_upgrade<<"\nUpgrade at dribbling stats: "<<op2.drb_upgrade<<"\nUpgrade at defending stats: "<<op2.def_upgrade<<"\n";
 }
 
 void Adidas::consuma_item(Jucator &j) {
-    j.upgrade_stats_adidas(*this);
+    j.consuma_adidas(*this);
+}
+
+void Adidas::cumpara_item(Jucator &j){
+    j.cumpara_adidas(*this);
 }
 
 int Adidas::getAttUpgrade() const {

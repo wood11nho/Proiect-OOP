@@ -5,6 +5,7 @@
 #include "Jucator.h"
 #include "Energizant.h"
 #include "Adidas.h"
+#include "Erori.h"
 
 Jucator::Jucator() :
         id(0), nume(""), prenume(""), nationalitate(""), varsta(16), att_stats(30), def_stats(30), drb_stats(30),echipa(
@@ -179,17 +180,47 @@ void Jucator::antrenament() {
     }
 }
 
-void Jucator::upgrade_stats_energizant(const Energizant &e) {
-    this->att_stats += e.getSkillBoost();
-    this->drb_stats += e.getSkillBoost();
-    this->def_stats += e.getSkillBoost();
-    this->fitness = e.getFitnessBoost();
+void Jucator::consuma_energizant(const Energizant &e) {
+
+            this->att_stats += e.getSkillBoost();
+            this->drb_stats += e.getSkillBoost();
+            this->def_stats += e.getSkillBoost();
+            this->fitness = e.getFitnessBoost();
 }
 
-void Jucator::upgrade_stats_adidas(const Adidas &a) {
+void Jucator::consuma_adidas(const Adidas &a) {
     this->att_stats += a.getAttUpgrade();
     this->drb_stats += a.getDrbUpgrade();
     this->def_stats += a.getDefUpgrade();
+}
+
+void Jucator::cumpara_energizant(const Energizant &e) {
+    try {
+        if(this->avere > e.getPret()) {
+            // sa l adaug la colectie;
+            this->avere -= e.getPret();
+        }
+        else{
+            throw(invalidPurchase("Nu ai suficienti bani."));
+        }
+    }
+    catch(std::exception &err){
+        std::cout<<err.what();
+    }
+}
+void Jucator::cumpara_adidas(const Adidas &a) {
+    try {
+        if(this->avere > a.getPret()) {
+            // sa l adaug la colectie;
+            this->avere -= a.getPret();
+        }
+        else{
+            throw(invalidPurchase("Nu ai suficienti bani."));
+        }
+    }
+    catch(std::exception &err){
+        std::cout<<err.what();
+    }
 }
 
 

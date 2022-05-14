@@ -27,6 +27,8 @@ public:
 
     void consuma_item(Jucator& j) override;
 
+    void cumpara_item(Jucator& j) override;
+
     int getFitnessBoost() const;
 
     int getSkillBoost() const;

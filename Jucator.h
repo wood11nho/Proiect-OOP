@@ -65,9 +65,13 @@ public:
     }
     void antrenament();
 
-    void upgrade_stats_energizant(const Energizant &e);
+    void consuma_energizant(const Energizant &e);
 
-    void upgrade_stats_adidas(const Adidas &a);
+    void consuma_adidas(const Adidas &a);
+
+    void cumpara_adidas(const Adidas &a);
+
+    void cumpara_energizant(const Energizant &e);
 
 };
 

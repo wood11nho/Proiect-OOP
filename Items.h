@@ -20,6 +20,8 @@ public:
 
     virtual void consuma_item(Jucator& j) = 0;
 
+    virtual void cumpara_item(Jucator &j) = 0;
+
     Items(int pret, const std::string &nume);
 
     Items(const Items& other);
@@ -30,6 +32,8 @@ public:
     Items& operator=(const Items& other);
 
     virtual std::shared_ptr<Items> clone() const = 0;
+
+    int getPret() const;
 
 };
 
