@@ -9,6 +9,7 @@
 #include "Jucator.h"
 #include "vEchipe.h"
 #include "Transfer.h"
+#include "Imprumut.h"
 #include "Meci.h"
 #include "Echipe_disponibile.h"
 #include "Items.h"
@@ -110,6 +111,11 @@ int main() {
     nrg1.consuma_item(j1);
 
     cout<<j1;
+
+    Imprumut impr{(Echipa &) j1.getEchipa(), e2, j1, 1};
+    impr.Imprumutare(1);
+
+
 
     cout<<"Salut! Suntem echipa Fantasy Player si iti uram bun venit in lumea noastra virtuala!"<<'\n';
     cout<<"Pentru inceput, haide sa iti creezi propriul jucator, apasand tasta 1! Daca vrei sa continuam alta data, apasa tasta 0!"<<'\n';

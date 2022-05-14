@@ -179,14 +179,14 @@ void Jucator::antrenament() {
     }
 }
 
-void Jucator::upgrade_stats_energizant(Energizant &e) {
+void Jucator::upgrade_stats_energizant(const Energizant &e) {
     this->att_stats += e.getSkillBoost();
     this->drb_stats += e.getSkillBoost();
     this->def_stats += e.getSkillBoost();
     this->fitness = e.getFitnessBoost();
 }
 
-void Jucator::upgrade_stats_adidas(Adidas &a) {
+void Jucator::upgrade_stats_adidas(const Adidas &a) {
     this->att_stats += a.getAttUpgrade();
     this->drb_stats += a.getDrbUpgrade();
     this->def_stats += a.getDefUpgrade();

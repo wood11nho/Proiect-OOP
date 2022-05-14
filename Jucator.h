@@ -34,6 +34,7 @@ class Jucator {
     int fitness;
 public:
 
+
     Jucator();
     Jucator(const int &id, const std::string &name, const std::string &prenume, const std::string &nationalitate , const int &varsta, const int &att_stats,const int &def_stats, const int &drb_stats, const Echipa &echipa,const  int &pret, const int &salariu, const int &avere, const int &fitness):
             id(id), nume(name), prenume(prenume), nationalitate(nationalitate),  varsta(varsta), att_stats(att_stats), def_stats(def_stats), drb_stats(drb_stats), echipa(echipa), pret(pret), salariu(salariu), avere(avere), fitness(fitness)
@@ -64,9 +65,10 @@ public:
     }
     void antrenament();
 
-    void upgrade_stats_energizant(Energizant &e);
+    void upgrade_stats_energizant(const Energizant &e);
 
-    void upgrade_stats_adidas(Adidas &a);
+    void upgrade_stats_adidas(const Adidas &a);
+
 };
 
 
