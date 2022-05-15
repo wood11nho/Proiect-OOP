@@ -8,6 +8,7 @@
 #include <ostream>
 #include <memory>
 class Jucator;
+class Inventar;
 
 class Items {
 protected:
@@ -18,9 +19,7 @@ protected:
 
 public:
 
-    virtual void consuma_item(Jucator& j) = 0;
-
-    virtual void cumpara_item(Jucator &j) = 0;
+    virtual void folosit_de(Jucator& j) = 0;
 
     Items(int pret, const std::string &nume);
 

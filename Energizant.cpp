@@ -4,6 +4,7 @@
 
 #include "Energizant.h"
 #include "Jucator.h"
+#include "Inventar.h"
 Energizant::Energizant(int pret, const std::string &nume, int fitnessBoost, int skillBoost) : Items(pret, nume),
                                                                                               FitnessBoost(
                                                                                                       fitnessBoost),
@@ -37,20 +38,11 @@ Energizant &Energizant::operator=(const Energizant &e1) {
     return *this;
 }
 
-int Energizant::getFitnessBoost() const {
-    return FitnessBoost;
-}
-
-int Energizant::getSkillBoost() const {
-    return SkillBoost;
-}
-
-void Energizant::consuma_item(Jucator &j) {
-    j.consuma_energizant(*this);
-}
-
-void Energizant::cumpara_item(Jucator &j) {
-    j.cumpara_energizant(*this);
+void Energizant::folosit_de(Jucator &j) {
+    j.setAttStats(j.getAttStats() + this->SkillBoost);
+    j.setDrbStats(j.getDrbStats() + this->SkillBoost);
+    j.setDefStats(j.getDefStats() + this->SkillBoost);
+    j.setFitness(this->FitnessBoost);
 }
 
 

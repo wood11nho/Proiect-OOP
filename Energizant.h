@@ -25,13 +25,7 @@ public:
 
     Energizant& operator=(const Energizant &e1);
 
-    void consuma_item(Jucator& j) override;
-
-    void cumpara_item(Jucator& j) override;
-
-    int getFitnessBoost() const;
-
-    int getSkillBoost() const;
+    void folosit_de(Jucator& j) override;
 
 };
 

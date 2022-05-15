@@ -15,20 +15,22 @@
 #include "Items.h"
 #include "Adidas.h"
 #include "Energizant.h"
+#include "Inventar.h"
+
 #include <memory>
 using namespace std;
 
 
 
-class vMeciuri{
+class Campionat{
     std::vector<Meci> VectorMeciuri;
 public:
-    explicit vMeciuri(const vector <Meci> &vectorMeciuri) : VectorMeciuri(vectorMeciuri) {}
+    explicit Campionat(const vector <Meci> &vectorMeciuri) : VectorMeciuri(vectorMeciuri) {}
 
-     ~vMeciuri() {
+     ~Campionat() {
 
     }
-    friend ostream &operator<<(ostream &os, const vMeciuri &meciuri) {
+    friend ostream &operator<<(ostream &os, const Campionat &meciuri) {
         os << "VectorMeciuri: ";
         int i = 0;
         for (const auto& meci1 : meciuri.VectorMeciuri) {
@@ -38,7 +40,7 @@ public:
         return os;
     }
 
-    void adaugare_meci(Meci m1){
+    void adaugare_meci(const Meci& m1){
         this->VectorMeciuri.push_back(m1);
     }
     Meci& last_one(){
@@ -47,39 +49,7 @@ public:
 
 };
 
-class Inventar{
-    std::vector<std::shared_ptr<Items>> Colectie;
 
-public:
-    explicit Inventar(const vector<std::shared_ptr<Items>> &colectie) : Colectie(colectie) {}
-
-    ~Inventar() {
-
-    }
-
-    friend ostream &operator<<(ostream &os, const Inventar &inventar) {
-        os << "\n-------------------------------------";
-        os <<"\nEnergizante: \n";
-        int contor = 1;
-        for(shared_ptr<Items> i: inventar.Colectie){
-            if(contor == 5)
-                os<<"Adidasi: \n";
-            os<<contor<<".";
-            os<< *i<<'\n';
-            contor++;
-
-        }
-        return os;
-    }
-
-    void addItem(std::shared_ptr<Items> pulledItem){
-        this->Colectie.push_back(pulledItem);
-    }
-};
-
-class Campionat{
-    
-};
 
 int main() {
     Echipa empty_team(0, 0, 0, "");
@@ -122,7 +92,7 @@ int main() {
 
     cout<<multime_consumabile;
     vEchipe vector_echipe(vector<Echipa> {});
-    vMeciuri vector_meciuri(vector<Meci> {});
+    Campionat vector_meciuri(vector<Meci> {});
     vector_echipe.adaugare_echipa(empty_team);
     vector_echipe.adaugare_echipa(e1);
     vector_echipe.adaugare_echipa(e2);
@@ -132,7 +102,8 @@ int main() {
     vector_echipe.adaugare_echipa(e6);
     cout<<vector_echipe<<"\n";
 
-    nrg1.cumpara_item(j1);
+    j1.cumpara(nrg1, inventar_player);
+    j1.consuma(nrg1);
 
     cout<<j1;
 
@@ -284,7 +255,24 @@ int main() {
                     cout<<"\nPentru a cumpara item-ul dorit, scrieti numarul corespunzator acestuia: ";
                     cout<<"\nITEM DORIT: ";
                     cin >> tasta;
-
+                    do {
+                        if (tasta >= 1 and tasta <= (int) multime_consumabile.getColectie().size() ) {
+                            your_player.cumpara(*multime_consumabile.getColectie().at(tasta - 1), inventar_player);
+                            //aici ori il adaug la colectie, ori il consum
+                            cout<<"\n-------------------------------------";
+                            cout<<"\n0.Meniu\n";
+                            cin>>tasta;
+                            cout<<"\n";
+                        } else {
+                            cout << "\nTasta incorecta! Alege din nou!";
+                            cin >> tasta;
+                        }
+                    }
+                    while(tasta!=0);
+                    cout<<"-------------------------------------";
+                    cout<<"\n0.Meniu";
+                    cin>>tasta;
+                    cout<<"\n";
 
                 }while(tasta!=3);
 

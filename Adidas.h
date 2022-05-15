@@ -25,15 +25,7 @@ public:
     friend std::ostream &operator<<(std::ostream &os, const Adidas &adidas);
     Adidas& operator=(const Adidas& a1);
 
-    void consuma_item(Jucator& j) override;
-
-    void cumpara_item(Jucator& j) override;
-
-    int getAttUpgrade() const;
-
-    int getDefUpgrade() const;
-
-    int getDrbUpgrade() const;
+    void folosit_de(Jucator& j) override;
 };
 
 

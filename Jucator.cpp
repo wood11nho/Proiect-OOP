@@ -6,6 +6,7 @@
 #include "Energizant.h"
 #include "Adidas.h"
 #include "Erori.h"
+#include "Inventar.h"
 
 Jucator::Jucator() :
         id(0), nume(""), prenume(""), nationalitate(""), varsta(16), att_stats(30), def_stats(30), drb_stats(30),echipa(
@@ -180,47 +181,71 @@ void Jucator::antrenament() {
     }
 }
 
-void Jucator::consuma_energizant(const Energizant &e) {
-
-            this->att_stats += e.getSkillBoost();
-            this->drb_stats += e.getSkillBoost();
-            this->def_stats += e.getSkillBoost();
-            this->fitness = e.getFitnessBoost();
+void Jucator::consuma(Items& item){
+    item.folosit_de(*this);
 }
 
-void Jucator::consuma_adidas(const Adidas &a) {
-    this->att_stats += a.getAttUpgrade();
-    this->drb_stats += a.getDrbUpgrade();
-    this->def_stats += a.getDefUpgrade();
-}
-
-void Jucator::cumpara_energizant(const Energizant &e) {
-    try {
-        if(this->avere > e.getPret()) {
-            // sa l adaug la colectie;
-            this->avere -= e.getPret();
+void Jucator::cumpara(Items& item, Inventar& inv){
+    if(this->avere > item.getPret())
+    {
+        cout << "\nAi achizitionat urmatorul produs: ";
+        cout << item << "\n";
+        cout << "\n-------------------------------------";
+        cout << "\n1.Adauga-l la colectie";
+        cout << "\n2.Consuma-l acum\n";
+        this->avere -= item.getPret();
+        int tasta;
+        cout<<"\nAlegere: ";
+        cin>>tasta;
+        if(tasta == 1) {
+            cout << "\nProdusul a fost adaugat la colectie!\n";
+            inv.addItem(item.clone());
+            cout<<inv;
         }
         else{
-            throw(invalidPurchase("Nu ai suficienti bani."));
+            this->consuma(item);
         }
     }
-    catch(std::exception &err){
-        std::cout<<err.what();
+    else
+    {
+        throw(invalidPurchase("Nu ai suficienti bani."));
     }
 }
-void Jucator::cumpara_adidas(const Adidas &a) {
-    try {
-        if(this->avere > a.getPret()) {
-            // sa l adaug la colectie;
-            this->avere -= a.getPret();
-        }
-        else{
-            throw(invalidPurchase("Nu ai suficienti bani."));
-        }
-    }
-    catch(std::exception &err){
-        std::cout<<err.what();
-    }
+
+int Jucator::getAvere() const {
+    return avere;
+}
+
+int Jucator::getAttStats() const {
+    return att_stats;
+}
+
+int Jucator::getDefStats() const {
+    return def_stats;
+}
+
+int Jucator::getDrbStats() const {
+    return drb_stats;
+}
+
+void Jucator::setAttStats(int attStats) {
+    att_stats = attStats;
+}
+
+void Jucator::setDefStats(int defStats) {
+    def_stats = defStats;
+}
+
+void Jucator::setDrbStats(int drbStats) {
+    drb_stats = drbStats;
+}
+
+void Jucator::setAvere(int avere_) {
+    avere = avere_;
+}
+
+void Jucator::setFitness(int fitness_) {
+    Jucator::fitness = fitness_;
 }
 
 

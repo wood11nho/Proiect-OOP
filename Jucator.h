@@ -65,14 +65,27 @@ public:
     }
     void antrenament();
 
-    void consuma_energizant(const Energizant &e);
+    void consuma(Items& item);
 
-    void consuma_adidas(const Adidas &a);
+    void cumpara(Items& item, Inventar& inv);
 
-    void cumpara_adidas(const Adidas &a);
+    int getAttStats() const;
 
-    void cumpara_energizant(const Energizant &e);
+    int getDefStats() const;
 
+    int getDrbStats() const;
+
+    int getAvere() const;
+
+    void setAttStats(int attStats);
+
+    void setDefStats(int defStats);
+
+    void setDrbStats(int drbStats);
+
+    void setAvere(int avere);
+
+    void setFitness(int fitness);
 };
 
 
