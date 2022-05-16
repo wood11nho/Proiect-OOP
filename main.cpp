@@ -12,7 +12,7 @@
 #include "Imprumut.h"
 #include "Meci.h"
 #include "Echipe_disponibile.h"
-#include "Items.h"
+#include "Item.h"
 #include "Adidas.h"
 #include "Energizant.h"
 #include "Inventar.h"
@@ -75,8 +75,8 @@ int main() {
     Energizant nrg2(30, "NRG Bronze", 100, 2);
     Energizant nrg3(70, "NRG Silver", 100, 3);
     Energizant nrg4(125, "NRG Gold", 100, 4);
-    Inventar inventar_player(std::vector<std::shared_ptr<Items>> {});
-    Inventar multime_consumabile(std::vector<std::shared_ptr<Items>> {});
+    Inventar inventar_player(std::vector<std::shared_ptr<Item>> {});
+    Inventar multime_consumabile(std::vector<std::shared_ptr<Item>> {});
     multime_consumabile.addItem(nrg1.clone());
     multime_consumabile.addItem(nrg2.clone());
     multime_consumabile.addItem(nrg3.clone());

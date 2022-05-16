@@ -7,9 +7,9 @@
 
 #include <memory>
 #include <ostream>
-#include "Items.h"
+#include "Item.h"
 
-class Energizant:public Items {
+class Energizant:public Item {
     int FitnessBoost;
     int SkillBoost;
 public:
@@ -17,7 +17,7 @@ public:
 
     virtual ~Energizant();
 
-    std::shared_ptr<Items> clone() const override;
+    std::shared_ptr<Item> clone() const override;
 
     void afisare(std::ostream &os) const override;
 

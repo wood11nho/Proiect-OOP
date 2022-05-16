@@ -4,12 +4,12 @@
 
 #include "Inventar.h"
 
-Inventar::Inventar(const std::vector<std::shared_ptr<Items>> &colectie) : Colectie(colectie) {}
+Inventar::Inventar(const std::vector<std::shared_ptr<Item>> &colectie) : Colectie(colectie) {}
 
 std::ostream &operator<<(std::ostream &os, const Inventar &inventar) {
     os << "\n-------------------------------------";
     int contor = 1;
-    for(const std::shared_ptr<Items>& i: inventar.Colectie){
+    for(const std::shared_ptr<Item>& i: inventar.Colectie){
         os<<contor<<".";
         os<< *i<<'\n';
         contor++;
@@ -18,10 +18,10 @@ std::ostream &operator<<(std::ostream &os, const Inventar &inventar) {
     return os;
 }
 
-void Inventar::addItem(std::shared_ptr<Items> pulledItem) {
+void Inventar::addItem(std::shared_ptr<Item> pulledItem) {
     this->Colectie.push_back(pulledItem);
 }
 
-const std::vector<std::shared_ptr<Items>> &Inventar::getColectie() const {
+const std::vector<std::shared_ptr<Item>> &Inventar::getColectie() const {
     return Colectie;
 }

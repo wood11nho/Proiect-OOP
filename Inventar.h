@@ -4,15 +4,15 @@
 
 #ifndef OOP_INVENTAR_H
 #define OOP_INVENTAR_H
-#include "Items.h"
+#include "Item.h"
 #include <vector>
 
 
 class Inventar {
-    std::vector<std::shared_ptr<Items>> Colectie;
+    std::vector<std::shared_ptr<Item>> Colectie;
 
 public:
-    explicit Inventar(const std::vector<std::shared_ptr<Items>> &colectie);
+    explicit Inventar(const std::vector<std::shared_ptr<Item>> &colectie);
 
     ~Inventar() {
 
@@ -20,9 +20,9 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, const Inventar &inventar);
 
-    void addItem(std::shared_ptr<Items> pulledItem);
+    void addItem(std::shared_ptr<Item> pulledItem);
 
-    const std::vector<std::shared_ptr<Items>> &getColectie() const;
+    const std::vector<std::shared_ptr<Item>> &getColectie() const;
 };
 
 

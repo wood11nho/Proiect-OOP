@@ -181,40 +181,49 @@ void Jucator::antrenament() {
     }
 }
 
-void Jucator::consuma(Items& item){
+void Jucator::consuma(Item& item){
     item.folosit_de(*this);
 }
 
-void Jucator::cumpara(Items& item, Inventar& inv){
-    if(this->avere > item.getPret())
-    {
-        cout << "\nAi achizitionat urmatorul produs: ";
-        cout << item << "\n";
-        cout << "\n-------------------------------------";
-        cout << "\n1.Adauga-l la colectie";
-        cout << "\n2.Consuma-l acum\n";
-        this->avere -= item.getPret();
-        int tasta;
-        cout<<"\nAlegere: ";
-        cin>>tasta;
-        if(tasta == 1) {
-            cout << "\nProdusul a fost adaugat la colectie!\n";
-            inv.addItem(item.clone());
-            cout<<inv;
+void Jucator::cumpara(Item& item, Inventar& inv){
+    int tasta = 0;
+    do {
+        try {
+            if (this->avere > item.getPret()) {
+                cout << "\nAi achizitionat urmatorul produs: ";
+                cout << item << "\n";
+                cout << "\n-------------------------------------";
+                cout << "\n1.Adauga-l la colectie";
+                cout << "\n2.Consuma-l acum\n";
+                this->avere -= item.getPret();
+                cout << "\nAlegere: ";
+                cin >> tasta;
+                if (tasta == 1) {
+                    cout << "\nProdusul a fost adaugat la colectie!\n";
+                    inv.addItem(item.clone());
+                    cout << inv;
+                } else if (tasta == 2) {
+                    this->consuma(item);
+                } else {
+                    throw (invalidInput{"Input invalid!!!"});
+                }
+                cout << "\n 0. Meniu principal";
+                cin>>tasta;
+            } else {
+                throw (invalidPurchase("Nu ai suficienti bani."));
+            }
         }
-        else{
-            this->consuma(item);
+        catch (std::exception &err){
+            std::cout<<err.what()<<"\n";
+            rlutil::anykey();
+            rlutil::cls();
         }
-    }
-    else
-    {
-        throw(invalidPurchase("Nu ai suficienti bani."));
-    }
+    }while(tasta!=0);
 }
-
-int Jucator::getAvere() const {
-    return avere;
-}
+//
+//int Jucator::getAvere() const {
+//    return avere;
+//}
 
 int Jucator::getAttStats() const {
     return att_stats;
@@ -239,10 +248,10 @@ void Jucator::setDefStats(int defStats) {
 void Jucator::setDrbStats(int drbStats) {
     drb_stats = drbStats;
 }
-
-void Jucator::setAvere(int avere_) {
-    avere = avere_;
-}
+//
+//void Jucator::setAvere(int avere_) {
+//    avere = avere_;
+//}
 
 void Jucator::setFitness(int fitness_) {
     Jucator::fitness = fitness_;

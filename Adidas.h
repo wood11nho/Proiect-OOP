@@ -7,9 +7,9 @@
 
 #include <memory>
 #include <ostream>
-#include "Items.h"
+#include "Item.h"
 
-class Adidas:public Items {
+class Adidas:public Item {
     int att_upgrade;
     int def_upgrade;
     int drb_upgrade;
@@ -18,7 +18,7 @@ public:
 
     virtual ~Adidas();
 
-    std::shared_ptr<Items> clone() const override;
+    std::shared_ptr<Item> clone() const override;
 
     void afisare(std::ostream &os) const override;
 
