@@ -73,11 +73,19 @@ std::istream &operator>>(istream &is, Jucator &jucator) {
         }
     }while(!Jucator::containsOnlyDigits(id_aux) or std::stoi(id_aux) < 1 or std::stoi(id_aux) > 99);
     std::cout<<"\nIntrodu numele jucatorului: ";
+    string nume_aux;
     do {
         try {
-            is >> jucator.nume;
-            if(!Jucator::containsOnlyLetters(jucator.nume))
+            is >> nume_aux;
+            if(!Jucator::containsOnlyLetters(nume_aux))
                 throw (invalidID{"Input invalid! Alege un nume format doar din litere!"});
+            else{
+                for(int i = 1 ;i < (int)nume_aux.size();i++){
+                    nume_aux[i] = tolower(nume_aux[i]);
+                }
+                nume_aux[0] = std::toupper(nume_aux[0]);
+                jucator.nume = nume_aux;
+            }
         }
         catch (std::exception &err) {
             std::cout << err.what() << '\n';
@@ -86,11 +94,19 @@ std::istream &operator>>(istream &is, Jucator &jucator) {
         }
     }while(!Jucator::containsOnlyLetters(jucator.nume));
     std::cout<<"\nIntrodu prenumele jucatorului: ";
+    string prenume_aux;
     do {
         try {
-            is >> jucator.prenume;
-            if(!Jucator::containsOnlyLetters(jucator.prenume))
+            is >> prenume_aux;
+            if(!Jucator::containsOnlyLetters(prenume_aux))
                 throw (invalidID{"Input invalid! Alege un prenume format doar din litere!"});
+            else{
+                for(int i = 1 ;i < (int)prenume_aux.size();i++){
+                    prenume_aux[i] = tolower(prenume_aux[i]);
+                }
+                prenume_aux[0] = std::toupper(prenume_aux[0]);
+                jucator.prenume = prenume_aux;
+            }
         }
         catch (std::exception &err) {
             std::cout << err.what() << '\n';
@@ -99,11 +115,19 @@ std::istream &operator>>(istream &is, Jucator &jucator) {
         }
     }while(!Jucator::containsOnlyLetters(jucator.prenume));
     std::cout<<"\nIntrodu nationalitatea jucatorului: ";
+    string nationalitate_aux;
     do {
         try {
-            is >> jucator.nationalitate;
-            if(!Jucator::containsOnlyLetters(jucator.nationalitate))
+            is >> nationalitate_aux;
+            if(!Jucator::containsOnlyLetters(nationalitate_aux))
                 throw (invalidID{"Input invalid! Alege o nationalitate formata doar din litere!"});
+            else{
+                for(int i = 1 ;i < (int)nationalitate_aux.size();i++){
+                    nationalitate_aux[i] = tolower(nationalitate_aux[i]);
+                }
+                nationalitate_aux[0] = std::toupper(nationalitate_aux[0]);
+                jucator.nationalitate = nationalitate_aux;
+            }
         }
         catch (std::exception &err) {
             std::cout << err.what() << '\n';
@@ -195,8 +219,9 @@ void Jucator::consuma(Item& item){
 }
 
 void Jucator::cumpara(Item& item, Inventar& inv){
-    auto tasta = 0;
+
     try {
+        int tasta = 0;
             if (this->avere > item.getPret()) {
                 cout << "\nAi achizitionat urmatorul produs: ";
                 cout << item << "\n";

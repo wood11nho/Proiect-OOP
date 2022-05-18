@@ -123,7 +123,7 @@ int main() {
     Energizant nrg3(70, "NRG Silver", 100, 3);
     Energizant nrg4(125, "NRG Gold", 100, 4);
 
-    cout<<Energizant::getNrenerg()<<"energizante \n"<<Adidas::getNradidasi()<<"adidasi\n";
+//    cout<<Energizant::getNrenerg()<<"energizante \n"<<Adidas::getNradidasi()<<"adidasi\n";
 
     Inventar inventar_player(std::vector<std::shared_ptr<Item>> {});
 
