@@ -221,7 +221,6 @@ void Jucator::consuma(Item& item){
 void Jucator::cumpara(Item& item, Inventar& inv){
 
     try {
-        int tasta = 0;
             if (this->avere > item.getPret()) {
                 cout << "\nAi achizitionat urmatorul produs: ";
                 cout << item << "\n";
@@ -230,6 +229,7 @@ void Jucator::cumpara(Item& item, Inventar& inv){
                 cout << "\n2.Consuma-l acum\n";
                 this->avere -= item.getPret();
                 cout << "\nAlegere: ";
+                int tasta = 0;
                 cin >> tasta;
                 if (tasta == 1) {
                     cout << "\nProdusul a fost adaugat la colectie!\n";
