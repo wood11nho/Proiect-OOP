@@ -4,7 +4,6 @@
 #include <ctime>
 #include <vector>
 #include <string>
-#include <random>
 #include "Echipa.h"
 #include "Jucator.h"
 #include "vEchipe.h"
@@ -27,9 +26,7 @@ class Campionat{
 public:
     explicit Campionat(const vector <Meci> &vectorMeciuri) : VectorMeciuri(vectorMeciuri) {}
 
-     ~Campionat() {
-
-    }
+     ~Campionat() = default;
     friend ostream &operator<<(ostream &os, const Campionat &meciuri) {
         os << "VectorMeciuri: ";
         int i = 0;
@@ -242,6 +239,7 @@ int main() {
         cout<<"2. Antrenament\n";
         cout<<"3. Magazin\n";
         cout<<"4. Joaca in campionat.\n";
+        cout<<"5. Iesi din joc\n";
         cin>>tasta;
         try {
 
@@ -334,6 +332,7 @@ int main() {
             {
                 if(tasta!=0)
                     throw (invalidInput{"Input invalid!!!"});
+                else acasa = 0;
             }
         }
         catch(std::exception &err){

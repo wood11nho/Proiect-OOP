@@ -4,7 +4,6 @@
 
 #include "Jucator.h"
 #include "Energizant.h"
-#include "Adidas.h"
 #include "Erori.h"
 #include "Inventar.h"
 
@@ -196,7 +195,7 @@ void Jucator::consuma(Item& item){
 }
 
 void Jucator::cumpara(Item& item, Inventar& inv){
-    int tasta = 0;
+    auto tasta = 0;
     try {
             if (this->avere > item.getPret()) {
                 cout << "\nAi achizitionat urmatorul produs: ";
