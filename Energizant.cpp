@@ -8,7 +8,13 @@
 Energizant::Energizant(int pret, const std::string &nume, int fitnessBoost, int skillBoost) : Item(pret, nume),
                                                                                               FitnessBoost(
                                                                                                       fitnessBoost),
-                                                                                              SkillBoost(skillBoost) {}
+                                                                                              SkillBoost(skillBoost) {
+    nrenerg++;
+}
+
+Energizant::Energizant(const Energizant &other): Item(other), FitnessBoost(other.FitnessBoost), SkillBoost(other.SkillBoost){
+
+}
 
 std::shared_ptr<Item> Energizant::clone() const{
     return std::make_shared<Energizant>(*this);
@@ -43,6 +49,10 @@ void Energizant::folosit_de(Jucator &j) {
     j.setDrbStats(j.getDrbStats() + this->SkillBoost);
     j.setDefStats(j.getDefStats() + this->SkillBoost);
     j.setFitness(this->FitnessBoost);
+}
+
+int Energizant::getNrenerg() {
+    return nrenerg;
 }
 
 

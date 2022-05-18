@@ -49,20 +49,30 @@ bool Jucator::containsOnlyLetters(const string &str) {
     return it == str.end();
 }
 
+bool Jucator::containsOnlyDigits(const std::string &str) {
+    auto it = std::find_if(str.begin(), str.end(), [](char const &c) {
+        return !std::isdigit(c);
+    });
+    return it == str.end();
+}
 std::istream &operator>>(istream &is, Jucator &jucator) {
     std::cout<<"\nIntrodu numarul jucatorului: ";
+    string id_aux;
     do {
         try {
-            is >> jucator.id;
-            if(jucator.id < 1 or jucator.id > 99)
+            is >> id_aux;
+            if(!Jucator::containsOnlyDigits(id_aux) or std::stoi(id_aux) < 1 or std::stoi(id_aux) > 99) {
                 throw (invalidID{"Input invalid! Alege un alt numar intre 1-99!"});
+            }
+            else
+                jucator.id = std::stoi(id_aux);
         }
         catch (std::exception &err) {
             std::cout << err.what() << '\n';
             rlutil::anykey();
             std::cout<<"\nIntrodu numarul jucatorului: ";
         }
-    }while(jucator.id<1 or jucator.id>99);
+    }while(!Jucator::containsOnlyDigits(id_aux) or std::stoi(id_aux) < 1 or std::stoi(id_aux) > 99);
     std::cout<<"\nIntrodu numele jucatorului: ";
     do {
         try {
@@ -187,8 +197,7 @@ void Jucator::consuma(Item& item){
 
 void Jucator::cumpara(Item& item, Inventar& inv){
     int tasta = 0;
-    do {
-        try {
+    try {
             if (this->avere > item.getPret()) {
                 cout << "\nAi achizitionat urmatorul produs: ";
                 cout << item << "\n";
@@ -201,14 +210,13 @@ void Jucator::cumpara(Item& item, Inventar& inv){
                 if (tasta == 1) {
                     cout << "\nProdusul a fost adaugat la colectie!\n";
                     inv.addItem(item.clone());
-                    cout << inv;
+                    cout << "\n"<<inv;
                 } else if (tasta == 2) {
+                    cout<<"\nAi consumat produsul!\n";
                     this->consuma(item);
                 } else {
                     throw (invalidInput{"Input invalid!!!"});
                 }
-                cout << "\n 0. Meniu principal";
-                cin>>tasta;
             } else {
                 throw (invalidPurchase("Nu ai suficienti bani."));
             }
@@ -218,7 +226,6 @@ void Jucator::cumpara(Item& item, Inventar& inv){
             rlutil::anykey();
             rlutil::cls();
         }
-    }while(tasta!=0);
 }
 //
 //int Jucator::getAvere() const {

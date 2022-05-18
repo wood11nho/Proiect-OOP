@@ -4,12 +4,11 @@
 
 #include "Meci.h"
 
-Meci::Meci(Echipa &team1, Echipa &team2, const std::pair<int, int> &scor, char rezultat)
-        : team1(team1), team2(team2), scor(scor), rezultat(rezultat) {}
+Meci::Meci(Echipa &team1, Echipa &team2, const std::pair<int, int> &scor)
+        : team1(team1), team2(team2), scor(scor) {}
 
 std::ostream &operator<<(std::ostream &os, const Meci &meci) {
-    os << "team1: " << meci.team1 << " team2: " << meci.team2 << " scor: " << meci.scor.first<<" - "<<meci.scor.second << " rezultat: "
-       << meci.rezultat;
+    os << "team1: " << meci.team1 << " team2: " << meci.team2 << " scor: " << meci.scor.first<<" - "<<meci.scor.second;
     return os;
 }
 
@@ -17,7 +16,6 @@ Meci &Meci::operator=(const Meci &other) {
     team1 = other.team1;
     team2 = other.team2;
     scor = other.scor;
-    rezultat = other.rezultat;
     return *this;
 }
 
@@ -56,8 +54,31 @@ void Meci::playmatch(){
     std::cout<<"Meciul s-a terminat!\n";
     std::cout<<"REZULTAT FINAL: \n";
     std::cout<<team1.getNume()<<" "<<scor.first<<" - "<<team2.getNume()<<" "<<scor.second;
+
 }
 
 const std::pair<int, int> &Meci::getScor() const {
     return scor;
+}
+
+Echipa &Meci::getTeam1() const {
+    return team1;
+}
+
+Echipa &Meci::getTeam2() const {
+    return team2;
+}
+
+void Meci::statistici() const {
+    std::random_device rd; // obtain a random number from hardware
+    std::mt19937 gen(rd()); // seed the generator
+    std::uniform_int_distribution<> distr(30, 69); // define the range
+    int aux = distr(gen);
+    std::cout << "\nPOSESIE             "<< aux << "       -       " << 100 - aux<<"\n";
+    std::cout << " ------------------------------------------- \n";
+    int aux1 = rand() % 3;
+    int aux2 = rand() % 3;
+    std::cout << "SUTURI              "<< this->getScor().first + aux1 + rand()%7<< "       -       "<< this->getScor().second + aux2 +rand()%7<<"\n";
+    std::cout << "SUTURI PE POARTA    "<< this->getScor().first + aux1 << "       -       "<< this->getScor().second + aux2<<"\n";
+
 }

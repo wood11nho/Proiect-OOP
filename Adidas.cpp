@@ -5,7 +5,9 @@
 #include "Adidas.h"
 #include "Jucator.h"
 #include "Inventar.h"
-Adidas::Adidas(int pret, const std::string &nume, int attUpgrade, int defUpgrade, int drbUpgrade) : Item(pret, nume), att_upgrade(attUpgrade), def_upgrade(defUpgrade), drb_upgrade(drbUpgrade) {}
+Adidas::Adidas(int pret, const std::string &nume, int attUpgrade, int defUpgrade, int drbUpgrade) : Item(pret, nume), att_upgrade(attUpgrade), def_upgrade(defUpgrade), drb_upgrade(drbUpgrade) {
+    nradidasi++;
+}
 
 Adidas::~Adidas() {
 
@@ -13,6 +15,10 @@ Adidas::~Adidas() {
 
 std::shared_ptr<Item> Adidas::clone() const{
     return std::make_shared<Adidas>(*this);
+}
+
+Adidas::Adidas(const Adidas &other) : Item(other), att_upgrade(other.att_upgrade), def_upgrade(other.def_upgrade), drb_upgrade(other.drb_upgrade){
+
 }
 
 std::ostream &operator<<(std::ostream &os, const Adidas &adidas) {
@@ -40,5 +46,9 @@ Adidas &Adidas::operator=(const Adidas &a1) {
     def_upgrade = a1.def_upgrade;
     drb_upgrade = a1.drb_upgrade;
     return *this;
+}
+
+int Adidas::getNradidasi() {
+    return nradidasi;
 }
 

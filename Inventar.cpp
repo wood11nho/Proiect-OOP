@@ -7,7 +7,7 @@
 Inventar::Inventar(const std::vector<std::shared_ptr<Item>> &colectie) : Colectie(colectie) {}
 
 std::ostream &operator<<(std::ostream &os, const Inventar &inventar) {
-    os << "\n-------------------------------------";
+    os << "\n-------------------------------------\n";
     int contor = 1;
     for(const std::shared_ptr<Item>& i: inventar.Colectie){
         os<<contor<<".";

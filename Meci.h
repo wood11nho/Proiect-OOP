@@ -14,9 +14,8 @@ class Meci {
     Echipa& team1;
     Echipa& team2;
     std::pair<int, int> scor{0, 0};
-    char rezultat;
 public:
-    Meci(Echipa &team1, Echipa &team2, const std::pair<int, int> &scor, char rezultat);
+    Meci(Echipa &team1, Echipa &team2, const std::pair<int, int> &scor);
 
     ~Meci() {
 
@@ -27,6 +26,12 @@ public:
     void playmatch();
 
     const std::pair<int, int> &getScor() const;
+
+    Echipa &getTeam1() const;
+
+    Echipa &getTeam2() const;
+
+    void statistici() const;
 };
 
 

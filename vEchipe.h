@@ -23,6 +23,15 @@ public:
 
     const std::vector<Echipa> &getVectorEchipe() const;
     void adaugare_echipa(Echipa& e1);
+
+    int getNrechipe() const;
+
+    void pop_echipa(){
+        this->VectorEchipe.pop_back();
+    }
+    void insert_echipa(int pozitie, Echipa& e1){
+        this->VectorEchipe.insert(this->VectorEchipe.begin() + pozitie, e1);
+    }
 };
 
 

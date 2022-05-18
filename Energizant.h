@@ -12,10 +12,14 @@
 class Energizant:public Item {
     int FitnessBoost;
     int SkillBoost;
+    static int nrenerg;
+
 public:
     Energizant(int pret, const std::string &nume, int fitnessBoost, int skillBoost);
 
     virtual ~Energizant();
+
+    Energizant(const Energizant& other);
 
     std::shared_ptr<Item> clone() const override;
 
@@ -27,6 +31,7 @@ public:
 
     void folosit_de(Jucator& j) override;
 
+    static int getNrenerg();
 };
 
 

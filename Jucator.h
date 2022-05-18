@@ -50,6 +50,8 @@ public:
 
     static bool containsOnlyLetters(std::string const &str);
 
+    static bool containsOnlyDigits(std::string const &str);
+
     friend std::ostream &operator<<(std::ostream &os, const Jucator &jucator);
     friend std::istream &operator>>(std::istream &is, Jucator &jucator);
 
