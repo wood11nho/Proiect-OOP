@@ -11,14 +11,17 @@ class invalidInput:public std::runtime_error {
 public:
     explicit invalidInput(const std::string& arg);
 };
-
 class invalidID:public invalidInput{
 public:
     explicit invalidID(const std::string& arg);
 };
-class invalidPurchase:public std::runtime_error{
+class invalidPurchase:public invalidInput{
 public:
     explicit invalidPurchase(const std::string& arg);
+};
+class invalidStat:public invalidInput{
+public:
+    explicit invalidStat(const std::string& arg);
 };
 
 

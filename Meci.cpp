@@ -50,8 +50,7 @@ void Meci::playmatch(){
         scor.first += (rand() % 2);
     for(int i = 1; i* i<=ocazii2;i++)
         scor.second += (rand() % 2);
-    rlutil::cls();
-    std::cout<<"Meciul s-a terminat!\n";
+    std::cout<<"\nMeciul s-a terminat!\n";
     std::cout<<"REZULTAT FINAL: \n";
     std::cout<<team1.getNume()<<" "<<scor.first<<" - "<<team2.getNume()<<" "<<scor.second;
 

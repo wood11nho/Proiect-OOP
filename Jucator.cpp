@@ -35,13 +35,13 @@ Jucator &Jucator::operator=(const Jucator &j1) {
     return *this;
 }
 
-std::ostream &operator<<(ostream &os, const Jucator &jucator) {
+std::ostream &operator<<(std::ostream &os, const Jucator &jucator) {
     os << "\nid: " << jucator.id << "\nnume: " << jucator.nume << " "<<jucator.prenume<<"\nnationalitate: " << jucator.nationalitate<<"\nvarsta: "<<jucator.varsta<<"\nattacking stats: "<<jucator.att_stats<<"\ndefending stats: "<<jucator.def_stats<<"\ndribbling stats: "<<jucator.drb_stats
        << " \nrating: " << jucator.rating() << "\npret: "<<jucator.pret<<"\nsalariu: "<<jucator.salariu<<"\navere: "<<jucator.avere<<"\nfitness: "<<jucator.fitness<<"\n";
     return os;
 }
 
-bool Jucator::containsOnlyLetters(const string &str) {
+bool Jucator::containsOnlyLetters(const std::string &str) {
     auto it = std::find_if(str.begin(), str.end(), [](char const &c) {
         return !std::isalpha(c);
     });
@@ -54,9 +54,9 @@ bool Jucator::containsOnlyDigits(const std::string &str) {
     });
     return it == str.end();
 }
-std::istream &operator>>(istream &is, Jucator &jucator) {
+std::istream &operator>>(std::istream &is, Jucator &jucator) {
     std::cout<<"\nIntrodu numarul jucatorului: ";
-    string id_aux;
+    std::string id_aux;
     do {
         try {
             is >> id_aux;
@@ -73,7 +73,7 @@ std::istream &operator>>(istream &is, Jucator &jucator) {
         }
     }while(!Jucator::containsOnlyDigits(id_aux) or std::stoi(id_aux) < 1 or std::stoi(id_aux) > 99);
     std::cout<<"\nIntrodu numele jucatorului: ";
-    string nume_aux;
+    std::string nume_aux;
     do {
         try {
             is >> nume_aux;
@@ -85,6 +85,7 @@ std::istream &operator>>(istream &is, Jucator &jucator) {
                 }
                 nume_aux[0] = std::toupper(nume_aux[0]);
                 jucator.nume = nume_aux;
+
             }
         }
         catch (std::exception &err) {
@@ -92,9 +93,9 @@ std::istream &operator>>(istream &is, Jucator &jucator) {
             rlutil::anykey();
             std::cout<<"\nIntrodu numele jucatorului: ";
         }
-    }while(!Jucator::containsOnlyLetters(jucator.nume));
+    }while(!Jucator::containsOnlyLetters(nume_aux));
     std::cout<<"\nIntrodu prenumele jucatorului: ";
-    string prenume_aux;
+    std::string prenume_aux;
     do {
         try {
             is >> prenume_aux;
@@ -112,10 +113,11 @@ std::istream &operator>>(istream &is, Jucator &jucator) {
             std::cout << err.what() << '\n';
             rlutil::anykey();
             std::cout<<"\nIntrodu prenumele jucatorului: ";
+            is >> prenume_aux;
         }
-    }while(!Jucator::containsOnlyLetters(jucator.prenume));
+    }while(!Jucator::containsOnlyLetters(prenume_aux));
     std::cout<<"\nIntrodu nationalitatea jucatorului: ";
-    string nationalitate_aux;
+    std::string nationalitate_aux;
     do {
         try {
             is >> nationalitate_aux;
@@ -133,8 +135,9 @@ std::istream &operator>>(istream &is, Jucator &jucator) {
             std::cout << err.what() << '\n';
             rlutil::anykey();
             std::cout<<"\nIntrodu nationalitatea jucatorului: ";
+            is >> nationalitate_aux;
         }
-    }while(!Jucator::containsOnlyLetters(jucator.nationalitate));
+    }while(!Jucator::containsOnlyLetters(nationalitate_aux));
     jucator.varsta = 16;
     jucator.def_stats=30;
     jucator.drb_stats=30;
@@ -147,7 +150,7 @@ const std::optional<Echipa> &Jucator::getEchipa() const {
     return echipa;
 }
 
-void Jucator::setEchipa(const optional<Echipa> &echipa1) {
+void Jucator::setEchipa(const std::optional<Echipa> &echipa1) {
     echipa = echipa1;
 }
 
@@ -222,21 +225,21 @@ void Jucator::cumpara(Item& item, Inventar& inv){
 
     try {
             if (this->avere > item.getPret()) {
-                cout << "\nAi achizitionat urmatorul produs: ";
-                cout << item << "\n";
-                cout << "\n-------------------------------------";
-                cout << "\n1.Adauga-l la colectie";
-                cout << "\n2.Consuma-l acum\n";
+                std::cout << "\nAi achizitionat urmatorul produs: ";
+                std::cout << item << "\n";
+                std::cout << "\n-------------------------------------";
+                std::cout << "\n1.Adauga-l la colectie";
+                std::cout << "\n2.Consuma-l acum\n";
                 this->avere -= item.getPret();
-                cout << "\nAlegere: ";
+                std::cout << "\nAlegere: ";
                 int tasta = 0;
-                cin >> tasta;
+                std::cin >> tasta;
                 if (tasta == 1) {
-                    cout << "\nProdusul a fost adaugat la colectie!\n";
+                    std::cout << "\nProdusul a fost adaugat la colectie!\n";
                     inv.addItem(item.clone());
-                    cout << "\n"<<inv;
+                    std::cout << "\n"<<inv;
                 } else if (tasta == 2) {
-                    cout<<"\nAi consumat produsul!\n";
+                    std::cout<<"\nAi consumat produsul!\n";
                     this->consuma(item);
                 } else {
                     throw (invalidInput{"Input invalid!!!"});

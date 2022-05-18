@@ -4,13 +4,13 @@
 
 #include "Echipe_disponibile.h"
 
-Echipe_disponibile::Echipe_disponibile(const vector<bool> &echDisp) : EchDisp(echDisp) {}
+Echipe_disponibile::Echipe_disponibile(const std::vector<bool> &echDisp) : EchDisp(echDisp) {}
 
 void Echipe_disponibile::este_valabila(bool ok) {
     this->EchDisp.push_back(ok);
 }
 
-const vector<bool> &Echipe_disponibile::getEchDisp() const {
+const std::vector<bool> &Echipe_disponibile::getEchDisp() const {
     return EchDisp;
 }
 

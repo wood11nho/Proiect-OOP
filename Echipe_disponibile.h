@@ -7,19 +7,17 @@
 #include <vector>
 #include <ostream>
 
-using namespace std;
-
 class Echipe_disponibile {
 
-    vector<bool> EchDisp;
+    std::vector<bool> EchDisp;
 public:
-    explicit Echipe_disponibile(const vector<bool> &echDisp);
+    explicit Echipe_disponibile(const std::vector<bool> &echDisp);
     virtual ~Echipe_disponibile() {
 
     }
     void este_valabila(bool ok);
 
-    [[nodiscard]] const vector<bool> &getEchDisp() const;
+    [[nodiscard]] const std::vector<bool> &getEchDisp() const;
 
     void setEchDisp();
 

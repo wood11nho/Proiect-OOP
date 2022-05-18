@@ -15,86 +15,27 @@
 #include "Adidas.h"
 #include "Energizant.h"
 #include "Inventar.h"
-
+#include "Campionat.h"
 #include <memory>
-using namespace std;
 
-
-
-class Campionat{
-    std::vector<Meci> VectorMeciuri;
+class Clasament{
+    std::pair<Echipa,int> punctaj;
 public:
-    explicit Campionat(const vector <Meci> &vectorMeciuri) : VectorMeciuri(vectorMeciuri) {}
+    Clasament(const std::pair<Echipa, int> &punctaj) : punctaj(punctaj) {}
 
-     ~Campionat() = default;
-    friend ostream &operator<<(ostream &os, const Campionat &meciuri) {
-        os << "VectorMeciuri: ";
-        int i = 0;
-        for (const auto& meci1 : meciuri.VectorMeciuri) {
-            i = i + 1;
-            os << "Meciul" << i << meci1<<"\n";
-        }
-        return os;
+    const std::pair<Echipa, int> &getPunctaj() const {
+        return punctaj;
     }
 
-    void adaugare_meci(const Meci& m1){
-        this->VectorMeciuri.push_back(m1);
+    void setPunctaj(const std::pair<Echipa, int> &punctaj_) {
+        Clasament::punctaj = punctaj_;
     }
-    Meci& last_one(){
-        return VectorMeciuri.back();
-    }
-    void joaca_campionat(vEchipe& ve){
-        for(int i = 0 ;i< ve.getNrechipe();i++){
-            int mid = ve.getNrechipe() / 2;
-            vEchipe v1({}), v2({});
-            for(int j = 1; j<=mid;j++)
-                v1.adaugare_echipa((Echipa &)ve.getVectorEchipe().at(j));
-            for(int j = ve.getNrechipe();j>mid;j--)
-                v2.adaugare_echipa((Echipa &) ve.getVectorEchipe().at(j));
-            cout<<v1<<"\n"<<v2;
-            if(i%2==1){
-                cout<<"\nETAPA "<<i + 1<<"\n";
-                for(int j = 0;j<mid;j++){
-                    this->adaugare_meci(Meci((Echipa &) v1.getVectorEchipe().at(j), (Echipa &) v2.getVectorEchipe().at(j), {0,0}));
-                    cout<<"\n---"<<VectorMeciuri.back().getTeam1().getNume()<<" "<<VectorMeciuri.back().getScor().first<<" - "<<VectorMeciuri.back().getScor().second<<" "<<VectorMeciuri.back().getTeam2().getNume()<<"\n\n\n";
-                }
-            }
-            else{
-                cout<<"\nETAPA "<<i + 1<<"\n";
-                for(int j = 0;j<mid;j++){
-                    this->adaugare_meci(Meci((Echipa &) v2.getVectorEchipe().at(j), (Echipa &) v1.getVectorEchipe().at(j), {0,0}));
-                    cout<<"\n---"<<VectorMeciuri.back().getTeam1().getNume()<<" "<<VectorMeciuri.back().getScor().first<<" - "<<VectorMeciuri.back().getScor().second<<" "<<VectorMeciuri.back().getTeam2().getNume()<<"\n\n\n";
-                }
-            }
-            char tasta;
-            do {
-                cout << "\n1. Joaca etapa\n";
-                cin >> tasta;
-                if (tasta == '1') {
-                    for (int k = 1; k <= mid; k++) {
-                        VectorMeciuri.back().playmatch();
-                        cout<<"\n-------------------------------------------";
-                        VectorMeciuri.back().statistici();
-                        cout<<"\n";
-                        VectorMeciuri.pop_back();
-                    }
-                    cout<<"\nAcestea sunt rezultatele din prima etapa.\n";
-                    rlutil::anykey();
-                } else {
-                    cout << "Ai introdus o tasta gresita. Incearca din nou!";
-                    rlutil::anykey();
-                }
-            }while(tasta!='1');
-            Echipa aux(ve.getVectorEchipe().back());
-            ve.pop_echipa();
-            ve.insert_echipa(1, aux);
-        }
-    }
-
 };
 
 int Adidas::nradidasi=0;
 int Energizant::nrenerg=0;
+
+
 
 int main() {
 
@@ -123,7 +64,7 @@ int main() {
     Energizant nrg3(70, "NRG Silver", 100, 3);
     Energizant nrg4(125, "NRG Gold", 100, 4);
 
-    cout<<Energizant::getNrenerg()<<"  energizante \n"<<Adidas::getNradidasi()<<"  adidasi\n";
+    std::cout<<Energizant::getNrenerg()<<"  energizante \n"<<Adidas::getNradidasi()<<"  adidasi\n";
 
     Inventar inventar_player(std::vector<std::shared_ptr<Item>> {});
 
@@ -142,8 +83,8 @@ int main() {
     multime_consumabile.addItem(a8.clone());
 
 //    cout<<multime_consumabile;
-    vEchipe vector_echipe(vector<Echipa> {});
-    Campionat vector_meciuri(vector<Meci> {});
+    vEchipe vector_echipe(std::vector<Echipa> {});
+    Campionat vector_meciuri(std::vector<Meci> {});
     vector_echipe.adaugare_echipa(empty_team);
     vector_echipe.adaugare_echipa(e1);
     vector_echipe.adaugare_echipa(e2);
@@ -153,22 +94,41 @@ int main() {
     vector_echipe.adaugare_echipa(e6);
 //    cout<<vector_echipe<<"\n";
 
+    Item* b = new Energizant(555,"Red Bull", 99, 10);
+    try
+    {
+        [[maybe_unused]]auto& der1 = dynamic_cast<Energizant&>(*b);
+    }
+    catch (std::bad_cast& err)
+    {
+        std::cout << err.what() << '\n';
+    }
+
+    auto* der2 = dynamic_cast<Adidas*>(b);
+    if(der2 != nullptr)
+    {
+        der2->folosit_de(j1);
+    }
+    else
+    {
+        std::cout << "Nu a reusit conversia cu pointer\n";
+    }
+    delete b;
+
     j1.cumpara(nrg1, inventar_player);
     j1.consuma(nrg1);
-    cout<<j1;
+    std::cout<<j1;
 
     Imprumut impr{(Echipa &) j1.getEchipa(), e2, j1, 1};
     impr.Imprumutare(1);
 
-
-
-    cout<<"Salut! Suntem echipa Fantasy Player si iti uram bun venit in lumea noastra virtuala!"<<'\n';
-    cout<<"Pentru inceput, haide sa iti creezi propriul jucator, apasand tasta 1! Daca vrei sa continuam alta data, apasa tasta 0!"<<'\n';
+    std::cout<<"Salut! Suntem echipa Fantasy Player si iti uram bun venit in lumea noastra virtuala!"<<'\n';
+    std::cout<<"Pentru inceput, haide sa iti creezi propriul jucator, apasand tasta 1! Daca vrei sa continuam alta data, apasa tasta 0!"<<'\n';
     Jucator your_player;
     int tasta = 0;
     do
     {
-        cin>>tasta;
+        std::cin>>tasta;
         try {
             if(tasta == 1)
                 your_player.creeaza_jucator();
@@ -182,19 +142,19 @@ int main() {
             std::cout<<err.what() << '\n';
             rlutil::anykey();
             rlutil::cls();
-            cout<<"Salut! Suntem echipa Fantasy Player si iti uram bun venit in lumea noastra virtuala!"<<'\n';
-            cout<<"Pentru inceput, haide sa iti creezi propriul jucator, apasand tasta 1! Daca vrei sa continuam alta data, apasa tasta 0!"<<'\n';
+            std::cout<<"Salut! Suntem echipa Fantasy Player si iti uram bun venit in lumea noastra virtuala!"<<'\n';
+            std::cout<<"Pentru inceput, haide sa iti creezi propriul jucator, apasand tasta 1! Daca vrei sa continuam alta data, apasa tasta 0!"<<'\n';
         }
     }while(tasta!=1);
     do {
-        cout << "Totul este pregatit! Hai sa incepem\n";
-        cout << "--------------------------------------------------\n";
-        cout << "1.  Alege echipa\n";
-        cout << "0.  Inchide jocul\n";
-        cin >> tasta;
+        std::cout << "Totul este pregatit! Hai sa incepem\n";
+        std::cout << "--------------------------------------------------\n";
+        std::cout << "1.  Alege echipa\n";
+        std::cout << "0.  Inchide jocul\n";
+        std::cin >> tasta;
         try {
             if (tasta == 1) {
-                vector<bool> v2;
+                std::vector<bool> v2;
                 int echipe_disp = 0;
                 Echipe_disponibile vechipedisp(v2);
                 srand((unsigned int) time(nullptr));
@@ -208,10 +168,10 @@ int main() {
                 if(echipe_disp == 0)
                     vechipedisp.setEchDisp();
 //              cout<<vechipedisp;
-                cout << "Urmatoarele echipe sunt disponibile: \n";
+                std::cout << "Urmatoarele echipe sunt disponibile: \n";
                 for (int i = 1; i <= 6; i++) {
                     if (vechipedisp.getEchDisp().at(i - 1)) {
-                        cout << vector_echipe.getVectorEchipe()[i].getId() << ". "
+                        std::cout << vector_echipe.getVectorEchipe()[i].getId() << ". "
                              << vector_echipe.getVectorEchipe()[i].getNume() << "\n";
                     }
                 }
@@ -234,13 +194,13 @@ int main() {
     do
     {
         rlutil::cls();
-        cout<<"Alege o optiune dintre cele de mai jos.\n";
-        cout<<"1. Joaca meci amical\n";
-        cout<<"2. Antrenament\n";
-        cout<<"3. Magazin\n";
-        cout<<"4. Joaca in campionat.\n";
-        cout<<"5. Iesi din joc\n";
-        cin>>tasta;
+        std::cout<<"Alege o optiune dintre cele de mai jos.\n";
+        std::cout<<"1. Joaca meci amical\n";
+        std::cout<<"2. Antrenament\n";
+        std::cout<<"3. Magazin\n";
+        std::cout<<"4. Joaca in campionat.\n";
+        std::cout<<"5. Iesi din joc\n";
+        std::cin>>tasta;
         try {
 
             if (tasta == 1) {
@@ -248,30 +208,34 @@ int main() {
                 int ok = 1;
                 while (tasta != 2) {
                     rlutil::cls();
-                    cout << "Meci amical\n";
+                    std::cout << "Meci amical\n";
                     ok++;
                     int i = rand() % 6 + 1;
                     while (i == your_player.getEchipa()->getId())
                         i = rand() % 6 + 1;
-                    cout << "Urmeaza meciul impotriva celor de la " << vector_echipe.getVectorEchipe()[i].getNume()
+                    std::cout << "Urmeaza meciul impotriva celor de la " << vector_echipe.getVectorEchipe()[i].getNume()
                          << "\n";
-                    cout << "1. Incepe meciul\n";
-                    cout << "2. Inventar\n";
-                    cin >> tasta;
+                    std::cout << "1. Incepe meciul\n";
+                    do{
+                        std::cout<<"\nAlegere: ";
+                    std::cin >> tasta;
+                        std::cout<<"\n";
                     if (tasta == 1) {
                         vector_meciuri.adaugare_meci(Meci((Echipa &) your_player.getEchipa(), (Echipa &) vector_echipe.getVectorEchipe()[i],
                                      {0, 0}));
                         vector_meciuri.last_one().playmatch();
-                        cout << "\n";
-                        cout << "Statistici: \n";
-                        cout << "              "<<your_player.getEchipa()->getNume() << "   -   "<<vector_echipe.getVectorEchipe()[i].getNume()<<"\n";
+                        std::cout << "\n";
+                        std::cout << "Statistici: \n";
+                        std::cout << "              "<<your_player.getEchipa()->getNume() << "   -   "<<vector_echipe.getVectorEchipe()[i].getNume()<<"\n";
                         vector_meciuri.last_one().statistici();
-                        cout << "1. Continua\n";
-                        cout << "2. Meniu principal\n";
-                        cin >> tasta;
+                        std::cout << "1. Continua\n";
+                        std::cout << "2. Meniu principal\n";
+                        std::cin >> tasta;
                     } else {
-
+                        std::cout<<"\nAi apasat o tasta gresita! Incearca din nou\n";
                     }
+                    }while(tasta!=1);
+
                 }
 
             }
@@ -281,38 +245,38 @@ int main() {
                     //Antrenament
                     rlutil::cls();
                     your_player.antrenament();
-                    cout << "\n";
-                    cout << "1. Antrenament nou";
-                    cout << "2. Meniu Principal";
-                    cin >> tasta;
+                    std::cout << "\n";
+                    std::cout << "1. Antrenament nou";
+                    std::cout << "2. Meniu Principal";
+                    std::cin >> tasta;
                 }while(tasta!=2);
             }
             else if(tasta == 3)
             {
                 do {
                     rlutil::cls();
-                    cout << "MAGAZIN";
-                    cout << "\n-------------------------------------";
-                    cout<<multime_consumabile;
-                    cout<<"\nPentru a cumpara item-ul dorit, scrieti numarul corespunzator acestuia: ";
-                    cout<<"\nITEM DORIT: ";
-                    cin >> tasta;
+                    std::cout << "MAGAZIN";
+                    std::cout << "\n-------------------------------------";
+                    std::cout<<multime_consumabile;
+                    std::cout<<"\nPentru a cumpara item-ul dorit, scrieti numarul corespunzator acestuia: ";
+                    std::cout<<"\nITEM DORIT: ";
+                    std::cin >> tasta;
                     do {
                         if (tasta >= 1 and tasta <= (int) multime_consumabile.getColectie().size() ) {
                             your_player.cumpara(*multime_consumabile.getColectie().at(tasta - 1), inventar_player);
                             tasta = 0;
                             //aici ori il adaug la colectie, ori il consum
                         } else {
-                            cout << "\nTasta incorecta! Alege din nou!\n";
-                            cin >> tasta;
+                            std::cout << "\nTasta incorecta! Alege din nou!\n";
+                            std::cin >> tasta;
                         }
                     }
                     while(tasta!=0);
-                    cout<<"-------------------------------------";
-                    cout<<"\n0. Inapoi la meniul principal.";
-                    cout<<"\n1. Incearca din nou\n Alegere: ";
-                    cin>>tasta;
-                    cout<<"\n";
+                    std::cout<<"-------------------------------------";
+                    std::cout<<"\n0. Inapoi la meniul principal.";
+                    std::cout<<"\n1. Incearca din nou\n Alegere: ";
+                    std::cin>>tasta;
+                    std::cout<<"\n";
 
                 }while(tasta!=0);
 
@@ -321,10 +285,10 @@ int main() {
             {
                 do {
                     rlutil::cls();
-                    cout << "Campionat\n---------------------------------------";
+                    std::cout << "Campionat\n---------------------------------------";
                     vector_meciuri.joaca_campionat(vector_echipe);
-                    cout << "\n0. Meniu principal\n";
-                    cin>>tasta;
+                    std::cout << "\n0. Meniu principal\n";
+                    std::cin>>tasta;
                 }
                 while(tasta!=0);
             }
