@@ -20,6 +20,10 @@ void Clasament::setPunctaj(const Echipa& e1, int nr_puncte) {
     }
 }
 
-void Clasament::setCampioana(const Echipa &campioana) {
-    Clasament::campioana = campioana;
+void Clasament::setCampioana(const Echipa &campioana_) {
+    Clasament::campioana = campioana_;
+}
+
+void Clasament::creare_clasament(const vEchipe &v1) {
+    std::for_each(v1.getVectorEchipe().begin(), v1.getVectorEchipe().end(), [&](const Echipa& o) { punctaj.emplace_back(o,0); });
 }

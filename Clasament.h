@@ -31,18 +31,13 @@ public:
         return os;
     }
 
-    void creare_clasament(const vEchipe &v1){
-        for(auto &i : v1.getVectorEchipe())
-        {
-            punctaj.emplace_back(i,0);
-        }
-    }
+    void creare_clasament(const vEchipe &v1);
 
     void afisare_campioana(){
         std::cout<<"\nFELICITARI ECHIPEI "<<campioana.getNume()<<" PENTRU CASTIGAREA CAMPIONATULUI!!!\n";
     }
 
-    void setCampioana(const Echipa &campioana);
+    void setCampioana(const Echipa &campioana_);
 
     void sortare()
     {
