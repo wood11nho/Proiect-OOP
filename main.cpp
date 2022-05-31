@@ -36,11 +36,11 @@ public:
         return camp;
     }
 
-    void setCamp(const T &camp_) {
+    [[maybe_unused]] void setCamp(const T &camp_) {
         Informatii::camp = camp_;
     }
 
-    T afisInformatie(){
+    [[maybe_unused]] T afisInformatie(){
         return camp;
     }
 
@@ -194,6 +194,7 @@ int main() {
         }
     }while(tasta!=1);
     Informatii<Jucator> j(your_player);
+
     do {
         std::cout << "Totul este pregatit! Hai sa incepem\n";
         std::cout << "--------------------------------------------------\n";
