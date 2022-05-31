@@ -23,7 +23,7 @@ void Meci::playmatch(){
     int rating1 = team1.getRating();
     int rating2;
     rating2 = team2.getRating();
-    std::vector<int> sanse{35, 30, 35};
+    std::vector<int> sanse{36, 30, 34};
     int dif = rating1 - rating2;
     if(dif > 0){
         while(dif!=0)
@@ -46,10 +46,17 @@ void Meci::playmatch(){
     }
     int ocazii1 = abs(sanse[0] - sanse[1]);
     int ocazii2 = abs(sanse[2] - sanse[1]);
-    for(int i = 1; i * i<=ocazii1;i++)
-        scor.first += (rand() % 2);
+    for(int i = 1; i * i<=ocazii1;i++) {
+        auto nr_random = Random::get(0,100);
+        if(nr_random <= sanse[0])
+            scor.first += 1;
+    }
     for(int i = 1; i* i<=ocazii2;i++)
-        scor.second += (rand() % 2);
+    {
+        auto nr_random = Random::get(0,100);
+        if(nr_random <= sanse[2])
+            scor.second += 1;
+    }
     std::cout<<"\nMeciul s-a terminat!\n";
     std::cout<<"REZULTAT FINAL: \n";
     std::cout<<team1.getNume()<<" "<<scor.first<<" - "<<team2.getNume()<<" "<<scor.second;
@@ -75,8 +82,8 @@ void Meci::statistici() const {
     int aux = distr(gen);
     std::cout << "\nPOSESIE             "<< aux << "       -       " << 100 - aux<<"\n";
     std::cout << " ------------------------------------------- \n";
-    int aux1 = rand() % 3;
-    int aux2 = rand() % 3;
+    auto aux1 = Random::get(0,3);
+    auto aux2 = Random::get(0,3);
     std::cout << "SUTURI              "<< this->getScor().first + aux1 + rand()%7<< "       -       "<< this->getScor().second + aux2 +rand()%7<<"\n";
     std::cout << "SUTURI PE POARTA    "<< this->getScor().first + aux1 << "       -       "<< this->getScor().second + aux2<<"\n";
 

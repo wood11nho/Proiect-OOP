@@ -11,6 +11,7 @@ Adidas::Adidas(int pret, const std::string &nume, int attUpgrade, int defUpgrade
         throw(invalidStat("Un item nu poate avea un upgrade negativ!"));
 }
 
+
 Adidas::~Adidas() {
 
 }

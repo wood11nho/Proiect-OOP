@@ -15,8 +15,8 @@ const std::vector<bool> &Echipe_disponibile::getEchDisp() const {
 }
 
 void Echipe_disponibile::setEchDisp() {
-    int i = rand() % 6 + 1;
-    this->EchDisp.at(i) = true;
+    auto val = Random::get(1, 16);
+    this->EchDisp.at(val) = true;
 }
 
 std::ostream &operator<<(std::ostream &os, const Echipe_disponibile &disponibile) {

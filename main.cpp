@@ -16,41 +16,51 @@
 #include "Energizant.h"
 #include "Inventar.h"
 #include "Campionat.h"
+#include "Clasament.h"
 #include <memory>
+#include <fstream>
 
-class Clasament{
-    std::pair<Echipa,int> punctaj;
-public:
-    Clasament(const std::pair<Echipa, int> &punctaj) : punctaj(punctaj) {}
 
-    const std::pair<Echipa, int> &getPunctaj() const {
-        return punctaj;
-    }
-
-    void setPunctaj(const std::pair<Echipa, int> &punctaj_) {
-        Clasament::punctaj = punctaj_;
-    }
-};
 
 int Adidas::nradidasi=0;
 int Energizant::nrenerg=0;
-
-
+int Echipa::id1 = 0;
 
 int main() {
 
-
-    Echipa empty_team(0, 0, 0, "");
+    std::ifstream f1("C:\\Users\\Elias Stoica\\Documents\\GitHub\\Proiect-OOP\\echipe.in");
+    Echipa empty_team(0, 0, "");
 //    Jucator empty_jucator1;
 //    cout<<empty_jucator1;
     Jucator empty_jucator(0,"","","",16,30,30,30,empty_team,1, 1, 1, 99);
-    Echipa e1(1, 50, 64,"Dinamo Bucuresti");
-    Echipa e2(2, 150, 69, "Steaua Bucuresti");
-    Echipa e3(3, 75, 64, "Rapid Bucuresti");
-    Echipa e4(4, 125, 69, "CFR Cluj");
-    Echipa e5(5, 100, 65, "Farul Constanta");
-    Echipa e6(6, 125, 68, "Universitatea Craiova");
-    Jucator j1(1,"Stoica","Elias","Romania",19,70,45,50,e1,15, 10, 25, 99);
+
+    vEchipe vector_echipe(std::vector<Echipa> {});
+    Campionat vector_meciuri(std::vector<Meci> {});
+    vector_echipe.adaugare_echipa(empty_team);
+    int n = 0;
+    int ovr = 0, buget = 0;
+    std::string nume;
+    f1>>n;
+//    std::cout<<"CEVA";
+//    std::cout<<n<<"\n";
+    for(int i = 1; i <= n; i++)
+    {
+        f1>>ovr;
+        f1>>buget;
+        f1>>nume;
+        for(int j = 0; j < (int) nume.length(); j++){
+            if(nume[j] == '_')
+            {
+                nume[j] = ' ';
+            }
+        }
+        std::cout<<ovr<<" "<<buget<<" "<<nume<<"\n";
+        vector_echipe.adaugare_echipa({buget,ovr,nume});
+    }
+
+    std::cout<<vector_echipe;
+
+    Jucator j1(1,"Stoica","Elias","Romania",19,70,45,50,empty_team,15, 10, 25, 99);
     Adidas a1(15, "Adidas Nemezis", 3, 1, 1);
     Adidas a2(15, "Nike Tiempo", 1, 3, 1);
     Adidas a3(15, "Puma One", 1, 1, 3);
@@ -83,15 +93,8 @@ int main() {
     multime_consumabile.addItem(a8.clone());
 
 //    cout<<multime_consumabile;
-    vEchipe vector_echipe(std::vector<Echipa> {});
-    Campionat vector_meciuri(std::vector<Meci> {});
-    vector_echipe.adaugare_echipa(empty_team);
-    vector_echipe.adaugare_echipa(e1);
-    vector_echipe.adaugare_echipa(e2);
-    vector_echipe.adaugare_echipa(e3);
-    vector_echipe.adaugare_echipa(e4);
-    vector_echipe.adaugare_echipa(e5);
-    vector_echipe.adaugare_echipa(e6);
+
+
 //    cout<<vector_echipe<<"\n";
 
     Item* b = new Energizant(555,"Red Bull", 99, 10);
@@ -118,6 +121,8 @@ int main() {
     j1.cumpara(nrg1, inventar_player);
     j1.consuma(nrg1);
     std::cout<<j1;
+
+    Echipa e2(5000, 90, "Real Madrid");
 
     Imprumut impr{(Echipa &) j1.getEchipa(), e2, j1, 1};
     impr.Imprumutare(1);
@@ -158,7 +163,7 @@ int main() {
                 int echipe_disp = 0;
                 Echipe_disponibile vechipedisp(v2);
                 srand((unsigned int) time(nullptr));
-                for (int i = 1; i <= (int)vector_echipe.getVectorEchipe().size(); i++) {
+                for (int i = 1; i < (int)vector_echipe.getVectorEchipe().size(); i++) {
                     if (rand() % 2 == 1) {
                         vechipedisp.este_valabila(true);
                         echipe_disp++;
@@ -169,7 +174,7 @@ int main() {
                     vechipedisp.setEchDisp();
 //              cout<<vechipedisp;
                 std::cout << "Urmatoarele echipe sunt disponibile: \n";
-                for (int i = 1; i <= 6; i++) {
+                for (int i = 1; i < (int)vector_echipe.getVectorEchipe().size(); i++) {
                     if (vechipedisp.getEchDisp().at(i - 1)) {
                         std::cout << vector_echipe.getVectorEchipe()[i].getId() << ". "
                              << vector_echipe.getVectorEchipe()[i].getNume() << "\n";
@@ -286,7 +291,12 @@ int main() {
                 do {
                     rlutil::cls();
                     std::cout << "Campionat\n---------------------------------------";
+                    Clasament::get_clasament().creare_clasament(vector_echipe);
                     vector_meciuri.joaca_campionat(vector_echipe);
+                    rlutil::cls();
+                    std::cout<<Clasament::get_clasament();
+                    std::cout<<"\n-----------------------------------\n";
+                    Clasament::get_clasament().afisare_campioana();
                     std::cout << "\n0. Meniu principal\n";
                     std::cin>>tasta;
                 }

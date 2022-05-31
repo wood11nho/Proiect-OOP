@@ -4,7 +4,7 @@
 
 #include "vEchipe.h"
 
-void vEchipe::adaugare_echipa(Echipa& e1) {
+void vEchipe::adaugare_echipa(Echipa e1) {
     this->VectorEchipe.push_back(e1);
 }
 
@@ -13,7 +13,6 @@ const std::vector<Echipa> &vEchipe::getVectorEchipe() const {
 }
 
 std::ostream &operator<<(std::ostream &os, const vEchipe &echipe) {
-    os<< "In campionat sunt: " << echipe.getNrechipe() << " echipe\n";
     os << "Vector Echipe: \n";
     int i = 0;
     for (const auto& echipa1 : echipe.VectorEchipe) {

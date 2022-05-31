@@ -7,6 +7,9 @@
 #include <vector>
 #include <ostream>
 
+#include "ext/random.hpp"
+
+using Random = effolkronium::random_static;
 class Echipe_disponibile {
 
     std::vector<bool> EchDisp;

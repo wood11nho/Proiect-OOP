@@ -12,12 +12,13 @@
 
 class Echipa {
 private:
+    static int id1;
     int id;
     int buget;
     int rating;
     std::string nume;
 public:
-    Echipa(int id, int buget, int rating, const std::string &nume);
+    Echipa(int buget, int rating, const std::string &nume);
     Echipa();
 
     virtual ~Echipa();

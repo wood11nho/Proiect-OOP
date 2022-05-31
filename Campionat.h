@@ -8,6 +8,7 @@
 
 #include "Meci.h"
 #include "vEchipe.h"
+#include "Clasament.h"
 
 class Campionat {
     std::vector<Meci> VectorMeciuri;

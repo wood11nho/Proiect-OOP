@@ -4,14 +4,14 @@
 
 #include "Echipa.h"
 
-Echipa::Echipa(int id, int buget, int rating, const std::string &nume) :
-        id(id), buget(buget), rating(rating), nume(nume){
+Echipa::Echipa(int buget, int rating, const std::string &nume) :
+        id(id1++), buget(buget), rating(rating), nume(nume){
 
 }
 
 Echipa::Echipa() :
-        id(0), buget(0), rating(0), nume(""){
-
+        id(id1), buget(0), rating(0), nume(""){
+    id1++;
 }
 
 Echipa::~Echipa() {

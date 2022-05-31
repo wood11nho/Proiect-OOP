@@ -10,11 +10,17 @@
 #include "Echipa.h"
 #include "rlutil.h"
 
+#include "ext/random.hpp"
+
+using Random = effolkronium::random_static;
+
 class Meci {
     Echipa& team1;
     Echipa& team2;
     std::pair<int, int> scor{0, 0};
 public:
+
+
     Meci(Echipa &team1, Echipa &team2, const std::pair<int, int> &scor);
 
     ~Meci() {
