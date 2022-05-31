@@ -30,13 +30,13 @@ private:
 
 public:
 
-    explicit Informatii(const T camp) : camp(camp) {}
+    explicit Informatii(const T &camp) : camp(camp) {}
 
     T getCamp() const {
         return camp;
     }
 
-    void setCamp(const T camp_) {
+    void setCamp(const T &camp_) {
         Informatii::camp = camp_;
     }
 
