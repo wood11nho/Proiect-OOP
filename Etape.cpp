@@ -2,11 +2,11 @@
 // Created by Elias Stoica on 18-May-22.
 //
 
-#include "Campionat.h"
+#include "Etape.h"
 
-Campionat::Campionat(const std::vector<Meci> &vectorMeciuri) : VectorMeciuri(vectorMeciuri) {}
+Etape::Etape(const std::vector<Meci> &vectorMeciuri) : VectorMeciuri(vectorMeciuri) {}
 
-std::ostream &operator<<(std::ostream &os, const Campionat &meciuri) {
+std::ostream &operator<<(std::ostream &os, const Etape &meciuri) {
     os << "VectorMeciuri: ";
     int i = 0;
     for (const auto& meci1 : meciuri.VectorMeciuri) {
@@ -16,15 +16,15 @@ std::ostream &operator<<(std::ostream &os, const Campionat &meciuri) {
     return os;
 }
 
-void Campionat::adaugare_meci(const Meci &m1) {
+void Etape::adaugare_meci(const Meci &m1) {
     this->VectorMeciuri.push_back(m1);
 }
 
-Meci &Campionat::last_one() {
+Meci &Etape::last_one() {
     return VectorMeciuri.back();
 }
 
-void Campionat::joaca_campionat(vEchipe &ve) {
+void Etape::joaca_campionat(vEchipe &ve) {
     for(int i = 0 ;i < ve.getNrechipe() * 2 - 2;i++){
         int mid = ve.getNrechipe() / 2;
         vEchipe v1({}), v2({});

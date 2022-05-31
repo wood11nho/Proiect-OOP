@@ -146,7 +146,7 @@ std::istream &operator>>(std::istream &is, Jucator &jucator) {
     return is;
 }
 
-const std::optional<Echipa> &Jucator::getEchipa() const {
+const std::optional<Echipa> &Jucator::getEchipa(){
     return echipa;
 }
 
@@ -240,6 +240,7 @@ void Jucator::cumpara(Item& item, Inventar& inv){
                     std::cout << "\n"<<inv;
                 } else if (tasta == 2) {
                     std::cout<<"\nAi consumat produsul!\n";
+
                     this->consuma(item);
                 } else {
                     throw (invalidInput{"Input invalid!!!"});

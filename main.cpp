@@ -15,12 +15,36 @@
 #include "Adidas.h"
 #include "Energizant.h"
 #include "Inventar.h"
-#include "Campionat.h"
+#include "Etape.h"
 #include "Clasament.h"
+#include "Energizant_factory.h"
 #include <memory>
 #include <fstream>
 
+template <class T>
 
+class Informatii {
+private:
+    // Variable of type T
+    T camp;
+
+public:
+
+    explicit Informatii(T camp) : camp(camp) {}
+
+    T getCamp() const {
+        return camp;
+    }
+
+    void setCamp(T camp_) {
+        Informatii::camp = camp_;
+    }
+
+    T afisInformatie(){
+        return camp;
+    }
+
+};
 
 int Adidas::nradidasi=0;
 int Energizant::nrenerg=0;
@@ -28,14 +52,14 @@ int Echipa::id1 = 0;
 
 int main() {
 
-    std::ifstream f1("C:\\Users\\Elias Stoica\\Documents\\GitHub\\Proiect-OOP\\echipe.in");
+    std::ifstream f1(R"(C:\Users\Elias Stoica\Documents\GitHub\Proiect-OOP\echipe.in)");
     Echipa empty_team(0, 0, "");
 //    Jucator empty_jucator1;
 //    cout<<empty_jucator1;
     Jucator empty_jucator(0,"","","",16,30,30,30,empty_team,1, 1, 1, 99);
 
     vEchipe vector_echipe(std::vector<Echipa> {});
-    Campionat vector_meciuri(std::vector<Meci> {});
+    Etape vector_meciuri(std::vector<Meci> {});
     vector_echipe.adaugare_echipa(empty_team);
     int n = 0;
     int ovr = 0, buget = 0;
@@ -98,6 +122,22 @@ int main() {
 //    cout<<vector_echipe<<"\n";
 
     Item* b = new Energizant(555,"Red Bull", 99, 10);
+    Energizant energ1 = Energizant_factory::energ_full();
+    Energizant energ2 = Energizant_factory::energ_skill();
+    Energizant energ3 = Energizant_factory::energ_fitness();
+
+    try
+    {
+        [[maybe_unused]]auto& baza1 = static_cast<Energizant&>(energ1);
+        [[maybe_unused]]auto& baza2 = static_cast<Energizant&>(energ2);
+        [[maybe_unused]]auto& baza3 = static_cast<Energizant&>(energ3);
+    }
+    catch (std::bad_cast& err)
+    {
+        std::cout << err.what() << '\n';
+        rlutil::anykey();
+    }
+
     try
     {
         [[maybe_unused]]auto& der1 = dynamic_cast<Energizant&>(*b);
@@ -127,6 +167,8 @@ int main() {
     Imprumut impr{(Echipa &) j1.getEchipa(), e2, j1, 1};
     impr.Imprumutare(1);
 
+
+
     std::cout<<"Salut! Suntem echipa Fantasy Player si iti uram bun venit in lumea noastra virtuala!"<<'\n';
     std::cout<<"Pentru inceput, haide sa iti creezi propriul jucator, apasand tasta 1! Daca vrei sa continuam alta data, apasa tasta 0!"<<'\n';
     Jucator your_player;
@@ -151,6 +193,7 @@ int main() {
             std::cout<<"Pentru inceput, haide sa iti creezi propriul jucator, apasand tasta 1! Daca vrei sa continuam alta data, apasa tasta 0!"<<'\n';
         }
     }while(tasta!=1);
+    Informatii<Jucator> j(your_player);
     do {
         std::cout << "Totul este pregatit! Hai sa incepem\n";
         std::cout << "--------------------------------------------------\n";
@@ -181,6 +224,7 @@ int main() {
                     }
                 }
                 your_player.alege_echipa(vector_echipe, vechipedisp);
+
             }
             else if(tasta == 0)
                 return 0;
@@ -195,10 +239,12 @@ int main() {
 
 
     }while(tasta!=1);
+    Informatii<Echipa> ech((Echipa&) your_player.getEchipa());
     int acasa = 1;
     do
     {
         rlutil::cls();
+        std::cout<<"Felicitari! Ai semnat un contract cu echipa "<<ech.getCamp().getNume()<<"\n";
         std::cout<<"Alege o optiune dintre cele de mai jos.\n";
         std::cout<<"1. Joaca meci amical\n";
         std::cout<<"2. Antrenament\n";
@@ -290,7 +336,7 @@ int main() {
             {
                 do {
                     rlutil::cls();
-                    std::cout << "Campionat\n---------------------------------------";
+                    std::cout << "Etape\n---------------------------------------";
                     Clasament::get_clasament().creare_clasament(vector_echipe);
                     vector_meciuri.joaca_campionat(vector_echipe);
                     rlutil::cls();

@@ -55,7 +55,7 @@ public:
     friend std::ostream &operator<<(std::ostream &os, const Jucator &jucator);
     friend std::istream &operator>>(std::istream &is, Jucator &jucator);
 
-    const std::optional<Echipa> &getEchipa() const;
+    [[nodiscard]] const std::optional<Echipa> &getEchipa();
 
     void setEchipa(const std::optional<Echipa> &echipa1);
 
