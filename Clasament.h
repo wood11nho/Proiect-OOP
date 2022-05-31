@@ -31,10 +31,10 @@ public:
         return os;
     }
 
-    void creare_clasament(vEchipe &v1){
+    void creare_clasament(const vEchipe &v1){
         for(auto &i : v1.getVectorEchipe())
         {
-            punctaj.push_back(std::pair<Echipa,int> (i,0));
+            punctaj.emplace_back(i,0);
         }
     }
 

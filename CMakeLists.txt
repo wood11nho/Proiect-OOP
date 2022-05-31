@@ -75,6 +75,8 @@ endif()
 #target_link_directories(${PROJECT_NAME} PRIVATE ${<SomeLib>_BINARY_DIR}/lib)
 #target_link_libraries(${PROJECT_NAME} <SomeLib>)
 
+target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ext/random/include)
+
 ###############################################################################
 
 # copy binaries to bin folder; these are uploaded as artifacts on each release

@@ -1,17 +1,8 @@
-16
-69 150 CFR_Cluj
-69 150 Steaua_Bucuresti
-68 140 Universitatea_Craiova
-66 100 FC_Botosani
-65 110 Sepsi_OSK
-65 100 Farul_Constanta
-64 50 Chindia_Targoviste
-64 60 FC_Arges
-64 50 Academica_Clinceni
-64 70 Dinamo_Bucuresti
-64 80 FC_Voluntari
-64 50 Gaz_Metan Medias
-64 80 FCU_Craiova
-64 100 Rapid_Bucuresti
-63 80 UTA_Arad
-61 60 Mioveni
+1
+0
+1
+10
+Stoica
+Elias
+Romania
+0
