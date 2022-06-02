@@ -44,6 +44,9 @@ public:
         return camp;
     }
 
+    Informatii() {
+
+    }
 };
 
 int Adidas::nradidasi=0;
@@ -193,8 +196,9 @@ int main() {
             std::cout<<"Pentru inceput, haide sa iti creezi propriul jucator, apasand tasta 1! Daca vrei sa continuam alta data, apasa tasta 0!"<<'\n';
         }
     }while(tasta!=1);
-    Informatii<Jucator> j(your_player);
-
+    Informatii<Jucator> j;
+    j.afisInformatie();
+    j.setCamp(your_player);
     do {
         std::cout << "Totul este pregatit! Hai sa incepem\n";
         std::cout << "--------------------------------------------------\n";
