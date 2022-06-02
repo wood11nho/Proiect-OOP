@@ -24,25 +24,26 @@ Meci &Etape::last_one() {
     return VectorMeciuri.back();
 }
 
-void Etape::joaca_campionat(vEchipe &ve) {
-    for(int i = 0 ;i < ve.getNrechipe() * 2 - 2;i++){
-        int mid = ve.getNrechipe() / 2;
-        vEchipe v1({}), v2({});
+void Etape::joaca_campionat(Aplicatie &a1) {
+    for(int i = 0 ;i < a1.getNrechipe() * 2 - 2;i++){
+        int mid = a1.getNrechipe() / 2;
+        std::vector<Echipa> v1, v2;
+//        vEchipe v1({}), v2({});
         for(int j = 1; j<=mid;j++)
-            v1.adaugare_echipa((Echipa &) ve.getVectorEchipe().at(j));
-        for(int j = ve.getNrechipe();j>mid;j--)
-            v2.adaugare_echipa((Echipa &) ve.getVectorEchipe().at(j));
-        std::cout<<v1<<"\n"<<v2;
+            v1.push_back((Echipa &) a1.getVectorEchipe().at(j));
+        for(int j = a1.getNrechipe();j>mid;j--)
+            v2.push_back((Echipa &) a1.getVectorEchipe().at(j));
+//        std::cout<<v1<<"\n"<<v2;
         std::cout<<"\nETAPA "<<i + 1<<"\n";
-        if((i%2==1 and i <= ve.getNrechipe() - 1) or (i%2 == 0 and i>ve.getNrechipe() - 1)){
+        if((i%2==1 and i <= a1.getNrechipe() - 1) or (i%2 == 0 and i>a1.getNrechipe() - 1)){
             for(int j = 0;j<mid;j++){
-                this->adaugare_meci(Meci((Echipa &) v1.getVectorEchipe().at(j), (Echipa &) v2.getVectorEchipe().at(j), {0,0}));
+                this->adaugare_meci(Meci((Echipa &) v1.at(j), (Echipa &) v2.at(j), {0,0}));
                 std::cout<<"\n---"<<VectorMeciuri.back().getTeam1().getNume()<<" "<<VectorMeciuri.back().getScor().first<<" - "<<VectorMeciuri.back().getScor().second<<" "<<VectorMeciuri.back().getTeam2().getNume()<<"\n\n\n";
             }
         }
-        else if((i%2 == 1 and i > ve.getNrechipe() - 1) or (i%2 == 0 and i<=ve.getNrechipe() - 1)){
+        else if((i%2 == 1 and i > a1.getNrechipe() - 1) or (i%2 == 0 and i<=a1.getNrechipe() - 1)){
             for(int j = 0;j<mid;j++){
-                this->adaugare_meci(Meci((Echipa &) v2.getVectorEchipe().at(j), (Echipa &) v1.getVectorEchipe().at(j), {0,0}));
+                this->adaugare_meci(Meci((Echipa &) v2.at(j), (Echipa &) v1.at(j), {0,0}));
                 std::cout<<"\n---"<<VectorMeciuri.back().getTeam1().getNume()<<" "<<VectorMeciuri.back().getScor().first<<" - "<<VectorMeciuri.back().getScor().second<<" "<<VectorMeciuri.back().getTeam2().getNume()<<"\n\n\n";
             }
         }
@@ -81,8 +82,8 @@ void Etape::joaca_campionat(vEchipe &ve) {
                 rlutil::anykey();
             }
         }while(tasta!='1');
-        Echipa aux(ve.getVectorEchipe().back());
-        ve.pop_echipa();
-        ve.insert_echipa(2, aux);
+        Echipa aux(a1.getVectorEchipe().back());
+        a1.pop_echipa();
+        a1.insert_echipa(2, aux);
     }
 }

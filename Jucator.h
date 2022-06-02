@@ -17,6 +17,7 @@
 #include <memory>
 #include "Energizant.h"
 #include "Adidas.h"
+#include "Aplicatie.h"
 
 class Jucator {
     int id;
@@ -61,7 +62,7 @@ public:
 
     void creeaza_jucator();
 
-    void alege_echipa(const vEchipe& v1, const Echipe_disponibile& v2);
+    void alege_echipa(const Aplicatie &a1);
     int rating() const {
         return (this->att_stats + this->drb_stats +this->def_stats) / 3;
     }
@@ -69,7 +70,7 @@ public:
 
     void consuma(Item& item);
 
-    void cumpara(Item& item, Inventar& inv);
+    void cumpara(Item& item, Aplicatie& a1);
 
     int getAttStats() const;
 

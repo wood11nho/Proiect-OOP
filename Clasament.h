@@ -10,7 +10,7 @@
 #include <map>
 #include "Echipa.h"
 #include "vEchipe.h"
-
+#include "Aplicatie.h"
 
 class Clasament {
 private:
@@ -31,7 +31,7 @@ public:
         return os;
     }
 
-    void creare_clasament(const vEchipe &v1);
+    void creare_clasament(const Aplicatie& a1);
 
     void afisare_campioana(){
         std::cout<<"\nFELICITARI ECHIPEI "<<campioana.getNume()<<" PENTRU CASTIGAREA CAMPIONATULUI!!!\n";

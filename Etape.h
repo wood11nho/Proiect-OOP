@@ -20,7 +20,7 @@ public:
 
     void adaugare_meci(const Meci& m1);
     Meci& last_one();
-    void joaca_campionat(vEchipe& ve);
+    void joaca_campionat(Aplicatie &a1);
 };
 
 

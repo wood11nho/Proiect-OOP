@@ -163,14 +163,14 @@ void Jucator::creeaza_jucator() {
 
 
 
-void Jucator::alege_echipa(const vEchipe &v1, const Echipe_disponibile &v2) {
+void Jucator::alege_echipa(const Aplicatie &a1) {
     std::cout<<"Apasa tasta corespunzatoare echipei dorite, pentru a semna contractul!\n";
     int optiune;
     std::cout<<"Vreau la echipa: ";
     do {
         try {
             std::cin >> optiune;
-            if(optiune < 1 or optiune > int(v1.getVectorEchipe().size()) or !v2.getEchDisp().at(optiune - 1))
+            if(optiune < 1 or optiune > int(a1.getVectorEchipe().size()) or !a1.getEchDisp().at(optiune - 1))
                 throw (invalidID{"Input invalid! Alege o tasta care desemneaza una dintre echipele de mai sus!"});
         }
         catch (std::exception &err) {
@@ -178,10 +178,10 @@ void Jucator::alege_echipa(const vEchipe &v1, const Echipe_disponibile &v2) {
             rlutil::anykey();
             std::cout<<"\nVreau la echipa: ";
         }
-    }while(optiune < 1 or optiune > int(v1.getVectorEchipe().size()) or !v2.getEchDisp().at(optiune - 1));
-    this->echipa = v1.getVectorEchipe()[optiune];
+    }while(optiune < 1 or optiune > int(a1.getVectorEchipe().size()) or !a1.getEchDisp().at(optiune - 1));
+    this->echipa = a1.getVectorEchipe()[optiune];
     std::cout<<"\n";
-    std::cout<<"FELICITARI!! Tocmai ai semnat un contract valabil pe un an cu "<< v1.getVectorEchipe()[optiune].getNume()<<"\n";
+    std::cout<<"FELICITARI!! Tocmai ai semnat un contract valabil pe un an cu "<< a1.getVectorEchipe()[optiune].getNume()<<"\n";
 
 }
 
@@ -221,7 +221,7 @@ void Jucator::consuma(Item& item){
     item.folosit_de(*this);
 }
 
-void Jucator::cumpara(Item& item, Inventar& inv){
+void Jucator::cumpara(Item& item, Aplicatie& a1){
 
     try {
             if (this->avere > item.getPret()) {
@@ -236,8 +236,9 @@ void Jucator::cumpara(Item& item, Inventar& inv){
                 std::cin >> tasta;
                 if (tasta == 1) {
                     std::cout << "\nProdusul a fost adaugat la colectie!\n";
-                    inv.addItem(item.clone());
-                    std::cout << "\n"<<inv;
+                    a1.addItemColectie(item.clone());
+                    std::cout<<"\n";
+                    a1.afisare_colectie();
                 } else if (tasta == 2) {
                     std::cout<<"\nAi consumat produsul!\n";
 

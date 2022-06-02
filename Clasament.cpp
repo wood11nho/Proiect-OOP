@@ -24,6 +24,6 @@ void Clasament::setCampioana(const Echipa &campioana_) {
     Clasament::campioana = campioana_;
 }
 
-void Clasament::creare_clasament(const vEchipe &v1) {
-    std::for_each(v1.getVectorEchipe().begin(), v1.getVectorEchipe().end(), [&](const Echipa& o) { punctaj.emplace_back(o,0); });
+void Clasament::creare_clasament(const Aplicatie& a1) {
+    std::for_each(a1.getVectorEchipe().begin(), a1.getVectorEchipe().end(), [&](const Echipa& o) { punctaj.emplace_back(o,0); });
 }

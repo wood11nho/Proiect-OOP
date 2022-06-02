@@ -22,7 +22,6 @@
 #include <fstream>
 
 template <class T>
-
 class Informatii {
 private:
     // Variable of type T
@@ -61,9 +60,8 @@ int main() {
 //    cout<<empty_jucator1;
     Jucator empty_jucator(0,"","","",16,30,30,30,empty_team,1, 1, 1, 99);
 
-    vEchipe vector_echipe(std::vector<Echipa> {});
     Etape vector_meciuri(std::vector<Meci> {});
-    vector_echipe.adaugare_echipa(empty_team);
+    Aplicatie::get_aplicatie().adaugare_echipa(empty_team);
     int n = 0;
     int ovr = 0, buget = 0;
     std::string nume;
@@ -82,10 +80,10 @@ int main() {
             }
         }
         std::cout<<ovr<<" "<<buget<<" "<<nume<<"\n";
-        vector_echipe.adaugare_echipa({buget,ovr,nume});
+        Aplicatie::get_aplicatie().adaugare_echipa({buget,ovr,nume});
     }
 
-    std::cout<<vector_echipe;
+    Aplicatie::get_aplicatie().afisare_vechipe();
 
     Jucator j1(1,"Stoica","Elias","Romania",19,70,45,50,empty_team,15, 10, 25, 99);
     Adidas a1(15, "Adidas Nemezis", 3, 1, 1);
@@ -103,21 +101,20 @@ int main() {
 
     std::cout<<Energizant::getNrenerg()<<"  energizante \n"<<Adidas::getNradidasi()<<"  adidasi\n";
 
-    Inventar inventar_player(std::vector<std::shared_ptr<Item>> {});
-
-    Inventar multime_consumabile(std::vector<std::shared_ptr<Item>> {});
-    multime_consumabile.addItem(nrg1.clone());
-    multime_consumabile.addItem(nrg2.clone());
-    multime_consumabile.addItem(nrg3.clone());
-    multime_consumabile.addItem(nrg4.clone());
-    multime_consumabile.addItem(a1.clone());
-    multime_consumabile.addItem(a2.clone());
-    multime_consumabile.addItem(a3.clone());
-    multime_consumabile.addItem(a4.clone());
-    multime_consumabile.addItem(a5.clone());
-    multime_consumabile.addItem(a6.clone());
-    multime_consumabile.addItem(a7.clone());
-    multime_consumabile.addItem(a8.clone());
+//    Inventar inventar_player(std::vector<std::shared_ptr<Item>> {});
+//    Inventar multime_consumabile(std::vector<std::shared_ptr<Item>> {});
+    Aplicatie::get_aplicatie().addItemConsumabile(nrg1.clone());
+    Aplicatie::get_aplicatie().addItemConsumabile(nrg2.clone());
+    Aplicatie::get_aplicatie().addItemConsumabile(nrg3.clone());
+    Aplicatie::get_aplicatie().addItemConsumabile(nrg4.clone());
+    Aplicatie::get_aplicatie().addItemConsumabile(a1.clone());
+    Aplicatie::get_aplicatie().addItemConsumabile(a2.clone());
+    Aplicatie::get_aplicatie().addItemConsumabile(a3.clone());
+    Aplicatie::get_aplicatie().addItemConsumabile(a4.clone());
+    Aplicatie::get_aplicatie().addItemConsumabile(a5.clone());
+    Aplicatie::get_aplicatie().addItemConsumabile(a6.clone());
+    Aplicatie::get_aplicatie().addItemConsumabile(a7.clone());
+    Aplicatie::get_aplicatie().addItemConsumabile(a8.clone());
 
 //    cout<<multime_consumabile;
 
@@ -161,7 +158,7 @@ int main() {
     }
     delete b;
 
-    j1.cumpara(nrg1, inventar_player);
+    j1.cumpara(nrg1, Aplicatie::get_aplicatie());
     j1.consuma(nrg1);
     std::cout<<j1;
 
@@ -207,28 +204,26 @@ int main() {
         std::cin >> tasta;
         try {
             if (tasta == 1) {
-                std::vector<bool> v2;
                 int echipe_disp = 0;
-                Echipe_disponibile vechipedisp(v2);
                 srand((unsigned int) time(nullptr));
-                for (int i = 1; i < (int)vector_echipe.getVectorEchipe().size(); i++) {
+                for (int i = 1; i < (int)Aplicatie::get_aplicatie().getVectorEchipe().size(); i++) {
                     if (rand() % 2 == 1) {
-                        vechipedisp.este_valabila(true);
+                        Aplicatie::get_aplicatie().este_valabila(true);
                         echipe_disp++;
                     }
-                    else vechipedisp.este_valabila(false);
+                    else Aplicatie::get_aplicatie().este_valabila(false);
                 }
                 if(echipe_disp == 0)
-                    vechipedisp.setEchDisp();
+                    Aplicatie::get_aplicatie().setEchDisp();
 //              cout<<vechipedisp;
                 std::cout << "Urmatoarele echipe sunt disponibile: \n";
-                for (int i = 1; i < (int)vector_echipe.getVectorEchipe().size(); i++) {
-                    if (vechipedisp.getEchDisp().at(i - 1)) {
-                        std::cout << vector_echipe.getVectorEchipe()[i].getId() << ". "
-                             << vector_echipe.getVectorEchipe()[i].getNume() << "\n";
+                for (int i = 1; i < (int)Aplicatie::get_aplicatie().getVectorEchipe().size(); i++) {
+                    if (Aplicatie::get_aplicatie().getEchDisp().at(i - 1)) {
+                        std::cout << Aplicatie::get_aplicatie().getVectorEchipe()[i].getId() << ". "
+                             << Aplicatie::get_aplicatie().getVectorEchipe()[i].getNume() << "\n";
                     }
                 }
-                your_player.alege_echipa(vector_echipe, vechipedisp);
+                your_player.alege_echipa(Aplicatie::get_aplicatie());
 
             }
             else if(tasta == 0)
@@ -269,7 +264,7 @@ int main() {
                     int i = rand() % 6 + 1;
                     while (i == your_player.getEchipa()->getId())
                         i = rand() % 6 + 1;
-                    std::cout << "Urmeaza meciul impotriva celor de la " << vector_echipe.getVectorEchipe()[i].getNume()
+                    std::cout << "Urmeaza meciul impotriva celor de la " << Aplicatie::get_aplicatie().getVectorEchipe()[i].getNume()
                          << "\n";
                     std::cout << "1. Incepe meciul\n";
                     do{
@@ -277,12 +272,12 @@ int main() {
                     std::cin >> tasta;
                         std::cout<<"\n";
                     if (tasta == 1) {
-                        vector_meciuri.adaugare_meci(Meci((Echipa &) your_player.getEchipa(), (Echipa &) vector_echipe.getVectorEchipe()[i],
+                        vector_meciuri.adaugare_meci(Meci((Echipa &) your_player.getEchipa(), (Echipa &) Aplicatie::get_aplicatie().getVectorEchipe()[i],
                                      {0, 0}));
                         vector_meciuri.last_one().playmatch();
                         std::cout << "\n";
                         std::cout << "Statistici: \n";
-                        std::cout << "              "<<your_player.getEchipa()->getNume() << "   -   "<<vector_echipe.getVectorEchipe()[i].getNume()<<"\n";
+                        std::cout << "              "<<your_player.getEchipa()->getNume() << "   -   "<<Aplicatie::get_aplicatie().getVectorEchipe()[i].getNume()<<"\n";
                         vector_meciuri.last_one().statistici();
                         std::cout << "1. Continua\n";
                         std::cout << "2. Meniu principal\n";
@@ -313,13 +308,13 @@ int main() {
                     rlutil::cls();
                     std::cout << "MAGAZIN";
                     std::cout << "\n-------------------------------------";
-                    std::cout<<multime_consumabile;
+                    Aplicatie::get_aplicatie().afisare_consumabile();
                     std::cout<<"\nPentru a cumpara item-ul dorit, scrieti numarul corespunzator acestuia: ";
                     std::cout<<"\nITEM DORIT: ";
                     std::cin >> tasta;
                     do {
-                        if (tasta >= 1 and tasta <= (int) multime_consumabile.getColectie().size() ) {
-                            your_player.cumpara(*multime_consumabile.getColectie().at(tasta - 1), inventar_player);
+                        if (tasta >= 1 and tasta <= (int) Aplicatie::get_aplicatie().getMultimeConsumabile().size() ) {
+                            your_player.cumpara(*Aplicatie::get_aplicatie().getMultimeConsumabile().at(tasta - 1), Aplicatie::get_aplicatie());
                             tasta = 0;
                             //aici ori il adaug la colectie, ori il consum
                         } else {
@@ -342,8 +337,8 @@ int main() {
                 do {
                     rlutil::cls();
                     std::cout << "Etape\n---------------------------------------";
-                    Clasament::get_clasament().creare_clasament(vector_echipe);
-                    vector_meciuri.joaca_campionat(vector_echipe);
+                    Clasament::get_clasament().creare_clasament(Aplicatie::get_aplicatie());
+                    vector_meciuri.joaca_campionat(Aplicatie::get_aplicatie());
                     rlutil::cls();
                     std::cout<<Clasament::get_clasament();
                     std::cout<<"\n-----------------------------------\n";
