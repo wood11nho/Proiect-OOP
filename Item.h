@@ -8,7 +8,6 @@
 #include <ostream>
 #include <memory>
 class Jucator;
-class Inventar;
 
 class Item {
 protected:

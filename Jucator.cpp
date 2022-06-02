@@ -5,7 +5,6 @@
 #include "Jucator.h"
 #include "Energizant.h"
 #include "Erori.h"
-#include "Inventar.h"
 
 Jucator::Jucator() :
         id(0), nume(""), prenume(""), nationalitate(""), varsta(16), att_stats(30), def_stats(30), drb_stats(30),echipa(

@@ -4,7 +4,6 @@
 
 #include "Energizant.h"
 #include "Jucator.h"
-#include "Inventar.h"
 Energizant::Energizant(int pret, const std::string &nume, int fitnessBoost, int skillBoost) : Item(pret, nume),
                                                                                               FitnessBoost(
                                                                                                       fitnessBoost),

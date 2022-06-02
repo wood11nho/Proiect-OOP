@@ -11,9 +11,7 @@
 #ifndef OOP_JUCATOR_H
 #define OOP_JUCATOR_H
 #include "Echipa.h"
-#include "vEchipe.h"
 #include "Erori.h"
-#include "Echipe_disponibile.h"
 #include <memory>
 #include "Energizant.h"
 #include "Adidas.h"

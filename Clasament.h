@@ -9,7 +9,6 @@
 #include <ostream>
 #include <map>
 #include "Echipa.h"
-#include "vEchipe.h"
 #include "Aplicatie.h"
 
 class Clasament {

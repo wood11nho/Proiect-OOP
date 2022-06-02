@@ -4,7 +4,6 @@
 
 #include "Adidas.h"
 #include "Jucator.h"
-#include "Inventar.h"
 Adidas::Adidas(int pret, const std::string &nume, int attUpgrade, int defUpgrade, int drbUpgrade) : Item(pret, nume), att_upgrade(attUpgrade), def_upgrade(defUpgrade), drb_upgrade(drbUpgrade) {
     nradidasi++;
     if(attUpgrade < 0 or defUpgrade < 0 or drbUpgrade < 0)
