@@ -23,6 +23,14 @@ class invalidStat:public invalidInput{
 public:
     explicit invalidStat(const std::string& arg);
 };
+class invalidBuget:public invalidInput{
+public:
+    explicit invalidBuget(const std::string& arg);
+};
+class invalidName:public invalidInput{
+public:
+    explicit invalidName(const std::string& arg);
+};
 
 
 #endif //OOP_ERORI_H

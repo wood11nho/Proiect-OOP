@@ -57,9 +57,7 @@ void Meci::playmatch(){
         if(nr_random <= sanse[2])
             scor.second += 1;
     }
-    std::cout<<"\nMeciul s-a terminat!\n";
-    std::cout<<"REZULTAT FINAL: \n";
-    std::cout<<team1.getNume()<<" "<<scor.first<<" - "<<team2.getNume()<<" "<<scor.second;
+
 
 }
 

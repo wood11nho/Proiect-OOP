@@ -55,7 +55,7 @@ public:
         // Print the multimap
         int ok = 0;
         for (auto& it : MM) {
-            if(!it.second.getNume().empty()) {
+            if(it.second.getId() != 0) {
                 ok++;
                 std::cout <<ok<<". " << it.second.getNume() << ' ' << it.first << "\n";
             }

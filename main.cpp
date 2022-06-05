@@ -18,6 +18,10 @@
 #include <memory>
 #include <fstream>
 
+#include "ext/random.hpp"
+
+using Random = effolkronium::random_static;
+
 template <class T>
 class Informatii {
 private:
@@ -51,8 +55,8 @@ int Echipa::id1 = 0;
 
 int main() {
 
-    std::ifstream f1(R"(C:\Users\Elias Stoica\Documents\GitHub\Proiect-OOP\echipe.in)");
-    Echipa empty_team(0, 0, "");
+    std::ifstream f1("echipe.in");
+    Echipa empty_team(0, 0, "Echipa test");
 //    Jucator empty_jucator1;
 //    cout<<empty_jucator1;
     Jucator empty_jucator(0,"","","",16,30,30,30,empty_team,1, 1, 1, 99);
@@ -77,41 +81,61 @@ int main() {
             }
         }
         std::cout<<ovr<<" "<<buget<<" "<<nume<<"\n";
-        Aplicatie::get_aplicatie().adaugare_echipa({buget,ovr,nume});
+        try {
+            Echipa e1{buget, ovr, nume};
+            Aplicatie::get_aplicatie().adaugare_echipa(e1);
+        }
+        catch(invalidInput &err){
+            std::cout<<err.what();
+            std::cout<<"\n";
+        }
     }
 
     Aplicatie::get_aplicatie().afisare_vechipe();
 
     Jucator j1(1,"Stoica","Elias","Romania",19,70,45,50,empty_team,15, 10, 25, 99);
-    Adidas a1(15, "Adidas Nemezis", 3, 1, 1);
-    Adidas a2(15, "Nike Tiempo", 1, 3, 1);
-    Adidas a3(15, "Puma One", 1, 1, 3);
-    Adidas a4(30, "Adidas Predator", 6, 2, 2);
-    Adidas a5(30, "Nike Mercurial", 2, 6, 2);
-    Adidas a6(30, "Puma Future", 2, 2, 6);
-    Adidas a7(100, "Nike Mercurial Superfly x Cristiano Ronaldo", 15, 5, 10);
-    Adidas a8(100, "Adidas x Speedflow Messi Unparalleled", 10, 5, 15);
-    Energizant nrg1(5, "NRG Classic", 100, 1);
-    Energizant nrg2(30, "NRG Bronze", 100, 2);
-    Energizant nrg3(70, "NRG Silver", 100, 3);
-    Energizant nrg4(125, "NRG Gold", 100, 4);
+    try {
+        Adidas a1(15, "Adidas Nemezis", 3, 1, 1);
+        Adidas a2(15, "Nike Tiempo", 1, 3, 1);
+        Adidas a3(15, "Puma One", 1, 1, 3);
+        Adidas a4(30, "Adidas Predator", 6, 2, 2);
+        Adidas a5(30, "Nike Mercurial", 2, 6, 2);
+        Adidas a6(30, "Puma Future", 2, 2, 6);
+        Adidas a7(100, "Nike Mercurial Superfly x Cristiano Ronaldo", 15, 5, 10);
+        Adidas a8(100, "Adidas x Speedflow Messi Unparalleled", 10, 5, 15);
+        Energizant nrg1(5, "NRG Classic", 100, 1);
+        Energizant nrg2(30, "NRG Bronze", 100, 2);
+        Energizant nrg3(70, "NRG Silver", 100, 3);
+        Energizant nrg4(125, "NRG Gold", 100, 4);
+
+        j1.cumpara(nrg1, Aplicatie::get_aplicatie());
+        j1.consuma(nrg1);
+        std::cout<<j1;
+
+        Aplicatie::get_aplicatie().addItemConsumabile(nrg1.clone());
+        Aplicatie::get_aplicatie().addItemConsumabile(nrg2.clone());
+        Aplicatie::get_aplicatie().addItemConsumabile(nrg3.clone());
+        Aplicatie::get_aplicatie().addItemConsumabile(nrg4.clone());
+        Aplicatie::get_aplicatie().addItemConsumabile(a1.clone());
+        Aplicatie::get_aplicatie().addItemConsumabile(a2.clone());
+        Aplicatie::get_aplicatie().addItemConsumabile(a3.clone());
+        Aplicatie::get_aplicatie().addItemConsumabile(a4.clone());
+        Aplicatie::get_aplicatie().addItemConsumabile(a5.clone());
+        Aplicatie::get_aplicatie().addItemConsumabile(a6.clone());
+        Aplicatie::get_aplicatie().addItemConsumabile(a7.clone());
+        Aplicatie::get_aplicatie().addItemConsumabile(a8.clone());
+
+
+    }
+    catch(invalidStat &err){
+        std::cout<<err.what();
+        std::cout<<"\n";
+    }
 
     std::cout<<Energizant::getNrenerg()<<"  energizante \n"<<Adidas::getNradidasi()<<"  adidasi\n";
 
 //    Inventar inventar_player(std::vector<std::shared_ptr<Item>> {});
 //    Inventar multime_consumabile(std::vector<std::shared_ptr<Item>> {});
-    Aplicatie::get_aplicatie().addItemConsumabile(nrg1.clone());
-    Aplicatie::get_aplicatie().addItemConsumabile(nrg2.clone());
-    Aplicatie::get_aplicatie().addItemConsumabile(nrg3.clone());
-    Aplicatie::get_aplicatie().addItemConsumabile(nrg4.clone());
-    Aplicatie::get_aplicatie().addItemConsumabile(a1.clone());
-    Aplicatie::get_aplicatie().addItemConsumabile(a2.clone());
-    Aplicatie::get_aplicatie().addItemConsumabile(a3.clone());
-    Aplicatie::get_aplicatie().addItemConsumabile(a4.clone());
-    Aplicatie::get_aplicatie().addItemConsumabile(a5.clone());
-    Aplicatie::get_aplicatie().addItemConsumabile(a6.clone());
-    Aplicatie::get_aplicatie().addItemConsumabile(a7.clone());
-    Aplicatie::get_aplicatie().addItemConsumabile(a8.clone());
 
 //    cout<<multime_consumabile;
 
@@ -138,6 +162,7 @@ int main() {
     try
     {
         [[maybe_unused]]auto& der1 = dynamic_cast<Energizant&>(*b);
+        j1.consuma(der1);
     }
     catch (std::bad_cast& err)
     {
@@ -155,10 +180,6 @@ int main() {
     }
     delete b;
 
-    j1.cumpara(nrg1, Aplicatie::get_aplicatie());
-    j1.consuma(nrg1);
-    std::cout<<j1;
-
     Echipa e2(5000, 90, "Real Madrid");
 
     Imprumut impr{(Echipa &) j1.getEchipa(), e2, j1, 1};
@@ -169,27 +190,22 @@ int main() {
     std::cout<<"Salut! Suntem echipa Fantasy Player si iti uram bun venit in lumea noastra virtuala!"<<'\n';
     std::cout<<"Pentru inceput, haide sa iti creezi propriul jucator, apasand tasta 1! Daca vrei sa continuam alta data, apasa tasta 0!"<<'\n';
     Jucator your_player;
-    int tasta = 0;
+    std::string tasta;
     do
     {
         std::cin>>tasta;
-        try {
-            if(tasta == 1)
+            if(tasta == "1")
                 your_player.creeaza_jucator();
             else{
-                if(tasta!=0)
-                    throw (invalidInput{"Input invalid!!!"});
+                if(tasta != "0") {
+                    std::cout << "Input Invalid!!!\n";
+                    std::cout<<"Salut! Suntem echipa Fantasy Player si iti uram bun venit in lumea noastra virtuala!"<<'\n';
+                    std::cout<<"Pentru inceput, haide sa iti creezi propriul jucator, apasand tasta 1! Daca vrei sa continuam alta data, apasa tasta 0!"<<'\n';
+
+                }
                 else return 0;
             }
-        }
-        catch(std::exception &err){
-            std::cout<<err.what() << '\n';
-            rlutil::anykey();
-            rlutil::cls();
-            std::cout<<"Salut! Suntem echipa Fantasy Player si iti uram bun venit in lumea noastra virtuala!"<<'\n';
-            std::cout<<"Pentru inceput, haide sa iti creezi propriul jucator, apasand tasta 1! Daca vrei sa continuam alta data, apasa tasta 0!"<<'\n';
-        }
-    }while(tasta!=1);
+    }while(tasta!= "1");
     Informatii<Jucator> j;
     j.afisInformatie();
     j.setCamp(your_player);
@@ -199,8 +215,7 @@ int main() {
         std::cout << "1.  Alege echipa\n";
         std::cout << "0.  Inchide jocul\n";
         std::cin >> tasta;
-        try {
-            if (tasta == 1) {
+            if (tasta == "1") {
                 int echipe_disp = 0;
                 srand((unsigned int) time(nullptr));
                 for (int i = 1; i < (int)Aplicatie::get_aplicatie().getVectorEchipe().size(); i++) {
@@ -223,19 +238,15 @@ int main() {
                 your_player.alege_echipa(Aplicatie::get_aplicatie());
 
             }
-            else if(tasta == 0)
+            else if(tasta == "0")
                 return 0;
             else{
-                throw(invalidInput("Input invalid!!!"));
+                std::cout<<"Input invalid!!!\n";
+                rlutil::anykey();
             }
-        }
-        catch(std::exception &err){
-            std::cout<<err.what() << '\n';
-            rlutil::anykey();
-        }
 
-
-    }while(tasta!=1);
+        }
+    while(tasta!="1");
     Informatii<Echipa> ech((Echipa&) your_player.getEchipa());
     int acasa = 1;
     do
@@ -249,26 +260,24 @@ int main() {
         std::cout<<"4. Joaca in campionat.\n";
         std::cout<<"5. Iesi din joc\n";
         std::cin>>tasta;
-        try {
-
-            if (tasta == 1) {
-
+            if (tasta == "1") {
                 int ok = 1;
-                while (tasta != 2) {
+                while (tasta!="2"){
+                    do{
                     rlutil::cls();
                     std::cout << "Meci amical\n";
                     ok++;
-                    int i = rand() % 6 + 1;
+                    int i = Random::get(1, Aplicatie::get_aplicatie().getNrechipe());
                     while (i == your_player.getEchipa()->getId())
-                        i = rand() % 6 + 1;
+                        i = Random::get(1, Aplicatie::get_aplicatie().getNrechipe());
                     std::cout << "Urmeaza meciul impotriva celor de la " << Aplicatie::get_aplicatie().getVectorEchipe()[i].getNume()
                          << "\n";
                     std::cout << "1. Incepe meciul\n";
-                    do{
+                    std::cout << "2. Inapoi la meniu\n";
                         std::cout<<"\nAlegere: ";
-                    std::cin >> tasta;
+                        std::cin >> tasta;
                         std::cout<<"\n";
-                    if (tasta == 1) {
+                    if (tasta == "1") {
                         vector_meciuri.adaugare_meci(Meci((Echipa &) your_player.getEchipa(), (Echipa &) Aplicatie::get_aplicatie().getVectorEchipe()[i],
                                      {0, 0}));
                         vector_meciuri.last_one().playmatch();
@@ -282,12 +291,12 @@ int main() {
                     } else {
                         std::cout<<"\nAi apasat o tasta gresita! Incearca din nou\n";
                     }
-                    }while(tasta!=1);
+                    }while(tasta!="2");
 
                 }
 
             }
-            else if(tasta == 2)
+            else if(tasta == "2")
             {
                 do {
                     //Antrenament
@@ -297,9 +306,9 @@ int main() {
                     std::cout << "1. Antrenament nou";
                     std::cout << "2. Meniu Principal";
                     std::cin >> tasta;
-                }while(tasta!=2);
+                }while(tasta!="2");
             }
-            else if(tasta == 3)
+            else if(tasta == "3")
             {
                 do {
                     rlutil::cls();
@@ -310,32 +319,32 @@ int main() {
                     std::cout<<"\nITEM DORIT: ";
                     std::cin >> tasta;
                     do {
-                        if (tasta >= 1 and tasta <= (int) Aplicatie::get_aplicatie().getMultimeConsumabile().size() ) {
-                            your_player.cumpara(*Aplicatie::get_aplicatie().getMultimeConsumabile().at(tasta - 1), Aplicatie::get_aplicatie());
-                            tasta = 0;
+                        if (std::stoi(tasta) >= 1 and std::stoi(tasta) <= (int) Aplicatie::get_aplicatie().getMultimeConsumabile().size() ) {
+                            your_player.cumpara(*Aplicatie::get_aplicatie().getMultimeConsumabile().at(std::stoi(tasta) - 1), Aplicatie::get_aplicatie());
+                            tasta = "0";
                             //aici ori il adaug la colectie, ori il consum
                         } else {
                             std::cout << "\nTasta incorecta! Alege din nou!\n";
                             std::cin >> tasta;
                         }
                     }
-                    while(tasta!=0);
+                    while(tasta!="0");
                     std::cout<<"-------------------------------------";
                     std::cout<<"\n0. Inapoi la meniul principal.";
                     std::cout<<"\n1. Incearca din nou\n Alegere: ";
                     std::cin>>tasta;
                     std::cout<<"\n";
 
-                }while(tasta!=0);
+                }while(tasta!="0");
 
             }
-            else if(tasta == 4)
+            else if(tasta == "4")
             {
                 do {
                     rlutil::cls();
                     std::cout << "Etape\n---------------------------------------";
                     Clasament::get_clasament().creare_clasament(Aplicatie::get_aplicatie());
-                    vector_meciuri.joaca_campionat(Aplicatie::get_aplicatie());
+                    vector_meciuri.joaca_campionat(Aplicatie::get_aplicatie(), your_player);
                     rlutil::cls();
                     std::cout<<Clasament::get_clasament();
                     std::cout<<"\n-----------------------------------\n";
@@ -343,20 +352,18 @@ int main() {
                     std::cout << "\n0. Meniu principal\n";
                     std::cin>>tasta;
                 }
-                while(tasta!=0);
+                while(tasta!="0");
             }
             else
             {
-                if(tasta!=0)
-                    throw (invalidInput{"Input invalid!!!"});
+                if(tasta!="5") {
+                    std::cout<<"Input invalid!!!\n";
+                    rlutil::anykey();
+                }
                 else acasa = 0;
             }
+
         }
-        catch(std::exception &err){
-            std::cout<<err.what() << '\n';
-            rlutil::anykey();
-        }
-    }
     while(acasa!=0);
 
 }

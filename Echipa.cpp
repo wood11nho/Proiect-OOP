@@ -6,6 +6,10 @@
 
 Echipa::Echipa(int buget, int rating, const std::string &nume) :
         id(id1++), buget(buget), rating(rating), nume(nume){
+    if(buget < 0)
+        throw invalidBuget("Bugetul echipei nu poate sa fie negativ\n");
+    if(nume.empty())
+        throw invalidName("Numele nu poate fi inexistent!\n");
 
 }
 
@@ -35,4 +39,11 @@ std::ostream &operator<<(std::ostream &os, const Echipa &echipa) {
     os<<"\n";
 
     return os;
+}
+
+bool Echipa::operator==(const Echipa &rhs) const {
+    return id == rhs.id &&
+           buget == rhs.buget &&
+           rating == rhs.rating &&
+           nume == rhs.nume;
 }

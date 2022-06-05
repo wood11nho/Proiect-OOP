@@ -10,6 +10,9 @@
 #ifndef OOP_ECHIPA_H
 #define OOP_ECHIPA_H
 
+#include "Erori.h"
+
+
 class Echipa {
 private:
     static int id1;
@@ -30,6 +33,8 @@ public:
     int getRating() const;
 
     friend std::ostream &operator<<(std::ostream &os, const Echipa &echipa);
+
+    bool operator==(const Echipa &rhs) const;
 };
 
 

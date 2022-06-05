@@ -24,7 +24,7 @@ Meci &Etape::last_one() {
     return VectorMeciuri.back();
 }
 
-void Etape::joaca_campionat(Aplicatie &a1) {
+void Etape::joaca_campionat(Aplicatie &a1, Jucator &j1) {
     for(int i = 0 ;i < a1.getNrechipe() * 2 - 2;i++){
         int mid = a1.getNrechipe() / 2;
         std::vector<Echipa> v1, v2;
@@ -52,8 +52,37 @@ void Etape::joaca_campionat(Aplicatie &a1) {
             std::cout << "\n1. Joaca etapa\n";
             std::cin >> tasta;
             if (tasta == '1') {
+                for(int k = 0;k<mid;k++){
+                    if(VectorMeciuri.at(k).getTeam1() == j1.getEchipa() or VectorMeciuri.at(k).getTeam2() == j1.getEchipa())
+                    {
+                        VectorMeciuri.at(k).playmatch();
+                        rlutil::cls();
+                        std::cout<<"\n---"<<VectorMeciuri.at(k).getTeam1().getNume()<<"  -  "<<VectorMeciuri.at(k).getTeam2().getNume()<<"\n\n\n";
+                        std::cout<<"\n1. Incepe meci\n";
+                        std::string incepere;
+                        do {
+                            std::cout<<"\nAlegere: ";
+                            std::cin>>incepere;
+                            if (incepere == "1") {
+                                for(int timp = 0;timp<=90;timp+=10){
+                                    rlutil::cls();
+                                    std::cout<<"Minutul "<<timp<<"\n";
+                                    std::cout<<"\n---"<<VectorMeciuri.at(k).getTeam1().getNume()<<"  -  "<<VectorMeciuri.at(k).getTeam2().getNume()<<"\n\n";
+                                    //aici urmeaza sa fac niste actiuni pentru a da gol
+                                    rlutil::anykey();
+                                }
+                            }
+                            else std::cout<<"Ai apasat o tasta gresita!\n";
+                        }
+                        while(incepere!="1");
+                        break;
+                    }
+                }
                 for (int k = 1; k <= mid; k++) {
                     VectorMeciuri.back().playmatch();
+                    std::cout<<"\nMeciul s-a terminat!\n";
+                    std::cout<<"REZULTAT FINAL: \n";
+                    std::cout<<VectorMeciuri.back().getTeam1().getNume()<<" "<<VectorMeciuri.back().getScor().first<<" - "<<VectorMeciuri.back().getScor().second<<" "<<VectorMeciuri.back().getTeam2().getNume();
                     std::cout<<"\n-------------------------------------------";
                     VectorMeciuri.back().statistici();
                     std::cout<<"\n";

@@ -9,6 +9,8 @@ Energizant::Energizant(int pret, const std::string &nume, int fitnessBoost, int 
                                                                                                       fitnessBoost),
                                                                                               SkillBoost(skillBoost) {
     nrenerg++;
+    if(skillBoost < 0)
+        throw(invalidStat("Un item nu poate avea un upgrade negativ!"));
 }
 
 Energizant::Energizant(const Energizant &other): Item(other), FitnessBoost(other.FitnessBoost), SkillBoost(other.SkillBoost){

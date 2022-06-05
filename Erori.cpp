@@ -9,3 +9,5 @@ invalidInput::invalidInput(const std::string &arg) : std::runtime_error{arg} {}
 invalidID::invalidID(const std::string &arg) : invalidInput{arg} {}
 invalidPurchase::invalidPurchase(const std::string &arg) : invalidInput{arg} {}
 invalidStat::invalidStat(const std::string &arg) :invalidInput{arg}{}
+invalidBuget::invalidBuget(const std::string &arg) :invalidInput{arg}{}
+invalidName::invalidName(const std::string &arg) :invalidInput{arg}{}

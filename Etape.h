@@ -8,6 +8,7 @@
 
 #include "Meci.h"
 #include "Clasament.h"
+#include "Jucator.h"
 
 class Etape {
     std::vector<Meci> VectorMeciuri;
@@ -19,7 +20,7 @@ public:
 
     void adaugare_meci(const Meci& m1);
     Meci& last_one();
-    void joaca_campionat(Aplicatie &a1);
+    void joaca_campionat(Aplicatie &a1, Jucator &j1);
 };
 
 
