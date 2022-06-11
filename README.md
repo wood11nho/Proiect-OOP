@@ -2,9 +2,9 @@
 
 ### Tema 0
 
-- [X] Nume proiect (îl puteți schimba ulterior)
+- [X] Nume proiect : 
       One of the eleven
-- [X] Scurtă descriere a temei alese, ce v-ați propus să implementați
+- [X] Scurtă descriere a temei alese, ce v-ați propus să implementați : 
       Proiectul meu are la baza crearea unui simulator de fotbal, unde iti controlezi propriul jucator si actiunile pe care acesta le ia.
 
 ## Tema 1
@@ -43,8 +43,8 @@
 ## Tema 3
 
 #### Cerințe
-- [ ] 2 șabloane de proiectare (design patterns)
-- [ ] o funcție șablon (template) cu sens; minim 2 instanțieri
+- [X] 2 șabloane de proiectare (design patterns)
+- [X] o funcție șablon (template) cu sens; minim 2 instanțieri
 - [ ] o clasă șablon cu sens; minim 2 instanțieri
 - [ ] o specializare pe funcție/clasă șablon
 - [ ] tag de `git`: de exemplu `v0.3` sau `v1.0`
