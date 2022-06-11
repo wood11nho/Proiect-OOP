@@ -76,7 +76,7 @@ public:
 
     int getDrbStats() const;
 
-//    int getAvere() const;
+    int getAvere() const;
 
     void setAttStats(int attStats);
 
@@ -84,9 +84,15 @@ public:
 
     void setDrbStats(int drbStats);
 
-//    void setAvere(int avere);
+    void setAvere(int avere);
 
     void setFitness(int fitness);
+
+    int getFitness() const;
+
+    const std::string &getPrenume() const;
+
+    int getSalariu() const;
 };
 
 

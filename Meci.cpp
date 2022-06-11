@@ -19,11 +19,11 @@ Meci &Meci::operator=(const Meci &other) {
     return *this;
 }
 
-void Meci::playmatch(){
-    int rating1 = team1.getRating();
+std::vector<int> Meci::setare_sanse(){
+    int rating1 = this->team1.getRating();
     int rating2;
-    rating2 = team2.getRating();
-    std::vector<int> sanse{36, 30, 34};
+    rating2 = this->team2.getRating();
+    std::vector<int> sanse{32, 40, 28};
     int dif = rating1 - rating2;
     if(dif > 0){
         while(dif!=0)
@@ -44,21 +44,18 @@ void Meci::playmatch(){
             dif+=1;
         }
     }
-    int ocazii1 = abs(sanse[0] - sanse[1]);
-    int ocazii2 = abs(sanse[2] - sanse[1]);
-    for(int i = 1; i * i<=ocazii1;i++) {
-        auto nr_random = Random::get(0,100);
+    return sanse;
+}
+
+void Meci::playmatch(){
+    std::vector<int> sanse = this->setare_sanse();
+    for(int i = 1; i <= 10;i++) {
+        auto nr_random = Random::get(0,200);
         if(nr_random <= sanse[0])
             scor.first += 1;
-    }
-    for(int i = 1; i* i<=ocazii2;i++)
-    {
-        auto nr_random = Random::get(0,100);
-        if(nr_random <= sanse[2])
+        else if(nr_random >= 100 - sanse[2] and nr_random <= 100)
             scor.second += 1;
     }
-
-
 }
 
 const std::pair<int, int> &Meci::getScor() const {
@@ -85,4 +82,11 @@ void Meci::statistici() const {
     std::cout << "SUTURI              "<< this->getScor().first + aux1 + rand()%7<< "       -       "<< this->getScor().second + aux2 +rand()%7<<"\n";
     std::cout << "SUTURI PE POARTA    "<< this->getScor().first + aux1 << "       -       "<< this->getScor().second + aux2<<"\n";
 
+}
+
+void Meci::gol1() {
+    this->scor.first +=1;
+}
+void Meci::gol2() {
+    this->scor.second +=1;
 }

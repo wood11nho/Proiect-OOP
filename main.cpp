@@ -22,29 +22,44 @@
 
 using Random = effolkronium::random_static;
 
+template <typename T>
+void mySort(std::vector<std::shared_ptr<T>>& vec){
+    for(unsigned long long i = 0; i < vec.size()-1; i++)
+        for(unsigned long long j = i+1; j < vec.size(); j++)
+            if(vec[i] > vec[j]) {
+                auto temp = vec[i];
+                vec[i] = vec[j];
+                vec[j] = temp;
+            }
+
+    for(unsigned long long i = 0; i < vec.size(); i++)
+        std::cout << *vec[i] << '\n';
+    std::cout << '\n';
+}
+
 template <class T>
-class Informatii {
+class Statistici_jucator {
 private:
     // Variable of type T
     T camp;
 
 public:
 
-    explicit Informatii(const T &camp) : camp(camp) {}
+    explicit Statistici_jucator(const T &camp) : camp(camp) {}
 
-    T getCamp() const {
+    [[nodiscard]] T getCamp() const {
         return camp;
     }
 
-    [[maybe_unused]] void setCamp(const T &camp_) {
-        Informatii::camp = camp_;
+    void setCamp(const T &camp_) {
+        Statistici_jucator::camp = camp_;
     }
 
-    [[maybe_unused]] T afisInformatie(){
-        return camp;
+    void afisStatistici(){
+        std::cout<<camp;
     }
 
-    Informatii() {
+    Statistici_jucator() {
 
     }
 };
@@ -147,6 +162,8 @@ int main() {
     Energizant energ2 = Energizant_factory::energ_skill();
     Energizant energ3 = Energizant_factory::energ_fitness();
 
+
+
     try
     {
         [[maybe_unused]]auto& baza1 = static_cast<Energizant&>(energ1);
@@ -206,9 +223,14 @@ int main() {
                 else return 0;
             }
     }while(tasta!= "1");
-    Informatii<Jucator> j;
-    j.afisInformatie();
+
+    Statistici_jucator<Jucator> j;
+    j.afisStatistici();
     j.setCamp(your_player);
+    Statistici_jucator<Echipa> ech((Echipa&) your_player.getEchipa());
+    Statistici_jucator<int> goals(0);
+    Statistici_jucator<int> assists(0);
+
     do {
         std::cout << "Totul este pregatit! Hai sa incepem\n";
         std::cout << "--------------------------------------------------\n";
@@ -236,6 +258,7 @@ int main() {
                     }
                 }
                 your_player.alege_echipa(Aplicatie::get_aplicatie());
+                ech.setCamp((Echipa&)j1.getEchipa());
 
             }
             else if(tasta == "0")
@@ -247,18 +270,18 @@ int main() {
 
         }
     while(tasta!="1");
-    Informatii<Echipa> ech((Echipa&) your_player.getEchipa());
+
     int acasa = 1;
     do
     {
         rlutil::cls();
-        std::cout<<"Felicitari! Ai semnat un contract cu echipa "<<ech.getCamp().getNume()<<"\n";
         std::cout<<"Alege o optiune dintre cele de mai jos.\n";
         std::cout<<"1. Joaca meci amical\n";
         std::cout<<"2. Antrenament\n";
         std::cout<<"3. Magazin\n";
         std::cout<<"4. Joaca in campionat.\n";
-        std::cout<<"5. Iesi din joc\n";
+        std::cout<<"5. Inventar\n";
+        std::cout<<"6. Iesi din joc\n";
         std::cin>>tasta;
             if (tasta == "1") {
                 int ok = 1;
@@ -354,9 +377,18 @@ int main() {
                 }
                 while(tasta!="0");
             }
+            else if(tasta == "5")
+            {
+                do {
+                    mySort(Aplicatie::get_aplicatie().getColectie());
+                    std::cout << "\n0. Meniu principal\n";
+                    std::cin>>tasta;
+                }
+                while(tasta!="0");
+            }
             else
             {
-                if(tasta!="5") {
+                if(tasta!="6") {
                     std::cout<<"Input invalid!!!\n";
                     rlutil::anykey();
                 }

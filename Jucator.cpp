@@ -8,7 +8,7 @@
 
 Jucator::Jucator() :
         id(0), nume(""), prenume(""), nationalitate(""), varsta(16), att_stats(30), def_stats(30), drb_stats(30),echipa(
-        std::make_optional<Echipa>()), pret(1), salariu(1), avere(1), fitness(100) {
+        std::make_optional<Echipa>()), pret(1), salariu(5), avere(1), fitness(100) {
 
 }
 
@@ -181,6 +181,7 @@ void Jucator::alege_echipa(const Aplicatie &a1) {
     this->echipa = a1.getVectorEchipe()[optiune];
     std::cout<<"\n";
     std::cout<<"FELICITARI!! Tocmai ai semnat un contract valabil pe un an cu "<< a1.getVectorEchipe()[optiune].getNume()<<"\n";
+    rlutil::anykey();
 
 }
 
@@ -255,10 +256,14 @@ void Jucator::cumpara(Item& item, Aplicatie& a1){
             rlutil::cls();
         }
 }
-//
-//int Jucator::getAvere() const {
-//    return avere;
-//}
+
+const std::string &Jucator::getPrenume() const {
+    return prenume;
+}
+
+int Jucator::getAvere() const {
+    return avere;
+}
 
 int Jucator::getAttStats() const {
     return att_stats;
@@ -283,13 +288,21 @@ void Jucator::setDefStats(int defStats) {
 void Jucator::setDrbStats(int drbStats) {
     drb_stats = drbStats;
 }
-//
-//void Jucator::setAvere(int avere_) {
-//    avere = avere_;
-//}
+
+void Jucator::setAvere(int avere_) {
+    avere = avere_;
+}
 
 void Jucator::setFitness(int fitness_) {
     Jucator::fitness = fitness_;
+}
+
+int Jucator::getFitness() const {
+    return fitness;
+}
+
+int Jucator::getSalariu() const {
+    return salariu;
 }
 
 

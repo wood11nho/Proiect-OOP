@@ -10,6 +10,9 @@
 #include "ext/random.hpp"
 using Random = effolkronium::random_static;
 
+template <typename T>
+void mySort(std::vector<std::shared_ptr<T>>& vec);
+
 #include "Echipa.h"
 #include "Item.h"
 
@@ -44,7 +47,7 @@ public:
         return VectorEchipe;
     }
 
-    const std::vector<std::shared_ptr<Item>> &getColectie() const {
+    std::vector<std::shared_ptr<Item>> &getColectie() {
         return Colectie;
     }
 
@@ -80,13 +83,7 @@ public:
 
     void afisare_colectie(){
         std::cout << "\n-------------------------------------\n";
-        int contor = 1;
-        for(const std::shared_ptr<Item>& i: this->Colectie){
-            std::cout<<contor<<".";
-            std::cout<< *i<<'\n';
-            contor++;
-
-        }
+        mySort(Colectie);
     }
 
     void afisare_consumabile(){

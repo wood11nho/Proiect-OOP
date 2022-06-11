@@ -51,12 +51,16 @@ void Etape::joaca_campionat(Aplicatie &a1, Jucator &j1) {
         do {
             std::cout << "\n1. Joaca etapa\n";
             std::cin >> tasta;
+            int fitness_utilizat = 0;
+            int goluri_player = 0;
             if (tasta == '1') {
                 for(int k = 0;k<mid;k++){
                     if(VectorMeciuri.at(k).getTeam1() == j1.getEchipa() or VectorMeciuri.at(k).getTeam2() == j1.getEchipa())
                     {
-                        VectorMeciuri.at(k).playmatch();
+                        std::vector<int> sanse = VectorMeciuri.at(k).setare_sanse();
+
                         rlutil::cls();
+
                         std::cout<<"\n---"<<VectorMeciuri.at(k).getTeam1().getNume()<<"  -  "<<VectorMeciuri.at(k).getTeam2().getNume()<<"\n\n\n";
                         std::cout<<"\n1. Incepe meci\n";
                         std::string incepere;
@@ -64,13 +68,59 @@ void Etape::joaca_campionat(Aplicatie &a1, Jucator &j1) {
                             std::cout<<"\nAlegere: ";
                             std::cin>>incepere;
                             if (incepere == "1") {
+
                                 for(int timp = 0;timp<=90;timp+=10){
                                     rlutil::cls();
                                     std::cout<<"Minutul "<<timp<<"\n";
-                                    std::cout<<"\n---"<<VectorMeciuri.at(k).getTeam1().getNume()<<"  -  "<<VectorMeciuri.at(k).getTeam2().getNume()<<"\n\n";
-                                    //aici urmeaza sa fac niste actiuni pentru a da gol
+                                    fitness_utilizat += 5;
+                                    std::cout<<"\n---"<<VectorMeciuri.at(k).getTeam1().getNume()<<" "<<VectorMeciuri.at(k).getScor().first<<"  -  "<<VectorMeciuri.at(k).getScor().second<<" "<<VectorMeciuri.at(k).getTeam2().getNume()<<"\n\n";
+                                    int sansa_random = Random::get(0, 150);
+                                    if(sansa_random <= j1.getAttStats()){
+                                        std::cout<<"\nOcazie buna pentru "<<j1.getPrenume()<<"...\n";
+                                        fitness_utilizat += 2;
+                                        sansa_random = Random::get(0, 99);
+                                        rlutil::anykey();
+                                        std::cout<<"\n";
+                                        if(sansa_random <= j1.getDrbStats())
+                                        {
+                                            std::cout<<"\nDribbling-ul este reusit! Sa vedem finalizarea...\n";
+                                            fitness_utilizat +=2;
+                                            sansa_random = Random::get(0,99);
+                                            rlutil::anykey();
+                                            if(sansa_random<=j1.getAttStats()) {
+                                                std::cout << "\nGOOOOL inscris de " << j1.getPrenume() << "...\n";
+                                                goluri_player += 1;
+                                                if(VectorMeciuri.at(k).getTeam1() == j1.getEchipa())
+                                                    VectorMeciuri.at(k).gol1();
+                                                else
+                                                    VectorMeciuri.at(k).gol2();
+                                                fitness_utilizat +=2;
+                                            }
+                                            else{
+                                                std::cout<<"\nDin pacate, "<<j1.getPrenume()<<" nu nimereste spatiul portii...\n";
+                                                fitness_utilizat +=1;
+                                            }
+
+                                        }
+                                        else {
+                                            std::cout << "\nIncercarea de dribbling da gres! Meciul continua...\n";
+                                            fitness_utilizat +=1;
+                                        }
+                                    }
+                                    else{
+                                        auto nr_random = Random::get(0,150);
+                                        if(nr_random <= sanse[0])
+                                            VectorMeciuri.at(k).gol1();
+                                        else if(nr_random >= 100- sanse[2] and nr_random <=100)
+                                            VectorMeciuri.at(k).gol2();
+                                    }
                                     rlutil::anykey();
+                                    std::cout<<"\n";
                                 }
+                                rlutil::cls();
+                                std::cout<<"Meciul s-a incheiat!\n";
+                                std::cout<<"\n---"<<VectorMeciuri.at(k).getTeam1().getNume()<<" "<<VectorMeciuri.at(k).getScor().first<<"  -  "<<VectorMeciuri.at(k).getScor().second<<" "<<VectorMeciuri.at(k).getTeam2().getNume()<<"\n\n";
+                                rlutil::anykey();
                             }
                             else std::cout<<"Ai apasat o tasta gresita!\n";
                         }
@@ -78,13 +128,14 @@ void Etape::joaca_campionat(Aplicatie &a1, Jucator &j1) {
                         break;
                     }
                 }
-                for (int k = 1; k <= mid; k++) {
-                    VectorMeciuri.back().playmatch();
-                    std::cout<<"\nMeciul s-a terminat!\n";
-                    std::cout<<"REZULTAT FINAL: \n";
+                std::cout<<"\nAcestea sunt rezultatele din etapa "<< i + 1 <<".\n";
+                for (int k = 0; k < mid; k++) {
+                    if(VectorMeciuri.back().getTeam1() != j1.getEchipa() and VectorMeciuri.back().getTeam2() != j1.getEchipa())
+                        VectorMeciuri.back().playmatch();
                     std::cout<<VectorMeciuri.back().getTeam1().getNume()<<" "<<VectorMeciuri.back().getScor().first<<" - "<<VectorMeciuri.back().getScor().second<<" "<<VectorMeciuri.back().getTeam2().getNume();
                     std::cout<<"\n-------------------------------------------";
                     VectorMeciuri.back().statistici();
+                    std::cout<<VectorMeciuri.back().setare_sanse()[0]<< " "<<VectorMeciuri.back().setare_sanse()[1]<< " "<<VectorMeciuri.back().setare_sanse()[2]<<"\n";
                     std::cout<<"\n";
                     int goluri1 = 0, goluri2 = 0;
                     goluri1 = VectorMeciuri.back().getScor().first;
@@ -102,10 +153,61 @@ void Etape::joaca_campionat(Aplicatie &a1, Jucator &j1) {
                     }
                     VectorMeciuri.pop_back();
                 }
-                std::cout<<"\nAcestea sunt rezultatele din etapa "<< i + 1 <<".\n";
+
                 std::cout<<"\nClasament:\n---------------------------------\n";
+                j1.setFitness(j1.getFitness() - fitness_utilizat);
+                j1.setAvere(j1.getAvere() + j1.getSalariu());
                 std::cout<<Clasament::get_clasament();
                 rlutil::anykey();
+                std::cout<<"\n-------------------------------------------------\n";
+                std::cout<<"\nFITNESS: "<<j1.getFitness();
+                std::cout<<"\nGOLURI: "<<goluri_player;
+                std::cout<<"\nASSISTS: "<<0;
+                std::cout<<"\nAVERE: "<<j1.getAvere();
+                std::cout<<"\n-------------------------------------------------\n";
+                rlutil::anykey();
+                std::string alegere;
+                do {
+                    std::cout<<"\n1. Continua";
+                    std::cout<<"\n2. Inventar";
+                    std::cout<<"\n3. Magazin";
+                    std::cout << "\nAlegere: ";
+                    std::cin >> alegere;
+                    std::cout<<"\n-------------------------";
+                    if(alegere == "1")
+                    {
+                        continue;
+                    }
+                    else if (alegere == "2")
+                    {
+                        Aplicatie::get_aplicatie().afisare_colectie();
+                    }
+                    else if (alegere == "3")
+                    {
+                        Aplicatie::get_aplicatie().afisare_consumabile();
+                        std::cout<<"\nPentru a cumpara item-ul dorit, scrieti numarul corespunzator acestuia: ";
+                        std::cout<<"\nITEM DORIT: ";
+                        std::string dorinta;
+                        std::cin >> dorinta;
+                        do {
+                            if (std::stoi(dorinta) >= 1 and std::stoi(dorinta) <= (int) Aplicatie::get_aplicatie().getMultimeConsumabile().size() ) {
+                                j1.cumpara(*Aplicatie::get_aplicatie().getMultimeConsumabile().at(std::stoi(dorinta) - 1), Aplicatie::get_aplicatie());
+                                dorinta = "0";
+                                //aici ori il adaug la colectie, ori il consum
+                            } else {
+                                std::cout << "\nTasta incorecta! Alege din nou!\n";
+                                std::cin >> tasta;
+                            }
+                        }
+                        while(dorinta!="0");
+                    }
+                    else
+                    {
+                        std::cout << "Ai introdus o tasta gresita. Incearca din nou!";
+                        rlutil::anykey();
+                    }
+                }
+                while(alegere!="1");
             } else {
                 std::cout << "Ai introdus o tasta gresita. Incearca din nou!";
                 rlutil::anykey();

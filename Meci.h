@@ -27,6 +27,11 @@ public:
 
     }
 
+    void gol1();
+
+    void gol2();
+
+    std::vector<int> setare_sanse();
     friend std::ostream &operator<<(std::ostream &os, const Meci &meci);
     Meci& operator=(const Meci& other);
     void playmatch();
