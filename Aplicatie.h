@@ -93,8 +93,8 @@ public:
             std::cout<<contor<<".";
             std::cout<< *i<<'\n';
             contor++;
-
         }
+        std::cout<<"\n-------------------------------------\n";
     }
 
     void addItemColectie(std::shared_ptr<Item> pulledItem) {

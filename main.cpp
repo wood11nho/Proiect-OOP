@@ -118,7 +118,7 @@ int main() {
         Adidas a6(30, "Puma Future", 2, 2, 6);
         Adidas a7(100, "Nike Mercurial Superfly x Cristiano Ronaldo", 15, 5, 10);
         Adidas a8(100, "Adidas x Speedflow Messi Unparalleled", 10, 5, 15);
-        Energizant nrg1(5, "NRG Classic", 100, 1);
+        Energizant nrg1(5, "NRG Classic", 100, 0);
         Energizant nrg2(30, "NRG Bronze", 100, 2);
         Energizant nrg3(70, "NRG Silver", 100, 3);
         Energizant nrg4(125, "NRG Gold", 100, 4);
@@ -161,8 +161,6 @@ int main() {
     Energizant energ1 = Energizant_factory::energ_full();
     Energizant energ2 = Energizant_factory::energ_skill();
     Energizant energ3 = Energizant_factory::energ_fitness();
-
-
 
     try
     {
@@ -259,6 +257,18 @@ int main() {
                 }
                 your_player.alege_echipa(Aplicatie::get_aplicatie());
                 ech.setCamp((Echipa&)j1.getEchipa());
+                Item* adidasi_default = new Adidas(10,"Adidasi Starter Pack",1,1,1);
+                auto* derivata = dynamic_cast<Adidas*>(adidasi_default);
+                if(derivata != nullptr)
+                {
+                    derivata->folosit_de(j1);
+                }
+                else
+                {
+                    std::cout << "Nu a reusit conversia cu pointer\n";
+                }
+                delete adidasi_default;
+
 
             }
             else if(tasta == "0")
@@ -338,6 +348,8 @@ int main() {
                     std::cout << "MAGAZIN";
                     std::cout << "\n-------------------------------------";
                     Aplicatie::get_aplicatie().afisare_consumabile();
+                    std::cout << "\n-------------------------------------";
+                    std::cout<<j1.getAvere();
                     std::cout<<"\nPentru a cumpara item-ul dorit, scrieti numarul corespunzator acestuia: ";
                     std::cout<<"\nITEM DORIT: ";
                     std::cin >> tasta;

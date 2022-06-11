@@ -73,7 +73,7 @@ void Etape::joaca_campionat(Aplicatie &a1, Jucator &j1) {
                                     std::cout<<"Minutul "<<timp<<"\n";
                                     j1.setFitness(j1.getFitness() - 5);
                                     std::cout<<"\n---"<<VectorMeciuri.at(k).getTeam1().getNume()<<" "<<VectorMeciuri.at(k).getScor().first<<"  -  "<<VectorMeciuri.at(k).getScor().second<<" "<<VectorMeciuri.at(k).getTeam2().getNume()<<"\n\n";
-                                    int sansa_random = Random::get(0, 150);
+                                    int sansa_random = Random::get(0, 200);
                                     if(sansa_random <= j1.getAttStats()){
                                         std::cout<<"\nOcazie buna pentru "<<j1.getPrenume()<<"...\n";
                                         j1.setFitness(j1.getFitness() - 2);
@@ -183,6 +183,8 @@ void Etape::joaca_campionat(Aplicatie &a1, Jucator &j1) {
                     else if (alegere == "3")
                     {
                         Aplicatie::get_aplicatie().afisare_consumabile();
+                        std::cout<<"\n---------------------------------------------------------------\n";
+                        std::cout<<j1.getAvere();
                         std::cout<<"\nPentru a cumpara item-ul dorit, scrieti numarul corespunzator acestuia: ";
                         std::cout<<"\nITEM DORIT: ";
                         std::string dorinta;
