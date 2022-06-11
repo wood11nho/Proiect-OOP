@@ -17,6 +17,7 @@
 #include "Energizant_factory.h"
 #include <memory>
 #include <fstream>
+#include <algorithm>
 
 #include "ext/random.hpp"
 
@@ -24,16 +25,13 @@ using Random = effolkronium::random_static;
 
 template <typename T>
 void mySort(std::vector<std::shared_ptr<T>>& vec){
-    for(unsigned long long i = 0; i < vec.size()-1; i++)
-        for(unsigned long long j = i+1; j < vec.size(); j++)
-            if(vec[i] > vec[j]) {
-                auto temp = vec[i];
-                vec[i] = vec[j];
-                vec[j] = temp;
-            }
+    std::sort(vec.begin(), vec.end(), [](const auto& a, const auto& b){
+        return *a < *b;
 
-    for(unsigned long long i = 0; i < vec.size(); i++)
-        std::cout << *vec[i] << '\n';
+    });
+
+    for(auto &i:vec)
+        std::cout<<*i<<"\n";
     std::cout << '\n';
 }
 
@@ -95,7 +93,7 @@ int main() {
                 nume[j] = ' ';
             }
         }
-        std::cout<<ovr<<" "<<buget<<" "<<nume<<"\n";
+//        std::cout<<ovr<<" "<<buget<<" "<<nume<<"\n";
         try {
             Echipa e1{buget, ovr, nume};
             Aplicatie::get_aplicatie().adaugare_echipa(e1);
@@ -106,10 +104,15 @@ int main() {
         }
     }
 
-    Aplicatie::get_aplicatie().afisare_vechipe();
+//    Aplicatie::get_aplicatie().afisare_vechipe();
 
+    std::vector<std::shared_ptr<Item>> test;
     Jucator j1(1,"Stoica","Elias","Romania",19,70,45,50,empty_team,15, 10, 25, 99);
     try {
+        Energizant nrg1(5, "NRG Classic", 100, 0);
+        Energizant nrg2(30, "NRG Bronze", 100, 2);
+        Energizant nrg3(70, "NRG Silver", 100, 3);
+        Energizant nrg4(125, "NRG Gold", 100, 4);
         Adidas a1(15, "Adidas Nemezis", 3, 1, 1);
         Adidas a2(15, "Nike Tiempo", 1, 3, 1);
         Adidas a3(15, "Puma One", 1, 1, 3);
@@ -118,10 +121,6 @@ int main() {
         Adidas a6(30, "Puma Future", 2, 2, 6);
         Adidas a7(100, "Nike Mercurial Superfly x Cristiano Ronaldo", 15, 5, 10);
         Adidas a8(100, "Adidas x Speedflow Messi Unparalleled", 10, 5, 15);
-        Energizant nrg1(5, "NRG Classic", 100, 0);
-        Energizant nrg2(30, "NRG Bronze", 100, 2);
-        Energizant nrg3(70, "NRG Silver", 100, 3);
-        Energizant nrg4(125, "NRG Gold", 100, 4);
 
         j1.cumpara(nrg1, Aplicatie::get_aplicatie());
         j1.consuma(nrg1);
@@ -139,14 +138,28 @@ int main() {
         Aplicatie::get_aplicatie().addItemConsumabile(a6.clone());
         Aplicatie::get_aplicatie().addItemConsumabile(a7.clone());
         Aplicatie::get_aplicatie().addItemConsumabile(a8.clone());
-
+        test.push_back(nrg1.clone());
+        test.push_back(nrg4.clone());
+        test.push_back(nrg3.clone());
+        test.push_back(nrg2.clone());
+        test.push_back(a2.clone());
+        test.push_back(a4.clone());
+        test.push_back(a5.clone());
+        test.push_back(a1.clone());
+        test.push_back(a7.clone());
+//        Aplicatie::get_aplicatie().afisare_consumabile();
+//        std::cout<<"\n------------------------------------------------------------------\n";
+//        mySort<Item>(Aplicatie::get_aplicatie().getMultimeConsumabile());
+        std::cout<<"\nINCEPUT\n";
+        mySort<Item>(test);
+        std::cout<<"\nSFARSIT\n";
 
     }
     catch(invalidStat &err){
         std::cout<<err.what();
         std::cout<<"\n";
     }
-
+    Aplicatie::get_aplicatie().afisare_consumabile();
     std::cout<<Energizant::getNrenerg()<<"  energizante \n"<<Adidas::getNradidasi()<<"  adidasi\n";
 
 //    Inventar inventar_player(std::vector<std::shared_ptr<Item>> {});
@@ -395,7 +408,9 @@ int main() {
             else if(tasta == "5")
             {
                 do {
-                    mySort(Aplicatie::get_aplicatie().getColectie());
+                    Aplicatie::get_aplicatie().afisare_consumabile();
+                    std::cout<<"\n------------------------------------------------------------\n";
+                    mySort<Item>(Aplicatie::get_aplicatie().getMultimeConsumabile());
                     std::cout << "\n0. Meniu principal\n";
                     std::cin>>tasta;
                 }

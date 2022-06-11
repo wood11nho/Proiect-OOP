@@ -51,7 +51,7 @@ public:
         return Colectie;
     }
 
-    const std::vector<std::shared_ptr<Item>> &getMultimeConsumabile() const {
+    std::vector<std::shared_ptr<Item>> &getMultimeConsumabile(){
         return multime_consumabile;
     }
 

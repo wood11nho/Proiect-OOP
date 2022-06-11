@@ -33,6 +33,13 @@ public:
 
     int getPret() const;
 
+    bool operator<(const Item &rhs) const;
+
+    bool operator>(const Item &rhs) const;
+
+    bool operator<=(const Item &rhs) const;
+
+    bool operator>=(const Item &rhs) const;
 };
 
 

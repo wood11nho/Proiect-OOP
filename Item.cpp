@@ -32,3 +32,19 @@ Item &Item::operator=(const Item &other) {
 int Item::getPret() const {
     return pret;
 }
+
+bool Item::operator<(const Item &rhs) const {
+    return pret < rhs.pret;
+}
+
+bool Item::operator>(const Item &rhs) const {
+    return rhs < *this;
+}
+
+bool Item::operator<=(const Item &rhs) const {
+    return !(rhs < *this);
+}
+
+bool Item::operator>=(const Item &rhs) const {
+    return !(*this < rhs);
+}
