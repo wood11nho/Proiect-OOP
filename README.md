@@ -2,9 +2,9 @@
 
 ### Tema 0
 
-- [X] Nume proiect (îl puteți schimba ulterior)
+- [X] Nume proiect : 
       One of the eleven
-- [X] Scurtă descriere a temei alese, ce v-ați propus să implementați
+- [X] Scurtă descriere a temei alese, ce v-ați propus să implementați : 
       Proiectul meu are la baza crearea unui simulator de fotbal, unde iti controlezi propriul jucator si actiunile pe care acesta le ia.
 
 ## Tema 1
