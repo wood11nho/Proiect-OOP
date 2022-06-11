@@ -51,9 +51,8 @@ void Etape::joaca_campionat(Aplicatie &a1, Jucator &j1) {
         do {
             std::cout << "\n1. Joaca etapa\n";
             std::cin >> tasta;
-            int fitness_utilizat = 0;
-            int goluri_player = 0;
             if (tasta == '1') {
+                int goluri_player = 0;
                 for(int k = 0;k<mid;k++){
                     if(VectorMeciuri.at(k).getTeam1() == j1.getEchipa() or VectorMeciuri.at(k).getTeam2() == j1.getEchipa())
                     {
@@ -72,19 +71,19 @@ void Etape::joaca_campionat(Aplicatie &a1, Jucator &j1) {
                                 for(int timp = 0;timp<=90;timp+=10){
                                     rlutil::cls();
                                     std::cout<<"Minutul "<<timp<<"\n";
-                                    fitness_utilizat += 5;
+                                    j1.setFitness(j1.getFitness() - 5);
                                     std::cout<<"\n---"<<VectorMeciuri.at(k).getTeam1().getNume()<<" "<<VectorMeciuri.at(k).getScor().first<<"  -  "<<VectorMeciuri.at(k).getScor().second<<" "<<VectorMeciuri.at(k).getTeam2().getNume()<<"\n\n";
                                     int sansa_random = Random::get(0, 150);
                                     if(sansa_random <= j1.getAttStats()){
                                         std::cout<<"\nOcazie buna pentru "<<j1.getPrenume()<<"...\n";
-                                        fitness_utilizat += 2;
+                                        j1.setFitness(j1.getFitness() - 2);
                                         sansa_random = Random::get(0, 99);
                                         rlutil::anykey();
                                         std::cout<<"\n";
                                         if(sansa_random <= j1.getDrbStats())
                                         {
                                             std::cout<<"\nDribbling-ul este reusit! Sa vedem finalizarea...\n";
-                                            fitness_utilizat +=2;
+                                            j1.setFitness(j1.getFitness() - 2);
                                             sansa_random = Random::get(0,99);
                                             rlutil::anykey();
                                             if(sansa_random<=j1.getAttStats()) {
@@ -94,17 +93,17 @@ void Etape::joaca_campionat(Aplicatie &a1, Jucator &j1) {
                                                     VectorMeciuri.at(k).gol1();
                                                 else
                                                     VectorMeciuri.at(k).gol2();
-                                                fitness_utilizat +=2;
+                                                j1.setFitness(j1.getFitness() - 2);
                                             }
                                             else{
                                                 std::cout<<"\nDin pacate, "<<j1.getPrenume()<<" nu nimereste spatiul portii...\n";
-                                                fitness_utilizat +=1;
+                                                j1.setFitness(j1.getFitness() - 1);
                                             }
 
                                         }
                                         else {
                                             std::cout << "\nIncercarea de dribbling da gres! Meciul continua...\n";
-                                            fitness_utilizat +=1;
+                                            j1.setFitness(j1.getFitness() - 1);
                                         }
                                     }
                                     else{
@@ -155,7 +154,6 @@ void Etape::joaca_campionat(Aplicatie &a1, Jucator &j1) {
                 }
 
                 std::cout<<"\nClasament:\n---------------------------------\n";
-                j1.setFitness(j1.getFitness() - fitness_utilizat);
                 j1.setAvere(j1.getAvere() + j1.getSalariu());
                 std::cout<<Clasament::get_clasament();
                 rlutil::anykey();

@@ -372,7 +372,10 @@ int main() {
                     std::cout<<Clasament::get_clasament();
                     std::cout<<"\n-----------------------------------\n";
                     Clasament::get_clasament().afisare_campioana();
-                    std::cout << "\n0. Meniu principal\n";
+                    std::cout<<"\n-----------------------------------\n";
+                    std::cout<<"\nGoluri marcate: "<<goals.getCamp();
+                    std::cout<<"\n-----------------------------------\n";
+                    std::cout <<"\n0. Meniu principal\n";
                     std::cin>>tasta;
                 }
                 while(tasta!="0");
